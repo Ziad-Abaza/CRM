@@ -43,44 +43,94 @@ class AdminBrandingAndContentTest extends TestCase
         $response = $this->actingAs($this->admin)->get(route('admin.branding.index'));
         $response->assertOk();
         $response->assertSee('Aces Advisory Group');
+        $response->assertSee('Theme Engine');
     }
 
-    public function test_branding_update_persists_settings_and_logs_audit_trail(): void
+    public function test_branding_update_persists_dual_light_and_dark_settings_and_logs_audit_trail(): void
     {
         $logoFile = \Illuminate\Http\UploadedFile::fake()->image('new_logo.png', 200, 60);
         $faviconFile = \Illuminate\Http\UploadedFile::fake()->image('new_favicon.ico', 32, 32);
 
         $response = $this->actingAs($this->admin)->put(route('admin.branding.update'), [
             'site_name' => 'Vertex Consulting Group',
-            'primary_color' => '#0b66b1',
-            'secondary_color' => '#111827',
-            'accent_color' => '#f59e0b',
+            'company_tagline' => 'Scalable Enterprise Solutions',
+            'theme_mode' => 'toggle_allowed',
+            'active_theme_default' => 'dark',
             'typography_font' => 'Inter',
-            'logo' => $logoFile,
-            'favicon' => $faviconFile,
+            'radius_card' => '1.5rem',
+            'radius_button' => '1rem',
+            'radius_input' => '0.5rem',
+
+            // Dark Mode
+            'dark_bg_body' => '#050807',
+            'dark_bg_surface' => '#091510',
+            'dark_bg_card' => '#0d1f17',
+            'dark_bg_input' => '#030605',
+            'dark_text_primary' => '#ecfdf5',
+            'dark_text_muted' => '#6ee7b7',
+            'dark_border_subtle' => '#133e2b',
+            'dark_border_highlight' => '#059669',
+            'dark_primary_color' => '#10b981',
+            'dark_secondary_color' => '#047857',
+            'dark_accent_color' => '#34d399',
+
+            // Light Mode
+            'light_bg_body' => '#f0fdf4',
+            'light_bg_surface' => '#dcfce7',
+            'light_bg_card' => '#ffffff',
+            'light_bg_input' => '#ffffff',
+            'light_text_primary' => '#064e3b',
+            'light_text_muted' => '#047857',
+            'light_border_subtle' => '#bbf7d0',
+            'light_border_highlight' => '#86efac',
+            'light_primary_color' => '#059669',
+            'light_secondary_color' => '#047857',
+            'light_accent_color' => '#10b981',
+
+            'company_logo' => $logoFile,
+            'company_favicon' => $faviconFile,
         ]);
 
         $response->assertRedirect(route('admin.branding.index'));
         $response->assertSessionHas('success');
         $this->assertEquals('Vertex Consulting Group', $this->settingService->get('site_name'));
-        $this->assertEquals('#0b66b1', $this->settingService->get('primary_color'));
+        $this->assertEquals('#050807', $this->settingService->get('dark_bg_body'));
+        $this->assertEquals('#f0fdf4', $this->settingService->get('light_bg_body'));
+        $this->assertEquals('#10b981', $this->settingService->get('dark_primary_color'));
+        $this->assertEquals('#059669', $this->settingService->get('light_primary_color'));
+        $this->assertEquals('1.5rem', $this->settingService->get('radius_card'));
 
         $auditLog = AuditLog::where('action', 'update_branding_settings')->first();
         $this->assertNotNull($auditLog);
         $this->assertEquals($this->admin->id, $auditLog->user_id);
     }
 
+    public function test_theme_reset_endpoint_restores_defaults(): void
+    {
+        // Mutate some settings
+        $this->settingService->set('dark_bg_body', '#990000');
+        $this->settingService->set('light_bg_body', '#009900');
+
+        $response = $this->actingAs($this->admin)->post(route('admin.branding.reset'));
+
+        $response->assertRedirect(route('admin.branding.index'));
+        $response->assertSessionHas('success');
+        $this->assertEquals('#030712', $this->settingService->get('dark_bg_body'));
+        $this->assertEquals('#f8fafc', $this->settingService->get('light_bg_body'));
+
+        $auditLog = AuditLog::where('action', 'reset_theme_settings')->first();
+        $this->assertNotNull($auditLog);
+    }
+
     public function test_branding_update_rejects_invalid_hex_colors(): void
     {
         $response = $this->actingAs($this->admin)->put(route('admin.branding.update'), [
             'site_name' => 'Test Corporation',
-            'primary_color' => 'invalid-hex',
-            'secondary_color' => '#111827',
-            'accent_color' => '#f59e0b',
-            'typography_font' => 'Inter',
+            'dark_bg_body' => 'invalid-hex',
+            'light_bg_body' => '#ffffff',
         ]);
 
-        $response->assertSessionHasErrors(['primary_color']);
+        $response->assertSessionHasErrors(['dark_bg_body']);
     }
 
     public function test_hero_section_update_and_audit_logging(): void

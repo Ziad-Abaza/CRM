@@ -41,6 +41,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Branding & Visual Theme Customizer
         Route::get('/branding', [\App\Http\Controllers\Admin\BrandingController::class, 'index'])->name('branding.index');
         Route::put('/branding', [\App\Http\Controllers\Admin\BrandingController::class, 'update'])->name('branding.update');
+        Route::post('/branding/reset', [\App\Http\Controllers\Admin\BrandingController::class, 'reset'])->name('branding.reset');
 
         // Content Section Managers
         Route::prefix('content')->name('content.')->group(function () {

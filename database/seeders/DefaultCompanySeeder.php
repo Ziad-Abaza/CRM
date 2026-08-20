@@ -37,11 +37,46 @@ class DefaultCompanySeeder extends Seeder
 
         // 2. Settings (Grouped & typed)
         $settings = [
-            // General / Branding
+            // General / Branding & Theme System
             ['key' => 'site_name', 'value' => 'Apex Corporate Solutions', 'group' => 'branding', 'type' => 'string', 'is_public' => true],
             ['key' => 'company_tagline', 'value' => 'Enterprise Growth Architecture & Scalable Advisory', 'group' => 'branding', 'type' => 'string', 'is_public' => true],
             ['key' => 'company_logo', 'value' => '/images/branding/logo.svg', 'group' => 'branding', 'type' => 'image', 'is_public' => true],
             ['key' => 'company_favicon', 'value' => '/favicon.ico', 'group' => 'branding', 'type' => 'image', 'is_public' => true],
+            ['key' => 'theme_mode', 'value' => 'toggle_allowed', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'active_theme_default', 'value' => 'dark', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'typography_font', 'value' => 'Plus Jakarta Sans', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'typography_font_heading', 'value' => 'Plus Jakarta Sans', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'radius_card', 'value' => '1rem', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'radius_button', 'value' => '0.75rem', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'radius_input', 'value' => '0.75rem', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+
+            // Dark Theme Palette
+            ['key' => 'dark_bg_body', 'value' => '#030712', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'dark_bg_surface', 'value' => '#0f172a', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'dark_bg_card', 'value' => '#0f172a', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'dark_bg_input', 'value' => '#020617', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'dark_text_primary', 'value' => '#f8fafc', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'dark_text_muted', 'value' => '#94a3b8', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'dark_border_subtle', 'value' => '#1e293b', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'dark_border_highlight', 'value' => '#334155', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'dark_primary_color', 'value' => '#2563eb', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'dark_secondary_color', 'value' => '#4f46e5', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'dark_accent_color', 'value' => '#10b981', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+
+            // Light Theme Palette
+            ['key' => 'light_bg_body', 'value' => '#f8fafc', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'light_bg_surface', 'value' => '#f1f5f9', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'light_bg_card', 'value' => '#ffffff', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'light_bg_input', 'value' => '#ffffff', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'light_text_primary', 'value' => '#0f172a', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'light_text_muted', 'value' => '#64748b', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'light_border_subtle', 'value' => '#e2e8f0', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'light_border_highlight', 'value' => '#cbd5e1', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'light_primary_color', 'value' => '#1d4ed8', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'light_secondary_color', 'value' => '#4338ca', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+            ['key' => 'light_accent_color', 'value' => '#059669', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
+
+            // Backward-compatibility aliases
             ['key' => 'primary_color', 'value' => '#0F172A', 'group' => 'branding', 'type' => 'string', 'is_public' => true],
             ['key' => 'accent_color', 'value' => '#2563EB', 'group' => 'branding', 'type' => 'string', 'is_public' => true],
 

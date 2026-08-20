@@ -12,6 +12,10 @@ Route::get('/portfolio/{slug}', [\App\Http\Controllers\Public\PortfolioDetailCon
 Route::post('/api/track-whatsapp-lead', [\App\Http\Controllers\Public\WhatsAppLeadController::class, 'trackClick'])->name('api.whatsapp.track');
 Route::get('/whatsapp/redirect', [\App\Http\Controllers\Public\WhatsAppLeadController::class, 'redirect'])->name('whatsapp.redirect');
 
+// Public SEO & Discoverability Routes
+Route::get('/sitemap.xml', [\App\Http\Controllers\Public\SitemapController::class, 'index'])->name('sitemap');
+Route::get('/robots.txt', [\App\Http\Controllers\Public\SitemapController::class, 'robots'])->name('robots');
+
 // Admin Auth Routes
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('guest')->group(function () {
@@ -29,6 +33,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/leads/export', [\App\Http\Controllers\Admin\LeadAnalyticsController::class, 'exportCsv'])->name('leads.export');
         Route::delete('/leads/{lead}', [\App\Http\Controllers\Admin\LeadAnalyticsController::class, 'destroy'])->name('leads.destroy');
         Route::get('/leads', [\App\Http\Controllers\Admin\LeadAnalyticsController::class, 'index'])->name('leads.index');
+
+        // Security & Change Audit Logs Explorer
+        Route::get('/audit-logs/export', [\App\Http\Controllers\Admin\AuditLogController::class, 'exportCsv'])->name('audit-logs.export');
+        Route::get('/audit-logs', [\App\Http\Controllers\Admin\AuditLogController::class, 'index'])->name('audit-logs.index');
 
         // Branding & Visual Theme Customizer
         Route::get('/branding', [\App\Http\Controllers\Admin\BrandingController::class, 'index'])->name('branding.index');

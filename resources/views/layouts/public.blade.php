@@ -26,8 +26,9 @@
     <title>@yield('title', $metaTitle)</title>
     <meta name="description" content="@yield('meta_description', $metaDesc)">
     <meta name="keywords" content="@yield('meta_keywords', $metaKeywords)">
+    <link rel="canonical" href="{{ url()->current() }}">
     
-    <!-- OpenGraph / Social Meta -->
+    <!-- OpenGraph / Facebook Meta -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="@yield('title', $metaTitle)">
     <meta property="og:description" content="@yield('meta_description', $metaDesc)">
@@ -37,9 +38,56 @@
         <meta property="og:image" content="{{ url($logo) }}">
     @endif
     
+    <!-- Twitter Card Meta -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('title', $metaTitle)">
     <meta name="twitter:description" content="@yield('meta_description', $metaDesc)">
+    @if($logo)
+        <meta name="twitter:image" content="{{ url($logo) }}">
+    @endif
+
+    <!-- Schema.org JSON-LD Structured Data for Organization and WebSite -->
+    @php
+        $jsonLd = [
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                array_filter([
+                    '@type' => 'Organization',
+                    '@id' => url('/#organization'),
+                    'name' => $siteName,
+                    'url' => url('/'),
+                    'description' => $metaDesc,
+                    'logo' => $logo ? url($logo) : null,
+                    'contactPoint' => [
+                        [
+                            '@type' => 'ContactPoint',
+                            'contactType' => 'Customer Support',
+                            'telephone' => setting('company_phone', '+1 (800) 555-0199'),
+                            'email' => setting('company_email', 'contact@apexcorp.com'),
+                            'availableLanguage' => ['English', 'Arabic']
+                        ]
+                    ],
+                    'address' => [
+                        '@type' => 'PostalAddress',
+                        'streetAddress' => setting('company_address', '100 Enterprise Boulevard, Suite 800')
+                    ]
+                ]),
+                [
+                    '@type' => 'WebSite',
+                    '@id' => url('/#website'),
+                    'url' => url('/'),
+                    'name' => $siteName,
+                    'description' => $tagline,
+                    'publisher' => [
+                        '@id' => url('/#organization')
+                    ]
+                ]
+            ]
+        ];
+    @endphp
+    <script type="application/ld+json">
+    {!! json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+    </script>
 
     @if($favicon)
         <link rel="icon" href="{{ $favicon }}">

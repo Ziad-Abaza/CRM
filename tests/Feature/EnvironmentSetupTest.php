@@ -14,7 +14,7 @@ class EnvironmentSetupTest extends TestCase
     public function test_application_boots_and_returns_successful_response(): void
     {
         $this->seed(DefaultCompanySeeder::class);
-        $response = $this->get('/');
+        $response = $this->get('/en');
         $response->assertStatus(200);
     }
 

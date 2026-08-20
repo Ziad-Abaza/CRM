@@ -21,7 +21,7 @@ class AdminAuthAndSecurityTest extends TestCase
 
     public function test_security_headers_are_present_in_responses(): void
     {
-        $response = $this->get('/');
+        $response = $this->get('/en');
 
         $response->assertStatus(200);
         $response->assertHeader('X-Frame-Options', 'SAMEORIGIN');

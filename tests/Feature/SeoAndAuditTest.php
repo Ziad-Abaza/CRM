@@ -91,7 +91,7 @@ class SeoAndAuditTest extends TestCase
 
     public function test_public_layout_renders_schema_org_and_opengraph_tags(): void
     {
-        $response = $this->get('/');
+        $response = $this->get('/en');
 
         $response->assertStatus(200);
         $response->assertSee('application/ld+json', false);

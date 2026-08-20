@@ -16,34 +16,42 @@ class SitemapController extends Controller
     {
         $urls = [];
 
-        // 1. Homepage
-        $urls[] = [
-            'loc' => url('/'),
-            'lastmod' => now()->toAtomString(),
-            'changefreq' => 'daily',
-            'priority' => '1.0',
-        ];
+        $locales = array_keys(function_exists('supported_locales') ? supported_locales() : config('locales.supported', ['en' => [], 'ar' => []]));
 
-        // 2. Active Services
-        $services = Service::where('is_active', true)->latest('updated_at')->get();
-        foreach ($services as $service) {
+        // 1. Homepages for all supported locales
+        foreach ($locales as $locale) {
             $urls[] = [
-                'loc' => route('service.detail', $service->slug),
-                'lastmod' => $service->updated_at?->toAtomString() ?? now()->toAtomString(),
-                'changefreq' => 'weekly',
-                'priority' => '0.8',
+                'loc' => localized_route('home', [], $locale),
+                'lastmod' => now()->toAtomString(),
+                'changefreq' => 'daily',
+                'priority' => '1.0',
             ];
         }
 
-        // 3. Active Portfolio / Case Studies
+        // 2. Active Services for all supported locales
+        $services = Service::where('is_active', true)->latest('updated_at')->get();
+        foreach ($locales as $locale) {
+            foreach ($services as $service) {
+                $urls[] = [
+                    'loc' => localized_route('service.detail', ['slug' => $service->slug], $locale),
+                    'lastmod' => $service->updated_at?->toAtomString() ?? now()->toAtomString(),
+                    'changefreq' => 'weekly',
+                    'priority' => '0.8',
+                ];
+            }
+        }
+
+        // 3. Active Portfolio / Case Studies for all supported locales
         $portfolios = Portfolio::where('is_active', true)->latest('updated_at')->get();
-        foreach ($portfolios as $portfolio) {
-            $urls[] = [
-                'loc' => route('portfolio.detail', $portfolio->slug),
-                'lastmod' => $portfolio->updated_at?->toAtomString() ?? now()->toAtomString(),
-                'changefreq' => 'weekly',
-                'priority' => '0.7',
-            ];
+        foreach ($locales as $locale) {
+            foreach ($portfolios as $portfolio) {
+                $urls[] = [
+                    'loc' => localized_route('portfolio.detail', ['slug' => $portfolio->slug], $locale),
+                    'lastmod' => $portfolio->updated_at?->toAtomString() ?? now()->toAtomString(),
+                    'changefreq' => 'weekly',
+                    'priority' => '0.7',
+                ];
+            }
         }
 
         $xml = view('public.sitemap', compact('urls'))->render();

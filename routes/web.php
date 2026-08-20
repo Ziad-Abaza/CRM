@@ -3,10 +3,43 @@
 use App\Http\Controllers\Admin\AuthController;
 use Illuminate\Support\Facades\Route;
 
-// Public Frontend Routes
-Route::get('/', [\App\Http\Controllers\Public\HomeController::class, '__invoke'])->name('home');
-Route::get('/services/{slug}', [\App\Http\Controllers\Public\ServiceDetailController::class, 'show'])->name('service.detail');
-Route::get('/portfolio/{slug}', [\App\Http\Controllers\Public\PortfolioDetailController::class, 'show'])->name('portfolio.detail');
+$localePattern = implode('|', array_keys(config('locales.supported', ['en' => [], 'ar' => []])));
+
+// Root Route: Redirects to user's detected/preferred locale
+Route::get('/', function (\Illuminate\Http\Request $request) {
+    $supported = array_keys(config('locales.supported', ['en' => [], 'ar' => []]));
+    $default = config('locales.default', 'en');
+
+    $sessionLocale = $request->hasSession() ? $request->session()->get('locale') : null;
+    $cookieLocale = $request->cookie('apex_locale');
+    $preferredLocale = $request->getPreferredLanguage($supported);
+
+    if ($sessionLocale && in_array($sessionLocale, $supported, true)) {
+        $locale = $sessionLocale;
+    } elseif ($cookieLocale && in_array($cookieLocale, $supported, true)) {
+        $locale = $cookieLocale;
+    } elseif ($preferredLocale && in_array($preferredLocale, $supported, true)) {
+        $locale = $preferredLocale;
+    } else {
+        $locale = $default;
+    }
+
+    return redirect('/' . $locale);
+});
+
+// Locale Switcher Route
+Route::get('/locale/{locale}', [\App\Http\Controllers\Public\LocaleSwitchController::class, 'switch'])
+    ->where(['locale' => $localePattern])
+    ->name('locale.switch');
+
+// Public Localized Frontend Routes
+Route::prefix('{locale}')
+    ->where(['locale' => $localePattern])
+    ->group(function () {
+        Route::get('/', [\App\Http\Controllers\Public\HomeController::class, '__invoke'])->name('home');
+        Route::get('/services/{slug}', [\App\Http\Controllers\Public\ServiceDetailController::class, 'show'])->name('service.detail');
+        Route::get('/portfolio/{slug}', [\App\Http\Controllers\Public\PortfolioDetailController::class, 'show'])->name('portfolio.detail');
+    });
 
 // WhatsApp Lead Telemetry & Redirection Routes
 Route::post('/api/track-whatsapp-lead', [\App\Http\Controllers\Public\WhatsAppLeadController::class, 'trackClick'])->name('api.whatsapp.track');

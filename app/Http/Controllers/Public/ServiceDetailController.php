@@ -13,8 +13,12 @@ class ServiceDetailController extends Controller
         protected SettingService $settingService
     ) {}
 
-    public function show(string $slug): View
+    public function show(string $locale, ?string $slug = null): View
     {
+        if ($slug === null) {
+            $slug = $locale;
+        }
+
         $service = Service::query()->where('slug', $slug)->where('is_active', true)->firstOrFail();
         $relatedServices = Service::query()
             ->where('id', '!=', $service->id)

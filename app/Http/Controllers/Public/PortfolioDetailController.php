@@ -13,8 +13,12 @@ class PortfolioDetailController extends Controller
         protected SettingService $settingService
     ) {}
 
-    public function show(string $slug): View
+    public function show(string $locale, ?string $slug = null): View
     {
+        if ($slug === null) {
+            $slug = $locale;
+        }
+
         $portfolio = Portfolio::query()
             ->with('category')
             ->where('slug', $slug)

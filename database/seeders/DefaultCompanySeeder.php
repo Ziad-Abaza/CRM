@@ -35,11 +35,29 @@ class DefaultCompanySeeder extends Seeder
             ]
         );
 
-        // 2. Settings (Grouped & typed)
+        // 2. Settings (Grouped & typed with bilingual support)
         $settings = [
             // General / Branding & Theme System
-            ['key' => 'site_name', 'value' => 'Apex Corporate Solutions', 'group' => 'branding', 'type' => 'string', 'is_public' => true],
-            ['key' => 'company_tagline', 'value' => 'Enterprise Growth Architecture & Scalable Advisory', 'group' => 'branding', 'type' => 'string', 'is_public' => true],
+            [
+                'key' => 'site_name',
+                'value' => [
+                    'en' => 'Apex Corporate Solutions',
+                    'ar' => 'أبيكس للحلول المؤسسية',
+                ],
+                'group' => 'branding',
+                'type' => 'json',
+                'is_public' => true,
+            ],
+            [
+                'key' => 'company_tagline',
+                'value' => [
+                    'en' => 'Enterprise Growth Architecture & Scalable Advisory',
+                    'ar' => 'معمارية النمو المؤسسي والاستشارات الاستراتيجية المتقدمة',
+                ],
+                'group' => 'branding',
+                'type' => 'json',
+                'is_public' => true,
+            ],
             ['key' => 'company_logo', 'value' => '/images/branding/logo.svg', 'group' => 'branding', 'type' => 'image', 'is_public' => true],
             ['key' => 'company_favicon', 'value' => '/favicon.ico', 'group' => 'branding', 'type' => 'image', 'is_public' => true],
             ['key' => 'theme_mode', 'value' => 'toggle_allowed', 'group' => 'theme', 'type' => 'string', 'is_public' => true],
@@ -83,39 +101,206 @@ class DefaultCompanySeeder extends Seeder
             // Contact & WhatsApp
             ['key' => 'contact_email', 'value' => 'contact@apexcorporate.com', 'group' => 'contact', 'type' => 'string', 'is_public' => true],
             ['key' => 'contact_phone', 'value' => '+1 (555) 019-2834', 'group' => 'contact', 'type' => 'string', 'is_public' => true],
-            ['key' => 'contact_address', 'value' => '100 Montgomery Street, Suite 2400, San Francisco, CA 94104', 'group' => 'contact', 'type' => 'text', 'is_public' => true],
+            [
+                'key' => 'contact_address',
+                'value' => [
+                    'en' => '100 Montgomery Street, Suite 2400, San Francisco, CA 94104',
+                    'ar' => '١٠٠ شارع مونتغمري، جناح ٢٤٠٠، سان فرانسيسكو، كاليفورنيا ٩٤١٠٤',
+                ],
+                'group' => 'contact',
+                'type' => 'json',
+                'is_public' => true,
+            ],
             ['key' => 'whatsapp_number', 'value' => '+15550192834', 'group' => 'contact', 'type' => 'string', 'is_public' => true],
-            ['key' => 'whatsapp_default_message', 'value' => 'Hello Apex Corporate Solutions, I would like to schedule an executive strategy session regarding our corporate initiatives.', 'group' => 'contact', 'type' => 'text', 'is_public' => true],
+            [
+                'key' => 'whatsapp_default_message',
+                'value' => [
+                    'en' => 'Hello Apex Corporate Solutions, I would like to schedule an executive strategy session regarding our corporate initiatives.',
+                    'ar' => 'مرحباً بفريق أبيكس للحلول المؤسسية، أود حجز جلسة استراتيجية تنفيذية لمناقشة مبادراتنا المؤسسية.',
+                ],
+                'group' => 'contact',
+                'type' => 'json',
+                'is_public' => true,
+            ],
 
             // Hero Section
-            ['key' => 'hero_badge', 'value' => 'Enterprise Strategic Advisory', 'group' => 'hero', 'type' => 'string', 'is_public' => true],
-            ['key' => 'hero_title', 'value' => 'Accelerate Enterprise Scale with Predictable Precision', 'group' => 'hero', 'type' => 'string', 'is_public' => true],
-            ['key' => 'hero_subtitle', 'value' => 'Apex Corporate Solutions partners with institutional leaders to modernize legacy operations, implement high-yield automation, and safeguard governance at scale.', 'group' => 'hero', 'type' => 'text', 'is_public' => true],
-            ['key' => 'hero_cta_text', 'value' => 'Consult via WhatsApp', 'group' => 'hero', 'type' => 'string', 'is_public' => true],
-            ['key' => 'hero_cta_whatsapp_message', 'value' => 'Hi Apex team, I am interested in accelerating our enterprise scaling strategy.', 'group' => 'hero', 'type' => 'string', 'is_public' => true],
+            [
+                'key' => 'hero_badge',
+                'value' => [
+                    'en' => 'Enterprise Strategic Advisory',
+                    'ar' => 'الاستشارات الاستراتيجية للمؤسسات',
+                ],
+                'group' => 'hero',
+                'type' => 'json',
+                'is_public' => true,
+            ],
+            [
+                'key' => 'hero_title',
+                'value' => [
+                    'en' => 'Accelerate Enterprise Scale with Predictable Precision',
+                    'ar' => 'تسريع التوسع المؤسسي بدقة وكفاءة قابلة للتنبؤ',
+                ],
+                'group' => 'hero',
+                'type' => 'json',
+                'is_public' => true,
+            ],
+            [
+                'key' => 'hero_subtitle',
+                'value' => [
+                    'en' => 'Apex Corporate Solutions partners with institutional leaders to modernize legacy operations, implement high-yield automation, and safeguard governance at scale.',
+                    'ar' => 'تتعاون أبيكس للحلول المؤسسية مع القادة التنفيذيين لتحديث الأنظمة الموروثة، وتطبيق حلول الأتمتة عالية العائد، وترسيخ الحوكمة على نطاق واسع.',
+                ],
+                'group' => 'hero',
+                'type' => 'json',
+                'is_public' => true,
+            ],
+            [
+                'key' => 'hero_cta_text',
+                'value' => [
+                    'en' => 'Consult via WhatsApp',
+                    'ar' => 'استشر خبرائنا عبر واتساب',
+                ],
+                'group' => 'hero',
+                'type' => 'json',
+                'is_public' => true,
+            ],
+            [
+                'key' => 'hero_cta_whatsapp_message',
+                'value' => [
+                    'en' => 'Hello Apex team, I would like to schedule an executive strategy session regarding our enterprise initiatives.',
+                    'ar' => 'مرحباً بفريق أبيكس، أود حجز جلسة استراتيجية تنفيذية لمناقشة مبادراتنا المؤسسية.',
+                ],
+                'group' => 'hero',
+                'type' => 'json',
+                'is_public' => true,
+            ],
             ['key' => 'hero_rating_score', 'value' => '4.9/5.0', 'group' => 'hero', 'type' => 'string', 'is_public' => true],
-            ['key' => 'hero_rating_count', 'value' => '250+ Fortune 1000 & High-Growth Clients', 'group' => 'hero', 'type' => 'string', 'is_public' => true],
+            [
+                'key' => 'hero_rating_count',
+                'value' => [
+                    'en' => '250+ Fortune 1000 & High-Growth Clients',
+                    'ar' => 'أكثر من 250 عميلاً من كبرى الشركات العالمية والمؤسسات سريعة النمو',
+                ],
+                'group' => 'hero',
+                'type' => 'json',
+                'is_public' => true,
+            ],
 
             // About Section
-            ['key' => 'about_title', 'value' => 'Decades of Institutional Rigor in Modern Markets', 'group' => 'about', 'type' => 'string', 'is_public' => true],
-            ['key' => 'about_description', 'value' => 'Founded by veteran operational architects and compliance directors, Apex bridges the gap between ambitious corporate milestones and bulletproof day-to-day execution.', 'group' => 'about', 'type' => 'text', 'is_public' => true],
-            ['key' => 'about_bullet_1', 'value' => 'Direct partner-level engagement on every major strategic advisory engagement.', 'group' => 'about', 'type' => 'string', 'is_public' => true],
-            ['key' => 'about_bullet_2', 'value' => 'Proprietary digital workflow frameworks generating verified ROI within 90 days.', 'group' => 'about', 'type' => 'string', 'is_public' => true],
-            ['key' => 'about_bullet_3', 'value' => 'Uncompromising compliance protocols adhering to SOC2, ISO 27001, and GDPR.', 'group' => 'about', 'type' => 'string', 'is_public' => true],
+            [
+                'key' => 'about_title',
+                'value' => [
+                    'en' => 'Decades of Institutional Rigor in Modern Markets',
+                    'ar' => 'عقود من الصرامة والخبرة المؤسسية في الأسواق الحديثة',
+                ],
+                'group' => 'about',
+                'type' => 'json',
+                'is_public' => true,
+            ],
+            [
+                'key' => 'about_description',
+                'value' => [
+                    'en' => 'Founded by veteran operational architects and compliance directors, Apex bridges the gap between ambitious corporate milestones and bulletproof day-to-day execution.',
+                    'ar' => 'تأسست أبيكس على يد نخبة من مهندسي العمليات ومديري الامتثال المخضرمين، لسد الفجوة بين الأهداف المؤسسية الطموحة والتنفيذ اليومي المحكم.',
+                ],
+                'group' => 'about',
+                'type' => 'json',
+                'is_public' => true,
+            ],
+            [
+                'key' => 'about_bullet_1',
+                'value' => [
+                    'en' => 'Direct partner-level engagement on every major strategic advisory engagement.',
+                    'ar' => 'مشاركة مباشرة على مستوى الشركاء التنفيذيين في كل مهمة استشارية استراتيجية.',
+                ],
+                'group' => 'about',
+                'type' => 'json',
+                'is_public' => true,
+            ],
+            [
+                'key' => 'about_bullet_2',
+                'value' => [
+                    'en' => 'Proprietary digital workflow frameworks generating verified ROI within 90 days.',
+                    'ar' => 'منهجيات سير عمل رقمية مبتكرة تحقق عائداً استثمارياً مؤكداً خلال 90 يوماً.',
+                ],
+                'group' => 'about',
+                'type' => 'json',
+                'is_public' => true,
+            ],
+            [
+                'key' => 'about_bullet_3',
+                'value' => [
+                    'en' => 'Uncompromising compliance protocols adhering to SOC2, ISO 27001, and GDPR.',
+                    'ar' => 'بروتوكولات امتثال صارمة ومتوافقة مع معايير SOC2 وISO 27001 واللائحة العامة لحماية البيانات GDPR.',
+                ],
+                'group' => 'about',
+                'type' => 'json',
+                'is_public' => true,
+            ],
 
             // SEO & Social
-            ['key' => 'seo_meta_title', 'value' => 'Apex Corporate Solutions | Strategic Enterprise Advisory & Growth', 'group' => 'seo', 'type' => 'string', 'is_public' => true],
-            ['key' => 'seo_meta_description', 'value' => 'Leading corporate advisory, digital operations transformation, and strategic scaling for mid-market and enterprise organizations.', 'group' => 'seo', 'type' => 'text', 'is_public' => true],
-            ['key' => 'seo_meta_keywords', 'value' => 'corporate advisory, enterprise transformation, business consulting, digital workflow optimization, fintech compliance', 'group' => 'seo', 'type' => 'string', 'is_public' => true],
+            [
+                'key' => 'seo_meta_title',
+                'value' => [
+                    'en' => 'Apex Corporate Solutions | Strategic Enterprise Advisory & Growth',
+                    'ar' => 'أبيكس للحلول المؤسسية | الاستشارات الاستراتيجية ونمو المؤسسات',
+                ],
+                'group' => 'seo',
+                'type' => 'json',
+                'is_public' => true,
+            ],
+            [
+                'key' => 'seo_meta_description',
+                'value' => [
+                    'en' => 'Leading corporate advisory, digital operations transformation, and strategic scaling for mid-market and enterprise organizations.',
+                    'ar' => 'الريادة في الاستشارات المؤسسية، وتحول العمليات الرقمية، والتوسع الاستراتيجي للمؤسسات الكبرى والشركات المتوسطة.',
+                ],
+                'group' => 'seo',
+                'type' => 'json',
+                'is_public' => true,
+            ],
+            [
+                'key' => 'seo_meta_keywords',
+                'value' => [
+                    'en' => 'corporate advisory, enterprise transformation, business consulting, digital workflow optimization, fintech compliance',
+                    'ar' => 'استشارات مؤسسية، تحول رقمي، استشارات الأعمال، تحسين سير العمل، امتثال التكنولوجيا المالية',
+                ],
+                'group' => 'seo',
+                'type' => 'json',
+                'is_public' => true,
+            ],
             ['key' => 'social_linkedin', 'value' => 'https://linkedin.com/company/apex-corporate-solutions', 'group' => 'social', 'type' => 'string', 'is_public' => true],
             ['key' => 'social_twitter', 'value' => 'https://x.com/apex_corporate', 'group' => 'social', 'type' => 'string', 'is_public' => true],
 
             // Footer
-            ['key' => 'footer_about', 'value' => 'Apex Corporate Solutions delivers high-impact management consulting, digital transformation, and operational resilience to modern enterprises globally.', 'group' => 'footer', 'type' => 'text', 'is_public' => true],
-            ['key' => 'footer_copyright', 'value' => '© ' . date('Y') . ' Apex Corporate Solutions LLC. All rights reserved.', 'group' => 'footer', 'type' => 'string', 'is_public' => true],
+            [
+                'key' => 'footer_about',
+                'value' => [
+                    'en' => 'Apex Corporate Solutions delivers high-impact management consulting, digital transformation, and operational resilience to modern enterprises globally.',
+                    'ar' => 'تقدم أبيكس للحلول المؤسسية استشارات إدارية عالية التأثير، والتحول الرقمي، والمرونة التشغيلية للمؤسسات الحديثة حول العالم.',
+                ],
+                'group' => 'footer',
+                'type' => 'json',
+                'is_public' => true,
+            ],
+            [
+                'key' => 'footer_copyright',
+                'value' => [
+                    'en' => '© ' . date('Y') . ' Apex Corporate Solutions LLC. All rights reserved.',
+                    'ar' => '© ' . date('Y') . ' شركة أبيكس للحلول المؤسسية ذ.م.م. جميع الحقوق محفوظة.',
+                ],
+                'group' => 'footer',
+                'type' => 'json',
+                'is_public' => true,
+            ],
         ];
 
         foreach ($settings as $setting) {
+            if (is_array($setting['value'])) {
+                $setting['value'] = json_encode($setting['value'], JSON_UNESCAPED_UNICODE);
+                $setting['type'] = 'json';
+            }
+
             Setting::updateOrCreate(
                 ['key' => $setting['key']],
                 $setting
@@ -125,86 +310,204 @@ class DefaultCompanySeeder extends Seeder
         // Clear settings cache
         app(SettingService::class)->clearCache();
 
-        // 3. Services (5 services with features, icons, WhatsApp triggers)
+        // 3. Services (6 corporate services with features, icons, WhatsApp triggers)
         $services = [
             [
-                'title' => 'Enterprise Digital Modernization',
+                'title' => [
+                    'en' => 'Enterprise Digital Modernization',
+                    'ar' => 'التحول الرقمي وتحديث الأنظمة للمؤسسات',
+                ],
                 'slug' => 'enterprise-digital-modernization',
-                'short_description' => 'Re-architect legacy workflows into secure, high-throughput cloud operations.',
-                'description' => 'We audit, re-engineer, and deploy mission-critical infrastructure that reduces operational drag by up to 45%. From ERP modernization to zero-trust pipeline integrations, our team delivers institutional-grade outcomes without business disruption.',
+                'short_description' => [
+                    'en' => 'Re-architect legacy workflows into secure, high-throughput cloud operations.',
+                    'ar' => 'إعادة هندسة مسارات العمل الموروثة وتحويلها إلى بنية سحابية آمنة وعالية الأداء.',
+                ],
+                'description' => [
+                    'en' => 'We audit, re-engineer, and deploy mission-critical infrastructure that reduces operational drag by up to 45%. From ERP modernization to zero-trust pipeline integrations, our team delivers institutional-grade outcomes without business disruption.',
+                    'ar' => 'نقوم بتدقيق وإعادة هندسة ونشر البنية التحتية الحيوية مما يقلل الهدر التشغيلي بنسبة تصل إلى 45%. من تحديث أنظمة تخطيط الموارد (ERP) إلى دمج خطوط العمل وفق نموذج انعدام الثقة (Zero-Trust)، يقدم فريقنا نتائج بمعايير مؤسسية دون تعطيل الأعمال.',
+                ],
                 'icon' => 'server-stack',
                 'image' => '/images/services/digital-modernization.jpg',
                 'features' => [
-                    'Cloud Infrastructure Architecture & Migration',
-                    'Legacy ERP & Database Modernization',
-                    'Real-Time Systems Telemetry & Observability',
-                    'Automated Compliance & Security Safeguards',
+                    'en' => [
+                        'Cloud Infrastructure Architecture & Migration',
+                        'Legacy ERP & Database Modernization',
+                        'Real-Time Systems Telemetry & Observability',
+                        'Automated Compliance & Security Safeguards',
+                    ],
+                    'ar' => [
+                        'هندسة البنية التحتية السحابية والترحيل السلس',
+                        'تحديث قواعد البيانات وأنظمة تخطيط الموارد الموروثة',
+                        'القياس والمراقبة اللحظية الشاملة للأنظمة',
+                        'ضوابط الامتثال والحماية الأمنية المؤتمتة',
+                    ],
                 ],
                 'order' => 1,
                 'is_active' => true,
             ],
             [
-                'title' => 'Strategic M&A and Operational Due Diligence',
+                'title' => [
+                    'en' => 'Strategic M&A and Operational Due Diligence',
+                    'ar' => 'عمليات الاندماج والاستحواذ الاستراتيجي والتدقيق التشغيلي',
+                ],
                 'slug' => 'strategic-ma-operational-due-diligence',
-                'short_description' => 'Deep technical and organizational due diligence for high-stakes capital allocations.',
-                'description' => 'Navigate complex acquisitions and strategic mergers with confidence. We provide thorough technology asset audits, operational synergy modeling, and risk assessments for private equity and corporate development leaders.',
+                'short_description' => [
+                    'en' => 'Deep technical and organizational due diligence for high-stakes capital allocations.',
+                    'ar' => 'الفحص النافي للجهالة التقني والتنظيمي المعمق لقرارات تخصيص رؤوس الأموال الكبرى.',
+                ],
+                'description' => [
+                    'en' => 'Navigate complex acquisitions and strategic mergers with confidence. We provide thorough technology asset audits, operational synergy modeling, and risk assessments for private equity and corporate development leaders.',
+                    'ar' => 'خض غمار صفقات الاستحواذ والاندماج المعقدة بثقة تامة. نوفر تدقيقاً شاملاً للأصول التقنية، ونمذجة التآزر التشغيلي، وتقييم المخاطر لصناديق الملكية الخاصة وقادة التطوير المؤسسي.',
+                ],
                 'icon' => 'chart-bar-square',
                 'image' => '/images/services/due-diligence.jpg',
                 'features' => [
-                    'Technology Stack & Codebase Quality Audit',
-                    'Operational Run-Rate & Cost Synergies Analysis',
-                    'Regulatory & IP Asset Vulnerability Screening',
-                    'Post-Acquisition Integration Roadmaps',
+                    'en' => [
+                        'Technology Stack & Codebase Quality Audit',
+                        'Operational Run-Rate & Cost Synergies Analysis',
+                        'Regulatory & IP Asset Vulnerability Screening',
+                        'Post-Acquisition Integration Roadmaps',
+                    ],
+                    'ar' => [
+                        'تدقيق جودة البنية البرمجية والمكونات التقنية',
+                        'تحليل معدل التشغيل وفرص ترشيد التكاليف',
+                        'فحص الامتثال التنظيمي وحماية الملكية الفكرية',
+                        'خرائط طريق التكامل المؤسسي لما بعد الاستحواذ',
+                    ],
                 ],
                 'order' => 2,
                 'is_active' => true,
             ],
             [
-                'title' => 'Regulatory Compliance & Risk Governance',
+                'title' => [
+                    'en' => 'Regulatory Compliance & Risk Governance',
+                    'ar' => 'الامتثال التنظيمي وحوكمة وإدارة المخاطر',
+                ],
                 'slug' => 'regulatory-compliance-risk-governance',
-                'short_description' => 'End-to-end framework alignment with SOC 2 Type II, ISO 27001, and global financial standards.',
-                'description' => 'Transform regulatory compliance from a friction point into a commercial competitive advantage. We architect automated compliance audit pipelines, data governance policies, and board-level risk reporting.',
+                'short_description' => [
+                    'en' => 'End-to-end framework alignment with SOC 2 Type II, ISO 27001, and global financial standards.',
+                    'ar' => 'المواءمة الشاملة مع أطر SOC 2 Type II وISO 27001 والمعايير المالية العالمية.',
+                ],
+                'description' => [
+                    'en' => 'Transform regulatory compliance from a friction point into a commercial competitive advantage. We architect automated compliance audit pipelines, data governance policies, and board-level risk reporting.',
+                    'ar' => 'حوّل الامتثال التنظيمي من نقطة احتكاك إلى ميزة تنافسية تجارية. نحن نصمم خطوط تدقيق الامتثال المؤتمتة، وسياسات حوكمة البيانات، وتقارير المخاطر الموجهة لمجلس الإدارة.',
+                ],
                 'icon' => 'shield-check',
                 'image' => '/images/services/compliance.jpg',
                 'features' => [
-                    'Continuous SOC 2 & ISO Audit Readiness',
-                    'Cross-Border Data Sovereignty & GDPR Protocols',
-                    'Executive Risk & Incident Response Playbooks',
-                    'Vendor Ecosystem Vulnerability Assessments',
+                    'en' => [
+                        'Continuous SOC 2 & ISO Audit Readiness',
+                        'Cross-Border Data Sovereignty & GDPR Protocols',
+                        'Executive Risk & Incident Response Playbooks',
+                        'Vendor Ecosystem Vulnerability Assessments',
+                    ],
+                    'ar' => [
+                        'الجاهزية المستمرة لتدقيق شهادات SOC 2 وISO',
+                        'سيادة البيانات عبر الحدود وبروتوكولات GDPR',
+                        'أدلة إجراءات الاستجابة للطوارئ والمخاطر التنفيذية',
+                        'تقييم ثغرات منظومة الموردين والشركاء',
+                    ],
                 ],
                 'order' => 3,
                 'is_active' => true,
             ],
             [
-                'title' => 'Executive Workflow Automation',
+                'title' => [
+                    'en' => 'Executive Workflow Automation',
+                    'ar' => 'أتمتة مسارات العمل التنفيذية وإجراءات الأعمال',
+                ],
                 'slug' => 'executive-workflow-automation',
-                'short_description' => 'Custom AI and RPA pipelines engineered to eliminate cross-departmental bottlenecks.',
-                'description' => 'Eliminate manual data handoffs between revenue, finance, and legal teams. We design reliable, audited automation pipelines that compress deal approval cycles from days to minutes.',
+                'short_description' => [
+                    'en' => 'Custom AI and RPA pipelines engineered to eliminate cross-departmental bottlenecks.',
+                    'ar' => 'حلول مخصصة للذكاء الاصطناعي وأتمتة العمليات الآلية (RPA) لإزالة الاختناقات بين الأقسام.',
+                ],
+                'description' => [
+                    'en' => 'Eliminate manual data handoffs between revenue, finance, and legal teams. We design reliable, audited automation pipelines that compress deal approval cycles from days to minutes.',
+                    'ar' => 'تخلص من نقل البيانات اليدوي بين فرق المبيعات والمالية والقانونية. نصمم مسارات أتمتة موثوقة ومدققة تختصر دورات الموافقة على الصفقات من أيام إلى دقائق معدودة.',
+                ],
                 'icon' => 'cpu-chip',
                 'image' => '/images/services/automation.jpg',
                 'features' => [
-                    'Automated Billing & Revenue Recognition Pipelines',
-                    'Contract Review & Lifecycle Management Automation',
-                    'Custom Internal AI Co-Pilots with Strict RBAC',
-                    'CRM-to-ERP High-Frequency Synchronization',
+                    'en' => [
+                        'Automated Billing & Revenue Recognition Pipelines',
+                        'Contract Review & Lifecycle Management Automation',
+                        'Custom Internal AI Co-Pilots with Strict RBAC',
+                        'CRM-to-ERP High-Frequency Synchronization',
+                    ],
+                    'ar' => [
+                        'أتمتة الفوترة وخطوط الاعتراف بالإيرادات',
+                        'أتمتة مراجعة العقود وإدارة دورة حياتها',
+                        'مساعدات ذكاء اصطناعي داخلية بصلاحيات صارمة',
+                        'مزامنة فائقة السرعة بين أنظمة CRM وERP',
+                    ],
                 ],
                 'order' => 4,
                 'is_active' => true,
             ],
             [
-                'title' => 'Fractional Corporate Leadership & Advisory',
+                'title' => [
+                    'en' => 'Fractional Corporate Leadership & Advisory',
+                    'ar' => 'القيادة التنفيذية المؤقتة والاستشارات الاستراتيجية',
+                ],
                 'slug' => 'fractional-corporate-leadership-advisory',
-                'short_description' => 'Seasoned C-suite operating partners to guide critical inflection points and scale.',
-                'description' => 'Deploy seasoned fractional CTOs, COOs, and Chief Compliance Officers to bridge leadership gaps, prepare for major funding rounds, or guide high-stakes corporate turnarounds.',
+                'short_description' => [
+                    'en' => 'Seasoned C-suite operating partners to guide critical inflection points and scale.',
+                    'ar' => 'شركاء تنفيذيون متمرسون لقيادة المنعطفات الحرجة ومراحل التوسع الكبرى.',
+                ],
+                'description' => [
+                    'en' => 'Deploy seasoned fractional CTOs, COOs, and Chief Compliance Officers to bridge leadership gaps, prepare for major funding rounds, or guide high-stakes corporate turnarounds.',
+                    'ar' => 'استعن برؤساء تنفيذيين تقنيين وتشغيليين ومديري امتثال بنظام الإعارة الجزئية لسد فجوات القيادة، والاستعداد لجولات التمويل الكبرى، أو قيادة التحولات الجذرية.',
+                ],
                 'icon' => 'user-group',
                 'image' => '/images/services/leadership.jpg',
                 'features' => [
-                    'Interim CTO & COO Leadership Services',
-                    'Board Advisory & Investor Presentation Structuring',
-                    'Engineering & Product Organization Restructuring',
-                    'Global Expansion & Subsidiary Entity Setup',
+                    'en' => [
+                        'Interim CTO & COO Leadership Services',
+                        'Board Advisory & Investor Presentation Structuring',
+                        'Engineering & Product Organization Restructuring',
+                        'Global Expansion & Subsidiary Entity Setup',
+                    ],
+                    'ar' => [
+                        'خدمات القيادة المؤقتة لمنصب الرئيس التقني والتشغيلي',
+                        'استشارات مجلس الإدارة وإعداد عروض المستثمرين',
+                        'إعادة هيكلة فرق الهندسة وإدارة المنتجات',
+                        'التوسع الدولي وتأسيس الشركات التابعة',
+                    ],
                 ],
                 'order' => 5,
+                'is_active' => true,
+            ],
+            [
+                'title' => [
+                    'en' => 'Enterprise Data Intelligence & Predictive Analytics',
+                    'ar' => 'ذكاء البيانات المؤسسية والتحليلات التنبؤية',
+                ],
+                'slug' => 'enterprise-data-intelligence-analytics',
+                'short_description' => [
+                    'en' => 'Transform disparate enterprise data repositories into unified, actionable real-time intelligence.',
+                    'ar' => 'تحويل مستودعات البيانات المؤسسية المتباينة إلى منظومة استخبارات أعمال موحدة ولحظية.',
+                ],
+                'description' => [
+                    'en' => 'Build high-performance modern data lakes, automated ETL pipelines, and executive BI dashboards. We empower C-suite leaders with predictive decision intelligence and real-time operational telemetry.',
+                    'ar' => 'بناء بحيرات بيانات حديثة عالية الأداء، ومسارات استخراج وتحويل مؤتمتة (ETL)، ولوحات ذكاء أعمال تنفيذية. نمكّن القادة التنفيذيين من اتخاذ القرارات التنبؤية بالاعتماد على بيانات تشغيلية فورية.',
+                ],
+                'icon' => 'chart-pie',
+                'image' => '/images/services/data-intelligence.jpg',
+                'features' => [
+                    'en' => [
+                        'Enterprise Lakehouse & Modern Data Warehousing',
+                        'Automated Multi-Source ETL/ELT Pipelines',
+                        'Executive Decision Support & Real-Time BI Dashboards',
+                        'Predictive Customer & Financial Analytics',
+                    ],
+                    'ar' => [
+                        'بناء مستودعات وبحيرات البيانات المؤسسية الحديثة',
+                        'مسارات تكامل واستخراج البيانات المؤتمتة متعددة المصادر',
+                        'لوحات دعم اتخاذ القرار التنفيذي وذكاء الأعمال اللحظي',
+                        'التحليلات التنبؤية لسلوك العملاء والمؤشرات المالية',
+                    ],
+                ],
+                'order' => 6,
                 'is_active' => true,
             ],
         ];
@@ -216,18 +519,36 @@ class DefaultCompanySeeder extends Seeder
         // 4. Pricing Plans (3 tiers: Advisory, Growth, Enterprise)
         $pricingPlans = [
             [
-                'name' => 'Strategic Advisory',
+                'name' => [
+                    'en' => 'Strategic Advisory',
+                    'ar' => 'الاستشارة الاستراتيجية',
+                ],
                 'slug' => 'strategic-advisory',
                 'price' => 3500.00,
-                'billing_period' => 'month',
+                'billing_period' => [
+                    'en' => 'month',
+                    'ar' => 'شهرياً',
+                ],
                 'currency' => 'USD',
-                'description' => 'Focused monthly advisory and governance for growing companies requiring strategic oversight.',
+                'description' => [
+                    'en' => 'Focused monthly advisory and governance for growing companies requiring strategic oversight.',
+                    'ar' => 'استشارات وحوكمة شهرية مركزة للشركات النامية التي تتطلب إشرافاً استراتيجياً رفيع المستوى.',
+                ],
                 'features' => [
-                    'Bi-weekly partner strategic consultation calls',
-                    'Architecture & security review sessions',
-                    'Quarterly governance & compliance health check',
-                    'Priority WhatsApp communication channel',
-                    'Advisory response within 24 business hours',
+                    'en' => [
+                        'Bi-weekly partner strategic consultation calls',
+                        'Architecture & security review sessions',
+                        'Quarterly governance & compliance health check',
+                        'Priority WhatsApp communication channel',
+                        'Advisory response within 24 business hours',
+                    ],
+                    'ar' => [
+                        'جلسات استشارية استراتيجية نصف شهرية مع الشركاء',
+                        'جلسات مراجعة البنية المعمارية والأمان السيبراني',
+                        'فحص دوري ربع سنوي للحوكمة والامتثال',
+                        'قناة تواصل ذات أولوية عبر واتساب',
+                        'استجابة استشارية خلال 24 ساعة عمل',
+                    ],
                 ],
                 'is_featured' => false,
                 'whatsapp_message' => 'Hello Apex team, I would like to engage on the Strategic Advisory monthly retainer plan ($3,500/mo).',
@@ -235,19 +556,38 @@ class DefaultCompanySeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'name' => 'Operational Growth',
+                'name' => [
+                    'en' => 'Operational Growth',
+                    'ar' => 'النمو التشغيلي والتوسع',
+                ],
                 'slug' => 'operational-growth',
                 'price' => 7500.00,
-                'billing_period' => 'month',
+                'billing_period' => [
+                    'en' => 'month',
+                    'ar' => 'شهرياً',
+                ],
                 'currency' => 'USD',
-                'description' => 'Comprehensive hands-on operational transformation, workflow automation, and infrastructure engineering.',
+                'description' => [
+                    'en' => 'Comprehensive hands-on operational transformation, workflow automation, and infrastructure engineering.',
+                    'ar' => 'تحول تشغيلي شامل وعملي، وأتمتة مسارات العمل، وهندسة البنية التحتية المتطورة.',
+                ],
                 'features' => [
-                    'Dedicated operational lead & solution architect',
-                    'Full workflow automation & system integrations',
-                    'Active SOC2 / ISO 27001 readiness engineering',
-                    'Weekly sprint syncs & executive progress decks',
-                    'Direct WhatsApp channel with 4-hour SLA',
-                    'Quarterly partner on-site strategy workshop',
+                    'en' => [
+                        'Dedicated operational lead & solution architect',
+                        'Full workflow automation & system integrations',
+                        'Active SOC2 / ISO 27001 readiness engineering',
+                        'Weekly sprint syncs & executive progress decks',
+                        'Direct WhatsApp channel with 4-hour SLA',
+                        'Quarterly partner on-site strategy workshop',
+                    ],
+                    'ar' => [
+                        'قائد تشغيلي ومهندس حلول مخصصان لمشروعكم',
+                        'أتمتة شاملة لمسارات العمل وتكامل الأنظمة',
+                        'هندسة الجاهزية لمعايير SOC2 وISO 27001',
+                        'مزامنة أسبوعية وتقارير إنجاز تنفيذية دورية',
+                        'قناة واتساب مباشرة مع اتفاقية استجابة خلال 4 ساعات',
+                        'ورشة عمل استراتيجية حضورية ربع سنوية مع الشركاء',
+                    ],
                 ],
                 'is_featured' => true,
                 'whatsapp_message' => 'Hello Apex team, I want to initiate the Operational Growth transformation plan ($7,500/mo).',
@@ -255,19 +595,38 @@ class DefaultCompanySeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'name' => 'Enterprise Architecture',
+                'name' => [
+                    'en' => 'Enterprise Architecture',
+                    'ar' => 'المعمارية المؤسسية الشاملة',
+                ],
                 'slug' => 'enterprise-architecture',
                 'price' => 15000.00,
-                'billing_period' => 'month',
+                'billing_period' => [
+                    'en' => 'month',
+                    'ar' => 'شهرياً',
+                ],
                 'currency' => 'USD',
-                'description' => 'Full-spectrum embedded fractional executive team and dedicated engineering squad for multinational scale.',
+                'description' => [
+                    'en' => 'Full-spectrum embedded fractional executive team and dedicated engineering squad for multinational scale.',
+                    'ar' => 'فريق قيادي تنفيذي مدمج وفريق هندسي متفرغ للمؤسسات ذات النطاق متعدد الجنسيات.',
+                ],
                 'features' => [
-                    'Embedded Fractional C-Suite (CTO / COO / CCO)',
-                    'Multi-region high-availability cloud architecture',
-                    'Continuous M&A due diligence & vendor screening',
-                    '24/7 Priority escalation desk & instant WhatsApp hotline',
-                    'Tailored board reporting & regulatory liaison',
-                    'Custom SLA with guaranteed dedicated capacity',
+                    'en' => [
+                        'Embedded Fractional C-Suite (CTO / COO / CCO)',
+                        'Multi-region high-availability cloud architecture',
+                        'Continuous M&A due diligence & vendor screening',
+                        '24/7 Priority escalation desk & instant WhatsApp hotline',
+                        'Tailored board reporting & regulatory liaison',
+                        'Custom SLA with guaranteed dedicated capacity',
+                    ],
+                    'ar' => [
+                        'فريق قيادة تنفيذية مدمج (CTO / COO / CCO)',
+                        'بنية سحابية متعددة المناطق وعالية التوافر',
+                        'تدقيق مستمر لصفقات الاستحواذ وفحص الموردين',
+                        'مكتب تصعيد ذو أولوية على مدار الساعة مع خط واتساب فوري',
+                        'تقارير مخصصة لمجلس الإدارة والتنسيق التنظيمي',
+                        'اتفاقية مستوى خدمة مخصصة بسعة عمل مضمونة',
+                    ],
                 ],
                 'is_featured' => false,
                 'whatsapp_message' => 'Hello Apex team, I would like to schedule an Enterprise Architecture executive consultation ($15,000/mo).',
@@ -283,27 +642,72 @@ class DefaultCompanySeeder extends Seeder
         // 5. Portfolio Categories & Case Studies
         $catModernization = PortfolioCategory::updateOrCreate(
             ['slug' => 'digital-modernization'],
-            ['name' => 'Digital Modernization', 'order' => 1, 'is_active' => true]
+            [
+                'name' => [
+                    'en' => 'Digital Modernization',
+                    'ar' => 'التحول الرقمي وتحديث النظم',
+                ],
+                'description' => [
+                    'en' => 'Enterprise cloud transformations, legacy code migrations, and architectural revamps.',
+                    'ar' => 'التحول السحابي للمؤسسات، وترحيل الأنظمة الموروثة، وتجديد البنية المعمارية.',
+                ],
+                'order' => 1,
+                'is_active' => true,
+            ]
         );
 
         $catRisk = PortfolioCategory::updateOrCreate(
             ['slug' => 'risk-compliance'],
-            ['name' => 'Risk & Compliance', 'order' => 2, 'is_active' => true]
+            [
+                'name' => [
+                    'en' => 'Risk & Compliance',
+                    'ar' => 'المخاطر والامتثال التنظيمي',
+                ],
+                'description' => [
+                    'en' => 'SOC 2, ISO 27001, GDPR audits, and institutional governance frameworks.',
+                    'ar' => 'تدقيق شهادات SOC 2 وISO 27001 وGDPR، وأطر الحوكمة المؤسسية.',
+                ],
+                'order' => 2,
+                'is_active' => true,
+            ]
         );
 
         $catAutomation = PortfolioCategory::updateOrCreate(
             ['slug' => 'operational-automation'],
-            ['name' => 'Operational Automation', 'order' => 3, 'is_active' => true]
+            [
+                'name' => [
+                    'en' => 'Operational Automation',
+                    'ar' => 'الأتمتة التشغيلية وهندسة الإجراءات',
+                ],
+                'description' => [
+                    'en' => 'High-throughput RPA pipelines, ERP-CRM syncs, and intelligent workflows.',
+                    'ar' => 'مسارات أتمتة العمليات عالية الإنتاجية، والربط بين أنظمة ERP وCRM، ومسارات العمل الذكية.',
+                ],
+                'order' => 3,
+                'is_active' => true,
+            ]
         );
 
         $portfolioItems = [
             [
                 'category_id' => $catModernization->id,
-                'title' => 'Fintech Core Migration for Vantage Capital',
+                'title' => [
+                    'en' => 'Fintech Core Migration for Vantage Capital',
+                    'ar' => 'ترحيل البنية المصرفية الأساسية لشركة فانتاج كابيتال',
+                ],
                 'slug' => 'fintech-core-migration-vantage-capital',
-                'client' => 'Vantage Capital Markets',
-                'summary' => 'Zero-downtime migration of a $1.2B transaction ledger to modern microservices.',
-                'content' => 'Vantage Capital operated a monolithic ledger system plagued by peak-hour latency spikes and high infrastructure costs. Apex designed and executed an event-driven ledger architecture with automated dual-write reconciliation, migrating 40M+ historical records with zero transaction loss, achieving -78% latency reduction and $420K/yr savings.',
+                'client' => [
+                    'en' => 'Vantage Capital Markets',
+                    'ar' => 'أسواق فانتاج كابيتال المالية',
+                ],
+                'summary' => [
+                    'en' => 'Zero-downtime migration of a $1.2B transaction ledger to modern microservices.',
+                    'ar' => 'ترحيل دفتر معاملات بقيمة 1.2 مليار دولار إلى خدمات مصغرة حديثة دون أي توقف عن العمل.',
+                ],
+                'content' => [
+                    'en' => 'Vantage Capital operated a monolithic ledger system plagued by peak-hour latency spikes and high infrastructure costs. Apex designed and executed an event-driven ledger architecture with automated dual-write reconciliation, migrating 40M+ historical records with zero transaction loss, achieving -78% latency reduction and $420K/yr savings.',
+                    'ar' => 'كانت فانتاج كابيتال تعاني من نظام دفتر الأستاذ الأحادي القديم مع بطء حاد في ساعات الذروة وتكاليف بنية تحتية مرتفعة. صممت أبيكس ونفذت بنية معمارية تعتمد على الأحداث مع مطابقة آلية للكتابة المزدوجة، وترحيل أكثر من 40 مليون سجل تاريخي دون أي فقدان في المعاملات، محققة انخفاضاً بنسبة 78% في زمن الاستجابة ووفورات بقيمة 420 ألف دولار سنوياً.',
+                ],
                 'technologies' => ['PHP 8.3', 'PostgreSQL', 'Redis Cluster', 'Kafka', 'Docker', 'Kubernetes'],
                 'image' => '/images/portfolio/vantage-case-study.jpg',
                 'website_url' => 'https://vantagecapital.example.com',
@@ -313,11 +717,23 @@ class DefaultCompanySeeder extends Seeder
             ],
             [
                 'category_id' => $catRisk->id,
-                'title' => 'SOC 2 Type II Accreditation in 90 Days',
+                'title' => [
+                    'en' => 'SOC 2 Type II Accreditation in 90 Days',
+                    'ar' => 'اعتماد SOC 2 Type II الشامل خلال 90 يوماً',
+                ],
                 'slug' => 'soc-2-type-ii-accreditation-healthsync',
-                'client' => 'HealthSync Diagnostics',
-                'summary' => 'Comprehensive HIPAA and SOC 2 Type II audit readiness for enterprise healthcare rollout.',
-                'content' => 'HealthSync needed to unlock enterprise hospital contracts requiring audited SOC 2 Type II compliance within one quarter. Apex implemented an automated compliance evidence collection suite, overhauled employee access control matrices, and attained clean certification in 84 days unlocking a $14.2M pipeline.',
+                'client' => [
+                    'en' => 'HealthSync Diagnostics',
+                    'ar' => 'هيلث سينك للتشخيص الطبي',
+                ],
+                'summary' => [
+                    'en' => 'Comprehensive HIPAA and SOC 2 Type II audit readiness for enterprise healthcare rollout.',
+                    'ar' => 'الجاهزية الشاملة لتدقيق HIPAA وSOC 2 Type II لتوسيع حلول الرعاية الصحية المؤسسية.',
+                ],
+                'content' => [
+                    'en' => 'HealthSync needed to unlock enterprise hospital contracts requiring audited SOC 2 Type II compliance within one quarter. Apex implemented an automated compliance evidence collection suite, overhauled employee access control matrices, and attained clean certification in 84 days unlocking a $14.2M pipeline.',
+                    'ar' => 'احتاجت شركة هيلث سينك لتوقيع عقود مستشفيات كبرى تشترط الامتثال المعتمد لمعيار SOC 2 Type II خلال ربع سنوي واحد. طبقت أبيكس حزمة آلية لجمع أدلة الامتثال، وأعادت هيكلة مصفوفات صلاحيات الموظفين، وحصلت على الشهادة دون ملاحظات خلال 84 يوماً مما فتح صفقات بقيمة 14.2 مليون دولار.',
+                ],
                 'technologies' => ['Terraform', 'AWS GuardDuty', 'HashiCorp Vault', 'Vanta Integration'],
                 'image' => '/images/portfolio/healthsync-case-study.jpg',
                 'website_url' => 'https://healthsync.example.com',
@@ -327,11 +743,23 @@ class DefaultCompanySeeder extends Seeder
             ],
             [
                 'category_id' => $catAutomation->id,
-                'title' => 'Global Billing & Contract Lifecycle Automation',
+                'title' => [
+                    'en' => 'Global Billing & Contract Lifecycle Automation',
+                    'ar' => 'أتمتة الفوترة العالمية ودورة حياة العقود',
+                ],
                 'slug' => 'global-billing-contract-automation-nexus',
-                'client' => 'Nexus Global Logistics',
-                'summary' => 'Automating cross-border customs billing across 14 European and North American hubs.',
-                'content' => 'Manual customs reconciliation across 14 international fulfillment nodes led to an average 18-day delay. We engineered a centralized event-driven billing hub connecting local ERP nodes to a unified reconciliation ledger, compressing invoicing to 4 minutes and recovering $1.8M in working capital.',
+                'client' => [
+                    'en' => 'Nexus Global Logistics',
+                    'ar' => 'نكسس للخدمات اللوجستية العالمية',
+                ],
+                'summary' => [
+                    'en' => 'Automating cross-border customs billing across 14 European and North American hubs.',
+                    'ar' => 'أتمتة الفوترة الجمركية عبر الحدود في 14 مركزاً لوجستياً في أوروبا وأمريكا الشمالية.',
+                ],
+                'content' => [
+                    'en' => 'Manual customs reconciliation across 14 international fulfillment nodes led to an average 18-day delay. We engineered a centralized event-driven billing hub connecting local ERP nodes to a unified reconciliation ledger, compressing invoicing to 4 minutes and recovering $1.8M in working capital.',
+                    'ar' => 'كانت المطابقة الجمركية اليدوية عبر 14 مركز شحن دولياً تتسبب في تأخير يصل إلى 18 يوماً. قمنا بهندسة مركز فوترة موحد مدفوع بالأحداث يربط أنظمة تخطيط الموارد المحلية بسجل مطابقة مركزي، مما قلص إصدار الفواتير إلى 4 دقائق فقط واستعاد 1.8 مليون دولار من رأس المال العامل.']
+                ,
                 'technologies' => ['Laravel', 'Vue.js', 'MySQL', 'Stripe Invoicing', 'SAP Connector'],
                 'image' => '/images/portfolio/nexus-case-study.jpg',
                 'website_url' => 'https://nexuslogistics.example.com',
@@ -341,17 +769,81 @@ class DefaultCompanySeeder extends Seeder
             ],
             [
                 'category_id' => $catModernization->id,
-                'title' => 'Enterprise Procurement Portal Modernization',
+                'title' => [
+                    'en' => 'Enterprise Procurement Portal Modernization',
+                    'ar' => 'تحديث بوابة المشتريات والمناقصات المؤسسية',
+                ],
                 'slug' => 'procurement-portal-modernization-altair',
-                'client' => 'Altair Manufacturing Group',
-                'summary' => 'Modernizing supply-chain RFQ and vendor bidding workflows for 300+ suppliers.',
-                'content' => 'Legacy paper and spreadsheet RFQ processes caused procurement friction and duplicate orders across 8 assembly plants. Apex architected a high-security supplier portal featuring real-time quote comparison and automated ERP sync, shortening cycles by 65% across $85M in spend.',
+                'client' => [
+                    'en' => 'Altair Manufacturing Group',
+                    'ar' => 'مجموعة ألتير للتصنيع',
+                ],
+                'summary' => [
+                    'en' => 'Modernizing supply-chain RFQ and vendor bidding workflows for 300+ suppliers.',
+                    'ar' => 'تحديث مسارات طلبات عروض الأسعار ومناقصات الموردين لأكثر من 300 مورد.',
+                ],
+                'content' => [
+                    'en' => 'Legacy paper and spreadsheet RFQ processes caused procurement friction and duplicate orders across 8 assembly plants. Apex architected a high-security supplier portal featuring real-time quote comparison and automated ERP sync, shortening cycles by 65% across $85M in spend.',
+                    'ar' => 'تسببت عمليات طلب العروض الورقية وجداول البيانات القديمة في بطء المشتريات وتكرار الطلبات عبر 8 مصانع تجميع. صممت أبيكس بوابة موردين عالية الأمان مع مقارنة فورية للعروض ومزامنة تلقائية مع ERP، مما قلص فترات الدورات بنسبة 65% عبر مشتريات بقيمة 85 مليون دولار.',
+                ],
                 'technologies' => ['PHP 8.3', 'Livewire', 'PostgreSQL', 'Tailwind CSS', 'Amazon S3'],
                 'image' => '/images/portfolio/altair-case-study.jpg',
                 'website_url' => 'https://altairmanufacturing.example.com',
                 'is_featured' => false,
                 'is_active' => true,
                 'order' => 4,
+            ],
+            [
+                'category_id' => $catRisk->id,
+                'title' => [
+                    'en' => 'Cross-Border Regulatory Data Governance Hub',
+                    'ar' => 'منصة حوكمة البيانات والامتثال التنظيمي عبر الحدود',
+                ],
+                'slug' => 'cross-border-regulatory-data-hub-zenith',
+                'client' => [
+                    'en' => 'Zenith Financial Trust',
+                    'ar' => 'صندوق زينيث المالي الاستئماني',
+                ],
+                'summary' => [
+                    'en' => 'Automated data sovereignty and cross-border GDPR/CCPA risk management engine.',
+                    'ar' => 'محرك آلي لإدارة سيادة البيانات ومخاطر الامتثال للائحة GDPR وقانون CCPA عبر الحدود.',
+                ],
+                'content' => [
+                    'en' => 'Zenith Financial needed a synchronized governance platform to manage privacy consents and data residency across US, EU, and Middle Eastern jurisdictions. Apex implemented real-time automated data lineage tracking and dynamic pseudonymization, reducing compliance audit overhead by 70%.',
+                    'ar' => 'احتاج صندوق زينيث المالي إلى منصة حوكمة متزامنة لإدارة موافقات الخصوصية وإقامة البيانات عبر الولايات المتحدة والاتحاد الأوروبي والشرق الأوسط. نفذت أبيكس نظام تتبع فوري لمسار البيانات وإخفاء الهوية الديناميكي، مما خفض أعباء تدقيق الامتثال بنسبة 70%.',
+                ],
+                'technologies' => ['Python', 'FastAPI', 'Snowflake', 'Apache Atlas', 'AWS KMS'],
+                'image' => '/images/portfolio/zenith-case-study.jpg',
+                'website_url' => 'https://zenithfinancial.example.com',
+                'is_featured' => false,
+                'is_active' => true,
+                'order' => 5,
+            ],
+            [
+                'category_id' => $catAutomation->id,
+                'title' => [
+                    'en' => 'Intelligent Claims Processing & AI Pipeline',
+                    'ar' => 'محرك المعالجة الذكية للمطالبات التأمينية بالذكاء الاصطناعي',
+                ],
+                'slug' => 'intelligent-claims-automation-engine-omnicare',
+                'client' => [
+                    'en' => 'OmniCare Assurance Group',
+                    'ar' => 'مجموعة أومني كير للتأمين',
+                ],
+                'summary' => [
+                    'en' => 'AI-assisted medical claims adjudication cutting resolution time from 14 days to 3 hours.',
+                    'ar' => 'معالجة المطالبات الطبية بالذكاء الاصطناعي مقلصة مدة التسوية من 14 يوماً إلى 3 ساعات.',
+                ],
+                'content' => [
+                    'en' => 'OmniCare faced heavy backlogs in claims processing with high human error rates during fraud screening. Apex deployed an audited NLP extraction model paired with automated decision trees that pre-screened 85% of standard claims, lowering processing operational cost by 54%.',
+                    'ar' => 'واجهت أومني كير تراكمات كبيرة في معالجة المطالبات مع معدلات خطأ بشري أثناء فحص الاحتيال. نشرت أبيكس نموذج استخراج لغوي مدققاً مقترناً بأشجار قرار مؤتمتة فحصت مسبقاً 85% من المطالبات القياسية، مما خفض التكلفة التشغيلية للمعالجة بنسبة 54%.',
+                ],
+                'technologies' => ['Python', 'PyTorch', 'Laravel', 'PostgreSQL', 'Docker'],
+                'image' => '/images/portfolio/omnicare-case-study.jpg',
+                'website_url' => 'https://omnicare.example.com',
+                'is_featured' => true,
+                'is_active' => true,
+                'order' => 6,
             ],
         ];
 
@@ -362,41 +854,89 @@ class DefaultCompanySeeder extends Seeder
         // 6. Testimonials (4 executive testimonials with ratings)
         $testimonials = [
             [
-                'client_name' => 'Eleanor Vance',
-                'company' => 'Vantage Capital Markets',
-                'client_role' => 'Chief Technology Officer',
+                'client_name' => [
+                    'en' => 'Eleanor Vance',
+                    'ar' => 'إليانور فانس',
+                ],
+                'company' => [
+                    'en' => 'Vantage Capital Markets',
+                    'ar' => 'أسواق فانتاج كابيتال المالية',
+                ],
+                'client_role' => [
+                    'en' => 'Chief Technology Officer',
+                    'ar' => 'المدير التنفيذي للتكنولوجيا',
+                ],
                 'avatar' => '/images/testimonials/eleanor-vance.jpg',
-                'content' => 'Apex did what two global consultancies claimed was impossible: migrated our core transactional ledger without a single second of client-facing downtime. Their technical rigor is truly unmatched in the advisory landscape.',
+                'content' => [
+                    'en' => 'Apex did what two global consultancies claimed was impossible: migrated our core transactional ledger without a single second of client-facing downtime. Their technical rigor is truly unmatched in the advisory landscape.',
+                    'ar' => 'حققت أبيكس ما اعتبرته شركتان استشاريتان عالميتان مستحيلاً: ترحيل نظام دفتر الأستاذ الأساسي لدينا دون انقطاع لثانية واحدة عن عملائنا. إن صرامتهم التقنية لا مثيل لها في قطاع الاستشارات.',
+                ],
                 'rating' => 5,
                 'is_featured' => true,
                 'order' => 1,
             ],
             [
-                'client_name' => 'Marcus Sterling',
-                'company' => 'HealthSync Diagnostics',
-                'client_role' => 'Chief Executive Officer',
+                'client_name' => [
+                    'en' => 'Marcus Sterling',
+                    'ar' => 'ماركوس ستيرلينغ',
+                ],
+                'company' => [
+                    'en' => 'HealthSync Diagnostics',
+                    'ar' => 'هيلث سينك للتشخيص الطبي',
+                ],
+                'client_role' => [
+                    'en' => 'Chief Executive Officer',
+                    'ar' => 'الرئيس التنفيذي',
+                ],
                 'avatar' => '/images/testimonials/marcus-sterling.jpg',
-                'content' => 'When enterprise hospital networks demanded SOC 2 Type II accreditation on an aggressive 90-day timeline, Apex took total operational ownership. We achieved certification with zero auditor findings ahead of schedule.',
+                'content' => [
+                    'en' => 'When enterprise hospital networks demanded SOC 2 Type II accreditation on an aggressive 90-day timeline, Apex took total operational ownership. We achieved certification with zero auditor findings ahead of schedule.',
+                    'ar' => 'عندما اشترطت شبكات المستشفيات الكبرى اعتماد SOC 2 Type II في جدول زمني صارم خلال 90 يوماً، تولت أبيكس المسؤولية التشغيلية الكاملة وحصلنا على الشهادة دون أي ملاحظات وقبل الموعد المحدد.',
+                ],
                 'rating' => 5,
                 'is_featured' => true,
                 'order' => 2,
             ],
             [
-                'client_name' => 'Dr. Aris Thorne',
-                'company' => 'Nexus Global Logistics',
-                'client_role' => 'Head of Global Operations',
+                'client_name' => [
+                    'en' => 'Dr. Aris Thorne',
+                    'ar' => 'د. أريس ثورن',
+                ],
+                'company' => [
+                    'en' => 'Nexus Global Logistics',
+                    'ar' => 'نكسس للخدمات اللوجستية العالمية',
+                ],
+                'client_role' => [
+                    'en' => 'Head of Global Operations',
+                    'ar' => 'رئيس العمليات الدولية',
+                ],
                 'avatar' => '/images/testimonials/aris-thorne.jpg',
-                'content' => 'The automated reconciliation platform built by Apex unlocked nearly $2M in working capital that had been trapped in billing delays. They think like business owners, not billable-hour contractors.',
+                'content' => [
+                    'en' => 'The automated reconciliation platform built by Apex unlocked nearly $2M in working capital that had been trapped in billing delays. They think like business owners, not billable-hour contractors.',
+                    'ar' => 'منصة المطابقة المؤتمتة التي بنتها أبيكس حررت ما يقرب من 2 مليون دولار من رأس المال العامل المحتجز في تأخيرات الفوترة. إنهم يفكرون كشركاء أعمال وليس كمقاولين يحسبون الساعات.',
+                ],
                 'rating' => 5,
                 'is_featured' => true,
                 'order' => 3,
             ],
             [
-                'client_name' => 'Claire Chen-Rousseau',
-                'company' => 'Altair Manufacturing Group',
-                'client_role' => 'VP of Supply Chain & Procurement',
+                'client_name' => [
+                    'en' => 'Claire Chen-Rousseau',
+                    'ar' => 'كلير تشن روسو',
+                ],
+                'company' => [
+                    'en' => 'Altair Manufacturing Group',
+                    'ar' => 'مجموعة ألتير للتصنيع',
+                ],
+                'client_role' => [
+                    'en' => 'VP of Supply Chain & Procurement',
+                    'ar' => 'نائب الرئيس لسلسلة الإمداد والمشتريات',
+                ],
                 'avatar' => '/images/testimonials/claire-chen.jpg',
-                'content' => 'Deploying Apex across our eight manufacturing plants transformed supplier collaboration. Our RFQ cycle times dropped by more than half within the first sixty days of deployment.',
+                'content' => [
+                    'en' => 'Deploying Apex across our eight manufacturing plants transformed supplier collaboration. Our RFQ cycle times dropped by more than half within the first sixty days of deployment.',
+                    'ar' => 'أحدث التعاون مع أبيكس عبر مصانعنا الثمانية تحولاً جذرياً في التنسيق مع الموردين. انخفضت فترات دورة عروض الأسعار بأكثر من النصف خلال أول ستين يوماً من التطبيق.',
+                ],
                 'rating' => 5,
                 'is_featured' => false,
                 'order' => 4,
@@ -405,7 +945,7 @@ class DefaultCompanySeeder extends Seeder
 
         foreach ($testimonials as $t) {
             Testimonial::updateOrCreate(
-                ['client_name' => $t['client_name'], 'company' => $t['company']],
+                ['avatar' => $t['avatar']],
                 $t
             );
         }
@@ -413,9 +953,18 @@ class DefaultCompanySeeder extends Seeder
         // 7. Team Members (4 senior leaders)
         $teamMembers = [
             [
-                'name' => 'David Sterling',
-                'role' => 'Managing Partner & Head of Strategy',
-                'bio' => 'Former McKinsey partner and principal architect with over 18 years leading enterprise restructuring and digital modernization programs across North America and Europe.',
+                'name' => [
+                    'en' => 'David Sterling',
+                    'ar' => 'ديفيد ستيرلينغ',
+                ],
+                'role' => [
+                    'en' => 'Managing Partner & Head of Strategy',
+                    'ar' => 'الشريك الإداري ورئيس قسم الاستراتيجية',
+                ],
+                'bio' => [
+                    'en' => 'Former McKinsey partner and principal architect with over 18 years leading enterprise restructuring and digital modernization programs across North America and Europe.',
+                    'ar' => 'شريك سابق في ماكنزي ومهندس رئيسي بخبرة تتجاوز 18 عاماً في قيادة برامج إعادة الهيكلة المؤسسية والتحول الرقمي في أمريكا الشمالية وأوروبا.',
+                ],
                 'photo' => '/images/team/david-sterling.jpg',
                 'social_links' => [
                     'linkedin' => 'https://linkedin.com/in/david-sterling-apex',
@@ -425,9 +974,18 @@ class DefaultCompanySeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'name' => 'Elena Rostova',
-                'role' => 'Partner, Cloud & Technical Architecture',
-                'bio' => 'Specializes in high-availability distributed systems, fintech transaction ledgers, and zero-trust security postures for tier-1 financial institutions.',
+                'name' => [
+                    'en' => 'Elena Rostova',
+                    'ar' => 'إيلينا روستوفا',
+                ],
+                'role' => [
+                    'en' => 'Partner, Cloud & Technical Architecture',
+                    'ar' => 'شريكة، البنية السحابية والحلول التقنية',
+                ],
+                'bio' => [
+                    'en' => 'Specializes in high-availability distributed systems, fintech transaction ledgers, and zero-trust security postures for tier-1 financial institutions.',
+                    'ar' => 'متخصصة في الأنظمة الموزعة عالية التوافر، ودفاتر معاملات التكنولوجيا المالية، ونماذج الأمان بانعدام الثقة للمؤسسات المالية الكبرى.',
+                ],
                 'photo' => '/images/team/elena-rostova.jpg',
                 'social_links' => [
                     'linkedin' => 'https://linkedin.com/in/elena-rostova-apex',
@@ -437,9 +995,18 @@ class DefaultCompanySeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'name' => 'Julian K. Vance',
-                'role' => 'Director of Compliance & Risk Governance',
-                'bio' => 'Certified CISA and former regulatory compliance director who has steered over 50 enterprise certifications spanning SOC 2, HIPAA, ISO 27001, and GDPR.',
+                'name' => [
+                    'en' => 'Julian K. Vance',
+                    'ar' => 'جوليان ك. فانس',
+                ],
+                'role' => [
+                    'en' => 'Director of Compliance & Risk Governance',
+                    'ar' => 'مدير الامتثال وحوكمة المخاطر',
+                ],
+                'bio' => [
+                    'en' => 'Certified CISA and former regulatory compliance director who has steered over 50 enterprise certifications spanning SOC 2, HIPAA, ISO 27001, and GDPR.',
+                    'ar' => 'مدقق نظم معلومات معتمد (CISA) ومدير امتثال تنظيمي سابق قاد أكثر من 50 اعتماداً مؤسسياً تشمل SOC 2 وHIPAA وISO 27001 وGDPR.',
+                ],
                 'photo' => '/images/team/julian-vance.jpg',
                 'social_links' => [
                     'linkedin' => 'https://linkedin.com/in/julian-vance-apex',
@@ -448,9 +1015,18 @@ class DefaultCompanySeeder extends Seeder
                 'is_active' => true,
             ],
             [
-                'name' => 'Sophia Morales',
-                'role' => 'Head of Automation & Workflow Engineering',
-                'bio' => 'Pioneers intelligent RPA and automated revenue operations that compress friction across corporate billing, customer onboarding, and contract analysis.',
+                'name' => [
+                    'en' => 'Sophia Morales',
+                    'ar' => 'صوفيا موراليس',
+                ],
+                'role' => [
+                    'en' => 'Head of Automation & Workflow Engineering',
+                    'ar' => 'رئيسة قسم الأتمتة وهندسة مسارات العمل',
+                ],
+                'bio' => [
+                    'en' => 'Pioneers intelligent RPA and automated revenue operations that compress friction across corporate billing, customer onboarding, and contract analysis.',
+                    'ar' => 'رائدة في مجالات أتمتة العمليات الروبوتية وعمليات الإيرادات المؤتمتة التي تقلل الاحتكاك في الفوترة المؤسسية، واستقطاب العملاء، وتحليل العقود.',
+                ],
                 'photo' => '/images/team/sophia-morales.jpg',
                 'social_links' => [
                     'linkedin' => 'https://linkedin.com/in/sophia-morales-apex',
@@ -462,39 +1038,63 @@ class DefaultCompanySeeder extends Seeder
         ];
 
         foreach ($teamMembers as $member) {
-            TeamMember::updateOrCreate(['name' => $member['name']], $member);
+            TeamMember::updateOrCreate(['photo' => $member['photo']], $member);
         }
 
         // 8. Stats Counters (4 counters)
         $stats = [
             [
-                'label' => 'Capital Assets Advised',
+                'label' => [
+                    'en' => 'Capital Assets Advised',
+                    'ar' => 'أصول رأس مالية تحت الاستشارة',
+                ],
                 'value' => '$1.8B+',
-                'suffix' => '',
+                'suffix' => [
+                    'en' => '',
+                    'ar' => '',
+                ],
                 'icon' => 'currency-dollar',
                 'order' => 1,
                 'is_active' => true,
             ],
             [
-                'label' => 'Enterprise Implementations',
+                'label' => [
+                    'en' => 'Enterprise Implementations',
+                    'ar' => 'مشاريع مؤسسية مكتملة',
+                ],
                 'value' => '250+',
-                'suffix' => '',
+                'suffix' => [
+                    'en' => '',
+                    'ar' => '',
+                ],
                 'icon' => 'building-office-2',
                 'order' => 2,
                 'is_active' => true,
             ],
             [
-                'label' => 'Average Operational Cost Savings',
+                'label' => [
+                    'en' => 'Average Operational Cost Savings',
+                    'ar' => 'متوسط وفورات التكلفة التشغيلية',
+                ],
                 'value' => '42%',
-                'suffix' => '',
+                'suffix' => [
+                    'en' => '',
+                    'ar' => '',
+                ],
                 'icon' => 'arrow-trending-up',
                 'order' => 3,
                 'is_active' => true,
             ],
             [
-                'label' => 'Client Retention Rate',
+                'label' => [
+                    'en' => 'Client Retention Rate',
+                    'ar' => 'معدل الحفاظ على العملاء',
+                ],
                 'value' => '98.6%',
-                'suffix' => '',
+                'suffix' => [
+                    'en' => '',
+                    'ar' => '',
+                ],
                 'icon' => 'shield-check',
                 'order' => 4,
                 'is_active' => true,
@@ -502,57 +1102,93 @@ class DefaultCompanySeeder extends Seeder
         ];
 
         foreach ($stats as $stat) {
-            StatsCounter::updateOrCreate(['label' => $stat['label']], $stat);
+            StatsCounter::updateOrCreate(['order' => $stat['order']], $stat);
         }
 
         // 9. FAQs (6 categorized FAQs)
         $faqs = [
             [
                 'category' => 'Engagement & Strategy',
-                'question' => 'How does Apex initiate an advisory or transformation engagement?',
-                'answer' => 'Every engagement begins with a 2-week structured diagnostic sprint where we audit your existing workflows, codebases, compliance posture, and cost centers. We then deliver a clear roadmap with fixed milestones and measurable ROI metrics.',
+                'question' => [
+                    'en' => 'How does Apex initiate an advisory or transformation engagement?',
+                    'ar' => 'كيف تبدأ أبيكس مهمة استشارية أو برنامج تحول مؤسسي؟',
+                ],
+                'answer' => [
+                    'en' => 'Every engagement begins with a 2-week structured diagnostic sprint where we audit your existing workflows, codebases, compliance posture, and cost centers. We then deliver a clear roadmap with fixed milestones and measurable ROI metrics.',
+                    'ar' => 'تبدأ كل مهمة بمرحلة تشخيصية منظمة لمدة أسبوعين نقوم خلالها بتدقيق مسارات العمل الحالية، والشيفرات البرمجية، ووضع الامتثال، ومراكز التكلفة. ثم نقدم خارطة طريق واضحة بمحطات ثابتة ومقاييس عائد استثماري قابلة للقياس.',
+                ],
                 'order' => 1,
                 'is_active' => true,
             ],
             [
                 'category' => 'Engagement & Strategy',
-                'question' => 'Do you work directly with internal engineering and operations teams?',
-                'answer' => 'Yes. We operate as an embedded force-multiplier alongside your internal leads rather than an external silod agency. Knowledge transfer and comprehensive documentation are core deliverables in every sprint.',
+                'question' => [
+                    'en' => 'Do you work directly with internal engineering and operations teams?',
+                    'ar' => 'هل تعملون مباشرة مع فرق الهندسة والعمليات الداخلية في المؤسسة؟',
+                ],
+                'answer' => [
+                    'en' => 'Yes. We operate as an embedded force-multiplier alongside your internal leads rather than an external silod agency. Knowledge transfer and comprehensive documentation are core deliverables in every sprint.',
+                    'ar' => 'نعم. نعمل كقوة مضاعفة مدمجة إلى جانب قادتكم الداخليين وليس كوكالة خارجية منعزلة. يعد نقل المعرفة والتوثيق الشامل من المخرجات الأساسية في كل مرحلة عمل.',
+                ],
                 'order' => 2,
                 'is_active' => true,
             ],
             [
                 'category' => 'Compliance & Security',
-                'question' => 'What compliance standards do your advisory frameworks support?',
-                'answer' => 'Our frameworks cover SOC 2 Type I and Type II, ISO 27001, HIPAA, GDPR, PCI-DSS, and custom regulatory guidelines specific to institutional capital markets.',
+                'question' => [
+                    'en' => 'What compliance standards do your advisory frameworks support?',
+                    'ar' => 'ما هي معايير الامتثال التي تدعمها أطركم الاستشارية؟',
+                ],
+                'answer' => [
+                    'en' => 'Our frameworks cover SOC 2 Type I and Type II, ISO 27001, HIPAA, GDPR, PCI-DSS, and custom regulatory guidelines specific to institutional capital markets.',
+                    'ar' => 'تغطي أطرنا معايير SOC 2 (النوعين الأول والثاني)، وISO 27001، وHIPAA، وGDPR، وPCI-DSS، بالإضافة إلى اللوائح التنظيمية الخاصة بأسواق المال والمؤسسات المالية.',
+                ],
                 'order' => 3,
                 'is_active' => true,
             ],
             [
                 'category' => 'Compliance & Security',
-                'question' => 'How do you safeguard client data during architecture reviews and audits?',
-                'answer' => 'We execute enterprise NDAs, conduct audits exclusively via ephemeral sandboxed access, and never store or transmit sensitive client production credentials outside of dedicated hardware security modules.',
+                'question' => [
+                    'en' => 'How do you safeguard client data during architecture reviews and audits?',
+                    'ar' => 'كيف تحمون بيانات العملاء أثناء مراجعات البنية المعمارية وعمليات التدقيق؟',
+                ],
+                'answer' => [
+                    'en' => 'We execute enterprise NDAs, conduct audits exclusively via ephemeral sandboxed access, and never store or transmit sensitive client production credentials outside of dedicated hardware security modules.',
+                    'ar' => 'نوقع اتفاقيات سرية مؤسسية صارمة (NDA)، ونجري عمليات التدقيق حصرياً عبر بيئات معزولة مؤقتة، ولا نقوم أبداً بتخزين أو نقل بيانات الاعتماد الحساسة خارج وحدات الأمان للأجهزة المخصصة.',
+                ],
                 'order' => 4,
                 'is_active' => true,
             ],
             [
                 'category' => 'Pricing & Communication',
-                'question' => 'Why does Apex prioritize direct WhatsApp executive communication?',
-                'answer' => 'Enterprise initiatives require high-speed alignment without the bureaucratic delay of ticketing queues. Our WhatsApp channels connect leadership directly with managing partners for urgent consultations and real-time sprint updates.',
+                'question' => [
+                    'en' => 'Why does Apex prioritize direct WhatsApp executive communication?',
+                    'ar' => 'لماذا تمنح أبيكس الأولوية للتواصل التنفيذي المباشر عبر واتساب؟',
+                ],
+                'answer' => [
+                    'en' => 'Enterprise initiatives require high-speed alignment without the bureaucratic delay of ticketing queues. Our WhatsApp channels connect leadership directly with managing partners for urgent consultations and real-time sprint updates.',
+                    'ar' => 'تتطلب المبادرات المؤسسية تنسيقاً فائق السرعة دون التأخير البيروقراطي لأنظمة تذاكر الدعم. تربط قنوات واتساب لدينا القيادة التنفيذية بالشركاء الإداريين مباشرة للاستشارات العاجلة والتحديثات الفورية.',
+                ],
                 'order' => 5,
                 'is_active' => true,
             ],
             [
                 'category' => 'Pricing & Communication',
-                'question' => 'Are your monthly retainer plans flexible as company requirements evolve?',
-                'answer' => 'All plans operate on standard 30-day billing cycles with transparent scope adjustments. You can scale between Strategic Advisory, Operational Growth, or Enterprise Architecture as your roadmap demands.',
+                'question' => [
+                    'en' => 'Are your monthly retainer plans flexible as company requirements evolve?',
+                    'ar' => 'هل باقات الدعم الشهري مرنة مع تطور متطلبات الشركة؟',
+                ],
+                'answer' => [
+                    'en' => 'All plans operate on standard 30-day billing cycles with transparent scope adjustments. You can scale between Strategic Advisory, Operational Growth, or Enterprise Architecture as your roadmap demands.',
+                    'ar' => 'تعمل جميع الباقات على دورات فوترة قياسية مدتها 30 يوماً مع تعديلات شفافة في نطاق العمل. يمكنك التبديل والترقية بين باقات الاستشارة الاستراتيجية، أو النمو التشغيلي، أو المعمارية المؤسسية وفقاً لمتطلبات خارطة طريقكم.',
+                ],
                 'order' => 6,
                 'is_active' => true,
             ],
         ];
 
         foreach ($faqs as $faq) {
-            Faq::updateOrCreate(['question' => $faq['question']], $faq);
+            Faq::updateOrCreate(['order' => $faq['order']], $faq);
         }
     }
 }

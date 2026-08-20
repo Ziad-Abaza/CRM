@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Faq extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'question',
+        'answer',
+        'category',
+        'order',
+        'is_active',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'order' => 'integer',
+            'is_active' => 'boolean',
+        ];
+    }
+
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeOrdered(Builder $query): Builder
+    {
+        return $query->orderBy('order')->orderBy('id');
+    }
+
+    public function scopeCategory(Builder $query, string $category): Builder
+    {
+        return $query->where('category', $category);
+    }
+}

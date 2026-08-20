@@ -23,13 +23,13 @@ class SecurityHeadersMiddleware
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
         $response->headers->set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
 
-        // Content-Security-Policy
-        $csp = "default-src 'self'; " .
-               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; " .
-               "style-src 'self' 'unsafe-inline' https:; " .
-               "img-src 'self' data: https:; " .
-               "font-src 'self' data: https:; " .
-               "connect-src 'self' https: ws: wss:; " .
+        // Content-Security-Policy (supports production and local Vite dev server)
+        $csp = "default-src 'self' http: https: data: blob:; " .
+               "script-src 'self' 'unsafe-inline' 'unsafe-eval' http: https:; " .
+               "style-src 'self' 'unsafe-inline' http: https:; " .
+               "img-src 'self' data: blob: http: https:; " .
+               "font-src 'self' data: http: https:; " .
+               "connect-src 'self' http: https: ws: wss:; " .
                "frame-ancestors 'self'; " .
                "base-uri 'self'; " .
                "form-action 'self';";

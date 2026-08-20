@@ -153,8 +153,12 @@
                 <!-- Brand Logo & Name -->
                 <div class="flex items-center gap-3">
                     <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                        @if($logo)
-                            <img src="{{ $logo }}" alt="{{ $siteName }}" class="h-9 w-auto object-contain transition group-hover:opacity-90">
+                        @php
+                            $logoPath = $logo ? ltrim(parse_url($logo, PHP_URL_PATH) ?? $logo, '/') : null;
+                            $hasLogo = $logoPath && (file_exists(public_path($logoPath)) || str_starts_with($logo, 'http'));
+                        @endphp
+                        @if($hasLogo)
+                            <img src="{{ str_starts_with($logo, 'http') ? $logo : asset($logoPath) }}" alt="{{ $siteName }}" class="h-9 w-auto object-contain transition group-hover:opacity-90">
                         @else
                             <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shadow-lg shadow-blue-600/30 text-white font-bold text-base tracking-wider border border-blue-400/30 group-hover:scale-105 transition transform">
                                 {{ substr($siteName, 0, 2) }}

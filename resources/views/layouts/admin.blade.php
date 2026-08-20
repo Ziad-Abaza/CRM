@@ -44,8 +44,13 @@
             <!-- Sidebar Header / Logo -->
             <div class="h-16 px-6 border-b border-slate-800 flex items-center justify-between">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 group">
-                    @if(setting('company_logo'))
-                        <img src="{{ setting('company_logo') }}" alt="Logo" class="h-8 w-auto object-contain">
+                    @php
+                        $companyLogo = setting('company_logo');
+                        $logoPath = $companyLogo ? ltrim(parse_url($companyLogo, PHP_URL_PATH) ?? $companyLogo, '/') : null;
+                        $hasLogo = $logoPath && (file_exists(public_path($logoPath)) || str_starts_with($companyLogo, 'http'));
+                    @endphp
+                    @if($hasLogo)
+                        <img src="{{ str_starts_with($companyLogo, 'http') ? $companyLogo : asset($logoPath) }}" alt="{{ setting('site_name', 'Apex') }}" class="h-8 w-auto object-contain">
                     @else
                         <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-md shadow-indigo-600/30 text-white font-bold text-sm">
                             {{ substr(setting('site_name', 'Apex'), 0, 2) }}

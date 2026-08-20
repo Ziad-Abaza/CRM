@@ -18,8 +18,12 @@
             <!-- Brand Column -->
             <div class="lg:col-span-2 space-y-6">
                 <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                    @if($logo)
-                        <img src="{{ $logo }}" alt="{{ $siteName }}" class="h-8 w-auto object-contain">
+                    @php
+                        $footerLogoPath = $logo ? ltrim(parse_url($logo, PHP_URL_PATH) ?? $logo, '/') : null;
+                        $hasFooterLogo = $footerLogoPath && (file_exists(public_path($footerLogoPath)) || str_starts_with($logo, 'http'));
+                    @endphp
+                    @if($hasFooterLogo)
+                        <img src="{{ str_starts_with($logo, 'http') ? $logo : asset($footerLogoPath) }}" alt="{{ $siteName }}" class="h-8 w-auto object-contain">
                     @else
                         <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm">
                             {{ substr($siteName, 0, 2) }}

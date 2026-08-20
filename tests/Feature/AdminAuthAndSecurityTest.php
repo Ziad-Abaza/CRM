@@ -174,10 +174,7 @@ class AdminAuthAndSecurityTest extends TestCase
         $response = $this->actingAs($admin)->get(route('admin.dashboard'));
 
         $response->assertStatus(200);
-        $response->assertJson([
-            'status' => 'success',
-            'message' => 'Welcome to Admin Dashboard',
-        ]);
+        $response->assertSee('System Performance');
     }
 
     public function test_admin_can_logout_and_audit_log_is_recorded(): void

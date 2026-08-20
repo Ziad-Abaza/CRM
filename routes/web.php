@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 use App\Http\Controllers\Admin\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -19,12 +19,28 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // Protected Admin Routes
     Route::middleware(['admin.auth'])->group(function () {
-        Route::get('/dashboard', function () {
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Welcome to Admin Dashboard',
-                'user' => auth()->user()->only(['id', 'name', 'email', 'role']),
-            ]);
-        })->name('dashboard');
+        Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+
+        // Branding & Visual Theme Customizer
+        Route::get('/branding', [\App\Http\Controllers\Admin\BrandingController::class, 'index'])->name('branding.index');
+        Route::put('/branding', [\App\Http\Controllers\Admin\BrandingController::class, 'update'])->name('branding.update');
+
+        // Content Section Managers
+        Route::prefix('content')->name('content.')->group(function () {
+            Route::get('/hero', [\App\Http\Controllers\Admin\ContentSectionController::class, 'hero'])->name('hero');
+            Route::put('/hero', [\App\Http\Controllers\Admin\ContentSectionController::class, 'updateHero'])->name('hero.update');
+
+            Route::get('/about', [\App\Http\Controllers\Admin\ContentSectionController::class, 'about'])->name('about');
+            Route::put('/about', [\App\Http\Controllers\Admin\ContentSectionController::class, 'updateAbout'])->name('about.update');
+
+            Route::get('/contact', [\App\Http\Controllers\Admin\ContentSectionController::class, 'contact'])->name('contact');
+            Route::put('/contact', [\App\Http\Controllers\Admin\ContentSectionController::class, 'updateContact'])->name('contact.update');
+
+            Route::get('/seo', [\App\Http\Controllers\Admin\ContentSectionController::class, 'seo'])->name('seo');
+            Route::put('/seo', [\App\Http\Controllers\Admin\ContentSectionController::class, 'updateSeo'])->name('seo.update');
+
+            Route::get('/footer', [\App\Http\Controllers\Admin\ContentSectionController::class, 'footer'])->name('footer');
+            Route::put('/footer', [\App\Http\Controllers\Admin\ContentSectionController::class, 'updateFooter'])->name('footer.update');
+        });
     });
 });

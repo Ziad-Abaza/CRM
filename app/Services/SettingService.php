@@ -14,13 +14,31 @@ class SettingService
     /**
      * Get all cached settings.
      *
-     * @return Collection<string, mixed>
+     * @return Collection<string, object>
      */
     public function getAll(): Collection
     {
-        return Cache::remember(self::CACHE_KEY, self::CACHE_TTL, function () {
-            return Setting::all()->keyBy('key');
-        });
+        $cached = Cache::get(self::CACHE_KEY);
+
+        // If corrupted, incomplete class, or not an array, rebuild from database
+        if (!is_array($cached)) {
+            $cached = Setting::query()
+                ->get(['id', 'key', 'value', 'group', 'type', 'is_public'])
+                ->keyBy('key')
+                ->map(fn ($item) => (object) [
+                    'id' => $item->id,
+                    'key' => $item->key,
+                    'value' => $item->value,
+                    'group' => $item->group,
+                    'type' => $item->type,
+                    'is_public' => (bool) $item->is_public,
+                ])
+                ->toArray();
+
+            Cache::put(self::CACHE_KEY, $cached, self::CACHE_TTL);
+        }
+
+        return collect($cached)->map(fn ($item) => is_object($item) ? $item : (object) $item);
     }
 
     /**
@@ -38,10 +56,9 @@ class SettingService
             return $default;
         }
 
-        /** @var Setting $setting */
         $setting = $settings->get($key);
 
-        return $this->castValue($setting->value, $setting->type);
+        return $this->castValue($setting->value ?? null, $setting->type ?? null);
     }
 
     /**
@@ -56,8 +73,8 @@ class SettingService
 
         $groupSettings = [];
         foreach ($settings as $key => $setting) {
-            if ($setting->group === $group) {
-                $groupSettings[$key] = $this->castValue($setting->value, $setting->type);
+            if (($setting->group ?? null) === $group) {
+                $groupSettings[$key] = $this->castValue($setting->value ?? null, $setting->type ?? null);
             }
         }
 

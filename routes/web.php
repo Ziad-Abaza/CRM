@@ -8,6 +8,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// WhatsApp Lead Telemetry & Redirection Routes
+Route::post('/api/track-whatsapp-lead', [\App\Http\Controllers\Public\WhatsAppLeadController::class, 'trackClick'])->name('api.whatsapp.track');
+Route::get('/whatsapp/redirect', [\App\Http\Controllers\Public\WhatsAppLeadController::class, 'redirect'])->name('whatsapp.redirect');
+
 // Admin Auth Routes
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('guest')->group(function () {
@@ -20,6 +24,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Protected Admin Routes
     Route::middleware(['admin.auth'])->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+
+        // WhatsApp Leads CRM & Telemetry Analytics
+        Route::get('/leads/export', [\App\Http\Controllers\Admin\LeadAnalyticsController::class, 'exportCsv'])->name('leads.export');
+        Route::delete('/leads/{lead}', [\App\Http\Controllers\Admin\LeadAnalyticsController::class, 'destroy'])->name('leads.destroy');
+        Route::get('/leads', [\App\Http\Controllers\Admin\LeadAnalyticsController::class, 'index'])->name('leads.index');
 
         // Branding & Visual Theme Customizer
         Route::get('/branding', [\App\Http\Controllers\Admin\BrandingController::class, 'index'])->name('branding.index');

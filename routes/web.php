@@ -3,10 +3,10 @@
 use App\Http\Controllers\Admin\AuthController;
 use Illuminate\Support\Facades\Route;
 
-// Public routes
-Route::get('/', function () {
-    return view('welcome');
-});
+// Public Frontend Routes
+Route::get('/', [\App\Http\Controllers\Public\HomeController::class, '__invoke'])->name('home');
+Route::get('/services/{slug}', [\App\Http\Controllers\Public\ServiceDetailController::class, 'show'])->name('service.detail');
+Route::get('/portfolio/{slug}', [\App\Http\Controllers\Public\PortfolioDetailController::class, 'show'])->name('portfolio.detail');
 
 // WhatsApp Lead Telemetry & Redirection Routes
 Route::post('/api/track-whatsapp-lead', [\App\Http\Controllers\Public\WhatsAppLeadController::class, 'trackClick'])->name('api.whatsapp.track');

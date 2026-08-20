@@ -2,13 +2,18 @@
 
 namespace Tests\Feature;
 
+use Database\Seeders\DefaultCompanySeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class EnvironmentSetupTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_application_boots_and_returns_successful_response(): void
     {
+        $this->seed(DefaultCompanySeeder::class);
         $response = $this->get('/');
         $response->assertStatus(200);
     }

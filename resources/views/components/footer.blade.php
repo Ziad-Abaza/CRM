@@ -23,7 +23,7 @@
                         $hasFooterLogo = $footerLogoPath && (file_exists(public_path($footerLogoPath)) || str_starts_with($logo, 'http'));
                     @endphp
                     @if($hasFooterLogo)
-                        <img src="{{ str_starts_with($logo, 'http') ? $logo : asset($footerLogoPath) }}" alt="{{ $siteName }}" class="h-7 w-auto object-contain">
+                        <img src="{{ str_starts_with($logo, 'http') ? $logo : asset($footerLogoPath) }}" alt="{{ $siteName }}" width="112" height="28" loading="lazy" decoding="async" class="h-7 w-auto object-contain">
                     @else
                         <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-xs">
                             {{ substr($siteName, 0, 2) }}

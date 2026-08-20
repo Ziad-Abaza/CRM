@@ -23,6 +23,13 @@ class SecurityHeadersMiddleware
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
         $response->headers->set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
         $response->headers->set('X-DNS-Prefetch-Control', 'on');
+        $response->headers->set('Vary', 'Accept-Encoding, Accept');
+
+        // Asset-specific aggressive caching headers
+        $path = $request->path();
+        if (str_starts_with($path, 'build/') || str_starts_with($path, 'images/') || str_ends_with($path, '.svg') || str_ends_with($path, '.ico')) {
+            $response->headers->set('Cache-Control', 'public, max-age=31536000, immutable');
+        }
 
         // Content-Security-Policy (supports production and local Vite dev server)
         $csp = "default-src 'self' http: https: data: blob:; " .

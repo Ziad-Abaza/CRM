@@ -130,6 +130,64 @@
                     </svg>
                     <span>Footer &amp; Social</span>
                 </a>
+
+                <div class=pt-5 px-3 pb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400>Content Modules</div>
+
+                <a href={{ route('admin.services.index') }} 
+                   class=flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.services.*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60' }}>
+                    <svg class=w-5 h-5 flex-shrink-0 fill=none stroke=currentColor viewBox=0 0 24 24>
+                        <path stroke-linecap=round stroke-linejoin=round stroke-width=2 d=M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z />
+                    </svg>
+                    <span>Services</span>
+                </a>
+
+                <a href={{ route('admin.portfolio.index') }} 
+                   class=flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.portfolio.*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60' }}>
+                    <svg class=w-5 h-5 flex-shrink-0 fill=none stroke=currentColor viewBox=0 0 24 24>
+                        <path stroke-linecap=round stroke-linejoin=round stroke-width=2 d=M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10 />
+                    </svg>
+                    <span>Portfolio</span>
+                </a>
+
+                <a href={{ route('admin.pricing.index') }} 
+                   class=flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.pricing.*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60' }}>
+                    <svg class=w-5 h-5 flex-shrink-0 fill=none stroke=currentColor viewBox=0 0 24 24>
+                        <path stroke-linecap=round stroke-linejoin=round stroke-width=2 d=M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z />
+                    </svg>
+                    <span>Pricing Plans</span>
+                </a>
+
+                <a href={{ route('admin.testimonials.index') }} 
+                   class=flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.testimonials.*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60' }}>
+                    <svg class=w-5 h-5 flex-shrink-0 fill=none stroke=currentColor viewBox=0 0 24 24>
+                        <path stroke-linecap=round stroke-linejoin=round stroke-width=2 d=M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z />
+                    </svg>
+                    <span>Testimonials</span>
+                </a>
+
+                <a href={{ route('admin.team.index') }} 
+                   class=flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.team.*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60' }}>
+                    <svg class=w-5 h-5 flex-shrink-0 fill=none stroke=currentColor viewBox=0 0 24 24>
+                        <path stroke-linecap=round stroke-linejoin=round stroke-width=2 d=M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z />
+                    </svg>
+                    <span>Team Members</span>
+                </a>
+
+                <a href={{ route('admin.stats.index') }} 
+                   class=flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.stats.*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60' }}>
+                    <svg class=w-5 h-5 flex-shrink-0 fill=none stroke=currentColor viewBox=0 0 24 24>
+                        <path stroke-linecap=round stroke-linejoin=round stroke-width=2 d=M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z />
+                    </svg>
+                    <span>Stats Counters</span>
+                </a>
+
+                <a href={{ route('admin.faqs.index') }} 
+                   class=flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.faqs.*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60' }}>
+                    <svg class=w-5 h-5 flex-shrink-0 fill=none stroke=currentColor viewBox=0 0 24 24>
+                        <path stroke-linecap=round stroke-linejoin=round stroke-width=2 d=M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z />
+                    </svg>
+                    <span>FAQs</span>
+                </a>
             </nav>
 
             <!-- User Footer in Sidebar -->

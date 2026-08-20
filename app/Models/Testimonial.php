@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Testimonial extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     protected $fillable = [
         'client_name',
@@ -20,6 +21,18 @@ class Testimonial extends Model
         'is_featured',
         'is_active',
         'order',
+    ];
+
+    /**
+     * @var array<int, string>
+     */
+    protected $translatable = [
+        'client_name',
+        'client_role',
+        'company',
+        'content',
+        'author_name',
+        'author_role',
     ];
 
     protected function casts(): array

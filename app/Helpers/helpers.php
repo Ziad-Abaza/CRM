@@ -11,9 +11,10 @@ if (!function_exists('setting')) {
      *
      * @param string|array<string, mixed>|null $key
      * @param mixed $default
+     * @param string|null $locale
      * @return mixed|\App\Services\SettingService
      */
-    function setting(string|array|null $key = null, mixed $default = null): mixed
+    function setting(string|array|null $key = null, mixed $default = null, ?string $locale = null): mixed
     {
         $service = app(SettingService::class);
 
@@ -26,7 +27,7 @@ if (!function_exists('setting')) {
             return null;
         }
 
-        return $service->get($key, $default);
+        return $service->get($key, $default, $locale);
     }
 }
 

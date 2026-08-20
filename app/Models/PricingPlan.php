@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class PricingPlan extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     protected $fillable = [
         'name',
@@ -22,6 +23,16 @@ class PricingPlan extends Model
         'is_active',
         'order',
         'whatsapp_message',
+    ];
+
+    /**
+     * @var array<int, string>
+     */
+    protected $translatable = [
+        'name',
+        'billing_period',
+        'description',
+        'features',
     ];
 
     protected function casts(): array

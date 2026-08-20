@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     protected $fillable = [
         'title',
@@ -20,6 +21,16 @@ class Service extends Model
         'features',
         'order',
         'is_active',
+    ];
+
+    /**
+     * @var array<int, string>
+     */
+    protected $translatable = [
+        'title',
+        'short_description',
+        'description',
+        'features',
     ];
 
     protected function casts(): array

@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class StatsCounter extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     protected $fillable = [
         'label',
@@ -17,6 +18,15 @@ class StatsCounter extends Model
         'icon',
         'order',
         'is_active',
+    ];
+
+    /**
+     * @var array<int, string>
+     */
+    protected $translatable = [
+        'label',
+        'suffix',
+        'prefix',
     ];
 
     protected function casts(): array

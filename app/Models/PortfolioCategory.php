@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PortfolioCategory extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations;
 
     protected $fillable = [
         'name',
@@ -17,6 +18,14 @@ class PortfolioCategory extends Model
         'description',
         'order',
         'is_active',
+    ];
+
+    /**
+     * @var array<int, string>
+     */
+    protected $translatable = [
+        'name',
+        'description',
     ];
 
     protected function casts(): array

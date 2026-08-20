@@ -6,23 +6,23 @@
         <!-- Section Header -->
         <div class="text-center space-y-3 sm:space-y-4 mb-10 sm:mb-14">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-300 text-xs font-semibold uppercase tracking-wider">
-                Clarification &amp; Governance
+                {{ __('frontend.faqs.section_badge') }}
             </div>
             <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-                Frequently Asked Questions
+                {{ setting('faqs_section_title', __('frontend.faqs.section_title')) }}
             </h2>
             <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-                Key specifics regarding our corporate engagements, SLAs, and direct WhatsApp communication.
+                {{ setting('faqs_section_subtitle', __('frontend.faqs.section_subtitle')) }}
             </p>
         </div>
 
         <!-- FAQs Accordion -->
         <div class="space-y-3" x-data="{ activeAccordion: null }">
             @foreach($faqs as $faq)
-                <div class="rounded-2xl border border-slate-200 dark:border-slate-800/90 bg-white dark:bg-slate-900/90 overflow-hidden shadow-sm transition">
+                <div class="rounded-2xl border border-slate-200 dark:border-slate-800/90 bg-white dark:bg-slate-900/90 overflow-hidden shadow-sm transition text-start">
                     <button type="button" 
                             @click="activeAccordion = (activeAccordion === {{ $faq->id }} ? null : {{ $faq->id }})"
-                            class="w-full px-4 sm:px-5 py-3.5 sm:py-4 text-left flex items-center justify-between gap-4 font-bold text-slate-900 dark:text-white text-xs sm:text-sm hover:text-blue-600 dark:hover:text-blue-400 transition">
+                            class="w-full px-4 sm:px-5 py-3.5 sm:py-4 text-start flex items-center justify-between gap-4 font-bold text-slate-900 dark:text-white text-xs sm:text-sm hover:text-blue-600 dark:hover:text-blue-400 transition">
                         <span class="leading-snug">{{ $faq->question }}</span>
                         <div class="h-6 w-6 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 flex-shrink-0 transition transform duration-200"
                              :class="{ 'rotate-180 bg-blue-600 text-white dark:bg-blue-600': activeAccordion === {{ $faq->id }} }">

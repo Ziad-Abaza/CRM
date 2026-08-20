@@ -6,20 +6,20 @@
         <!-- Section Header -->
         <div class="max-w-3xl mx-auto text-center space-y-3 sm:space-y-4 mb-10 sm:mb-14">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-300 text-xs font-semibold uppercase tracking-wider">
-                Leadership
+                {{ __('frontend.team.section_badge') }}
             </div>
             <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-                Managing Partners &amp; Practice Directors
+                {{ setting('team_section_title', __('frontend.team.section_title')) }}
             </h2>
             <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-                Direct engagement on every initiative. No junior handoffs or unvetted subcontracting.
+                {{ setting('team_section_subtitle', __('frontend.team.section_subtitle')) }}
             </p>
         </div>
 
         <!-- Team Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
             @foreach($teamMembers as $member)
-                <div class="rounded-2xl border border-slate-200 dark:border-slate-800/90 bg-white dark:bg-slate-900/90 overflow-hidden shadow-sm hover:shadow-xl transition duration-300 flex flex-col justify-between group">
+                <div class="rounded-2xl border border-slate-200 dark:border-slate-800/90 bg-white dark:bg-slate-900/90 overflow-hidden shadow-sm hover:shadow-xl transition duration-300 flex flex-col justify-between group text-start">
                     
                     <!-- Portrait Frame -->
                     <div class="h-44 sm:h-48 bg-slate-100 dark:bg-slate-950 relative overflow-hidden flex items-center justify-center">
@@ -36,8 +36,8 @@
                                 {{ substr($member->name, 0, 2) }}
                             </div>
                         @endif
-                        <span class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-white/90 dark:bg-slate-950/80 backdrop-blur-md text-[10px] font-bold text-blue-700 dark:text-blue-300 border border-slate-200 dark:border-slate-800">
-                            Partner Tier
+                        <span class="absolute bottom-2 start-2 px-2 py-0.5 rounded bg-white/90 dark:bg-slate-950/80 backdrop-blur-md text-[10px] font-bold text-blue-700 dark:text-blue-300 border border-slate-200 dark:border-slate-800">
+                            {{ __('frontend.team.leadership_team') }}
                         </span>
                     </div>
 
@@ -54,7 +54,7 @@
                         <!-- Direct WhatsApp Consult CTA -->
                         <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                             <x-whatsapp-cta-button 
-                                text="Consult Partner" 
+                                :text="__('frontend.team.schedule_session')" 
                                 :message="'Hello, I would like to schedule a strategy discussion with ' . $member->name . ' (' . $member->role . ').'"
                                 buttonLocation="team_member_card" 
                                 variant="dark" 

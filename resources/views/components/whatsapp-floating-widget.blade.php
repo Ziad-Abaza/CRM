@@ -6,30 +6,32 @@
 ])
 
 @php
+    $currentLocale = current_locale();
+    $isRtl = is_rtl();
     $companyName = $companyName ?? setting('site_name', 'Apex Corporate Solutions');
     $avatar = $avatar ?? setting('company_logo');
-    $defaultMessage = $defaultMessage ?? setting('whatsapp_default_message', 'Hello, I would like to schedule an executive strategy session.');
+    $defaultMessage = $defaultMessage ?? setting('whatsapp_default_message', __('frontend.whatsapp.default_message'));
     
     $promptOptions = $promptOptions ?? [
         [
             'icon' => '💼',
-            'title' => 'Executive Strategy Session',
-            'text' => 'Hello Apex team, I would like to request an executive corporate strategy consultation.'
+            'title' => $isRtl ? 'جلسة استراتيجية تنفيذية' : 'Executive Strategy Session',
+            'text' => $isRtl ? 'مرحباً فريق أبيكس، أود طلب استشارة تنفيذية حول استراتيجية التحول المؤسسي.' : 'Hello Apex team, I would like to request an executive corporate strategy consultation.'
         ],
         [
             'icon' => '📊',
-            'title' => 'M&A & Operational Due Diligence',
-            'text' => 'Hi, I need strategic advisory regarding M&A technology audit and due diligence.'
+            'title' => $isRtl ? 'الفحص الفني والتدقيق للاستحواذ' : 'M&A & Operational Due Diligence',
+            'text' => $isRtl ? 'مرحباً، أحتاج إلى استشارة استراتيجية حول الفحص النافي للجهالة التقني للاستحواذ والاندماج.' : 'Hi, I need strategic advisory regarding M&A technology audit and due diligence.'
         ],
         [
             'icon' => '🛡️',
-            'title' => 'SOC 2 & Compliance Governance',
-            'text' => 'Hello, I would like to discuss our enterprise SOC 2 and risk compliance roadmap.'
+            'title' => $isRtl ? 'حوكمة الامتثال ومعايير SOC 2' : 'SOC 2 & Compliance Governance',
+            'text' => $isRtl ? 'مرحباً، أود مناقشة خارطة طريق الامتثال لمعايير SOC 2 وإدارة المخاطر لمؤسستنا.' : 'Hello, I would like to discuss our enterprise SOC 2 and risk compliance roadmap.'
         ],
         [
             'icon' => '⚡',
-            'title' => 'Workflow & AI Automation',
-            'text' => 'Hi Apex team, I want to explore automated executive RPA and workflow transformation.'
+            'title' => $isRtl ? 'أتمتة العمليات والذكاء الاصطناعي' : 'Workflow & AI Automation',
+            'text' => $isRtl ? 'مرحباً فريق أبيكس، أود استكشاف حلول أتمتة العمليات التنفيذية والتحول الرقمي.' : 'Hi Apex team, I want to explore automated executive RPA and workflow transformation.'
         ],
     ];
 @endphp
@@ -85,20 +87,20 @@
             window.open(redirectUrl, '_blank', 'noopener,noreferrer');
         }
     }" 
-    class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end"
+    class="fixed bottom-4 right-4 rtl:right-auto rtl:left-4 sm:bottom-6 sm:right-6 rtl:sm:right-auto rtl:sm:left-6 z-50 flex flex-col {{ $isRtl ? 'items-start' : 'items-end' }}"
     @keydown.escape.window="isOpen = false">
 
     <!-- Floating Chat Card (Fluid and responsive with Light/Dark support) -->
     <div x-show="isOpen" 
          x-cloak
-         x-transition:enter="transition ease-out duration-300 transform origin-bottom-right"
+         x-transition:enter="transition ease-out duration-300 transform origin-bottom-right rtl:origin-bottom-left"
          x-transition:enter-start="opacity-0 translate-y-4 scale-95"
          x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-         x-transition:leave="transition ease-in duration-200 transform origin-bottom-right"
+         x-transition:leave="transition ease-in duration-200 transform origin-bottom-right rtl:origin-bottom-left"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 translate-y-4 scale-95"
          @click.outside="isOpen = false"
-         class="mb-3 w-[calc(100vw-2rem)] max-w-[350px] rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 shadow-2xl shadow-slate-900/10 dark:shadow-slate-950/90 overflow-hidden flex flex-col backdrop-blur-xl transition-colors duration-200">
+         class="mb-3 w-[calc(100vw-2rem)] max-w-[350px] rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 shadow-2xl shadow-slate-900/10 dark:shadow-slate-950/90 overflow-hidden flex flex-col backdrop-blur-xl transition-colors duration-200 text-start">
 
         <!-- Card Header -->
         <div class="px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-700 dark:from-emerald-700 dark:to-teal-800 text-white flex items-center justify-between relative overflow-hidden">
@@ -115,13 +117,13 @@
                             {{ substr($companyName, 0, 2) }}
                         </div>
                     @endif
-                    <span class="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-400 border-2 border-white dark:border-slate-900"></span>
+                    <span class="absolute bottom-0 end-0 h-2.5 w-2.5 rounded-full bg-emerald-400 border-2 border-white dark:border-slate-900"></span>
                 </div>
                 <div class="min-w-0">
                     <h3 class="font-bold text-xs sm:text-sm leading-tight text-white truncate">{{ $companyName }}</h3>
                     <p class="text-[10px] text-emerald-100 font-medium flex items-center gap-1 mt-0.5 truncate">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse flex-shrink-0"></span>
-                        <span>WhatsApp Executive Desk</span>
+                        <span>{{ __('frontend.whatsapp.chat_header_title') }}</span>
                     </p>
                 </div>
             </div>
@@ -129,7 +131,7 @@
             <button type="button" 
                     @click="isOpen = false" 
                     class="relative z-10 p-1 rounded-full text-emerald-100 hover:text-white hover:bg-white/10 transition flex-shrink-0"
-                    aria-label="Close Chat">
+                    aria-label="{{ __('ui.modals.close') }}">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -143,25 +145,25 @@
                 <div class="h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-600/20 border border-emerald-300 dark:border-emerald-500/30 flex items-center justify-center text-emerald-700 dark:text-emerald-400 text-xs font-bold flex-shrink-0 mt-0.5">
                     ⚡
                 </div>
-                <div class="p-2.5 rounded-xl rounded-tl-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-800 dark:text-slate-200 leading-relaxed shadow-sm">
-                    <p class="font-semibold text-slate-900 dark:text-white mb-0.5">Welcome.</p>
-                    <p class="text-slate-600 dark:text-slate-300 text-[11px]">Select a topic or send a note directly to our WhatsApp line:</p>
+                <div class="p-2.5 rounded-xl {{ $isRtl ? 'rounded-tr-sm' : 'rounded-tl-sm' }} bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-800 dark:text-slate-200 leading-relaxed shadow-sm">
+                    <p class="font-semibold text-slate-900 dark:text-white mb-0.5">{{ $isRtl ? 'مرحباً بك.' : 'Welcome.' }}</p>
+                    <p class="text-slate-600 dark:text-slate-300 text-[11px]">{{ __('frontend.whatsapp.prompt_intro') }}</p>
                 </div>
             </div>
 
             <!-- Quick Inquiry Prompt Pills -->
             <div class="space-y-1.5 pt-0.5">
-                <p class="text-[9px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 px-0.5">Suggested Topics</p>
+                <p class="text-[9px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 px-0.5">{{ $isRtl ? 'الموضوعات المقترحة' : 'Suggested Topics' }}</p>
                 @foreach($promptOptions as $option)
                     <button type="button" 
                             @click="startChat('{{ addslashes($option['text']) }}')"
                             :disabled="isSending"
-                            class="w-full text-left p-2 rounded-lg bg-white dark:bg-slate-900/90 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 hover:border-emerald-500/40 transition group flex items-center justify-between text-xs gap-2">
+                            class="w-full text-start p-2 rounded-lg bg-white dark:bg-slate-900/90 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 hover:border-emerald-500/40 transition group flex items-center justify-between text-xs gap-2">
                         <div class="flex items-center gap-2 min-w-0">
                             <span class="text-sm flex-shrink-0">{{ $option['icon'] }}</span>
                             <span class="font-medium text-slate-700 dark:text-slate-200 group-hover:text-emerald-600 dark:group-hover:text-emerald-300 truncate text-[11px] transition">{{ $option['title'] }}</span>
                         </div>
-                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 group-hover:translate-x-0.5 transition flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 rtl:rotate-180 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 transition flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </button>
@@ -174,13 +176,14 @@
             <form @submit.prevent="startChat(customMessage)" class="flex items-center gap-1.5">
                 <input type="text" 
                        x-model="customMessage" 
-                       placeholder="Type your strategic inquiry..." 
+                       placeholder="{{ $isRtl ? 'اكتب استفسارك الاستراتيجي...' : 'Type your strategic inquiry...' }}" 
                        :disabled="isSending"
                        class="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700/80 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
                 <button type="submit" 
                         :disabled="isSending"
-                        class="p-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition disabled:opacity-50 shadow-md shadow-emerald-600/30 flex items-center justify-center flex-shrink-0">
-                    <svg x-show="!isSending" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="p-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition disabled:opacity-50 shadow-md shadow-emerald-600/30 flex items-center justify-center flex-shrink-0"
+                        aria-label="{{ __('ui.buttons.submit') }}">
+                    <svg x-show="!isSending" class="w-3.5 h-3.5 fill-none rtl:rotate-180" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                     </svg>
                     <svg x-show="isSending" class="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -190,7 +193,7 @@
                 </button>
             </form>
             <div class="mt-1 text-center text-[9px] text-slate-500 dark:text-slate-400">
-                🔒 Privacy-First Communication via Official WhatsApp Channel
+                {{ $isRtl ? '🔒 تواصل مباشر وآمن عبر قناة واتساب المؤسسية الرسمية' : '🔒 Privacy-First Communication via Official WhatsApp Channel' }}
             </div>
         </div>
     </div>
@@ -200,17 +203,17 @@
         <!-- Floating Prompt Badge on Hover -->
         <div x-show="!isOpen" 
              x-transition:enter="transition ease-out duration-200"
-             x-transition:enter-start="opacity-0 translate-x-2"
+             x-transition:enter-start="opacity-0 translate-x-2 rtl:-translate-x-2"
              x-transition:enter-end="opacity-100 translate-x-0"
-             class="hidden md:flex absolute right-14 top-2 items-center pointer-events-none opacity-0 group-hover:opacity-100 transition duration-200 whitespace-nowrap bg-slate-900 text-white text-xs font-semibold px-2.5 py-1 rounded-lg border border-slate-700 shadow-xl">
-            <span>Direct WhatsApp Channel</span>
-            <div class="w-2 h-2 bg-slate-900 border-t border-r border-slate-700 transform rotate-45 absolute -right-1"></div>
+             class="hidden md:flex absolute {{ $isRtl ? 'left-14' : 'right-14' }} top-2 items-center pointer-events-none opacity-0 group-hover:opacity-100 transition duration-200 whitespace-nowrap bg-slate-900 text-white text-xs font-semibold px-2.5 py-1 rounded-lg border border-slate-700 shadow-xl">
+            <span>{{ __('frontend.whatsapp.direct_channel') }}</span>
+            <div class="w-2 h-2 bg-slate-900 border-t {{ $isRtl ? 'border-l -left-1' : 'border-r -right-1' }} border-slate-700 transform rotate-45 absolute"></div>
         </div>
 
         <button type="button" 
                 @click="isOpen = !isOpen" 
                 class="h-12 w-12 sm:h-13 sm:w-13 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white shadow-xl shadow-emerald-600/30 dark:shadow-emerald-950/80 flex items-center justify-center transition transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-emerald-500/30 relative"
-                aria-label="Open WhatsApp Chat">
+                aria-label="{{ __('frontend.whatsapp.floating_button_tooltip') }}">
             
             <!-- Pulse Glow Ring -->
             <span class="absolute -inset-1 rounded-full bg-emerald-500/30 animate-ping opacity-60 pointer-events-none"></span>

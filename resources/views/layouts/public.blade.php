@@ -1,25 +1,37 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full scroll-smooth" data-theme="{{ setting('active_theme_default', 'dark') }}">
+<html lang="{{ current_locale() }}" dir="{{ locale_direction() }}" class="h-full scroll-smooth" data-theme="{{ setting('active_theme_default', 'dark') }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @php
+        $currentLocale = current_locale();
+        $isRtl = is_rtl();
+        $localeConfig = config("locales.supported.{$currentLocale}", []);
+        
         $siteName = setting('site_name', 'Apex Corporate Solutions');
-        $tagline = setting('company_tagline', 'Enterprise Strategic Advisory & Digital Modernization');
+        $tagline = setting('company_tagline', $currentLocale === 'ar' ? 'الاستشارات الاستراتيجية للمؤسسات والتحديث الرقمي' : 'Enterprise Strategic Advisory & Digital Modernization');
         $metaTitle = setting('seo_meta_title', $siteName . ' | ' . $tagline);
-        $metaDesc = setting('seo_meta_description', 'High-impact enterprise digital consulting, high throughput architecture, and corporate acceleration solutions.');
-        $metaKeywords = setting('seo_meta_keywords', 'corporate advisory, enterprise transformation, business consulting, digital workflow optimization, fintech compliance');
+        $metaDesc = setting('seo_meta_description', __('seo.default_description'));
+        $metaKeywords = setting('seo_meta_keywords', __('seo.default_keywords'));
         
         // Theme Engine Configuration
         $themeMode = setting('theme_mode', 'toggle_allowed');
         $activeThemeDefault = setting('active_theme_default', 'dark');
-        $typographyFont = setting('typography_font', 'Plus Jakarta Sans');
-        $typographyFontHeading = setting('typography_font_heading');
-        if (!$typographyFontHeading || ($typographyFont !== 'Plus Jakarta Sans' && $typographyFontHeading === 'Plus Jakarta Sans')) {
-            $typographyFontHeading = $typographyFont;
+
+        // Dynamic Typography based on active locale
+        if ($isRtl) {
+            $typographyFont = setting('typography_font_ar', $localeConfig['font'] ?? 'Cairo');
+            $typographyFontHeading = setting('typography_font_heading_ar', $localeConfig['font_heading'] ?? $typographyFont);
+        } else {
+            $typographyFont = setting('typography_font', $localeConfig['font'] ?? 'Plus Jakarta Sans');
+            $typographyFontHeading = setting('typography_font_heading');
+            if (!$typographyFontHeading || ($typographyFont !== 'Plus Jakarta Sans' && $typographyFontHeading === 'Plus Jakarta Sans')) {
+                $typographyFontHeading = $typographyFont;
+            }
         }
+
         $radiusCard = setting('radius_card', '1rem');
         $radiusButton = setting('radius_button', '0.75rem');
         $radiusInput = setting('radius_input', '0.75rem');
@@ -69,6 +81,7 @@
         $logo = setting('company_logo');
 
         $encodedFont = urlencode($typographyFont);
+        $encodedFontHeading = urlencode($typographyFontHeading);
     @endphp
 
     <title>@yield('title', $metaTitle)</title>
@@ -82,6 +95,12 @@
     <meta property="og:description" content="@yield('meta_description', $metaDesc)">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:site_name" content="{{ $siteName }}">
+    <meta property="og:locale" content="{{ config("locales.supported.{$currentLocale}.og_locale", $isRtl ? 'ar_SA' : 'en_US') }}">
+    @foreach(supported_locales() as $code => $localeData)
+        @if($code !== $currentLocale)
+            <meta property="og:locale:alternate" content="{{ $localeData['og_locale'] ?? $code }}">
+        @endif
+    @endforeach
     @if($logo)
         <meta property="og:image" content="{{ url($logo) }}">
     @endif
@@ -93,6 +112,12 @@
     @if($logo)
         <meta name="twitter:image" content="{{ url($logo) }}">
     @endif
+
+    <!-- Localized Hreflang Alternate Links -->
+    @foreach(supported_locales() as $code => $localeData)
+        <link rel="alternate" hreflang="{{ $code }}" href="{{ switch_locale_url($code) }}">
+    @endforeach
+    <link rel="alternate" hreflang="x-default" href="{{ switch_locale_url(config('locales.default', 'en')) }}">
 
     <!-- Schema.org JSON-LD Structured Data -->
     @php
@@ -149,6 +174,13 @@
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ $encodedFont }}:wght@400;500;600;700;800&display=swap">
     </noscript>
+    @if($encodedFontHeading !== $encodedFont)
+        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family={{ $encodedFontHeading }}:wght@400;500;600;700;800&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ $encodedFontHeading }}:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+        <noscript>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ $encodedFontHeading }}:wght@400;500;600;700;800&display=swap">
+        </noscript>
+    @endif
 
     <!-- Production Optimized Asset Delivery (Zero Render-Blocking) -->
     @php
@@ -171,7 +203,7 @@
         @vite(['resources/js/app.js'])
     @endif
 
-    <!-- Real-time Dynamic Light/Dark Theme Custom Properties Injection -->
+    <!-- Real-time Dynamic Light/Dark Theme & RTL/LTR Custom Properties Injection -->
     <style id="dynamic-theme-vars">
         :root {
             /* Fallback & Shared typography/geometry */
@@ -307,7 +339,7 @@
             <div class="flex items-center justify-between h-16 sm:h-18">
                 <!-- Brand Logo & Name -->
                 <div class="flex items-center gap-2.5 sm:gap-3">
-                    <a href="{{ route('home') }}" class="flex items-center gap-2.5 sm:gap-3 group">
+                    <a href="{{ localized_route('home') }}" class="flex items-center gap-2.5 sm:gap-3 group">
                         @php
                             $logoPath = $logo ? ltrim(parse_url($logo, PHP_URL_PATH) ?? $logo, '/') : null;
                             $hasLogo = $logoPath && (file_exists(public_path($logoPath)) || str_starts_with($logo, 'http'));
@@ -346,23 +378,63 @@
                 </div>
 
                 <!-- Desktop Navigation Links -->
-                <nav class="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
-                    <a href="{{ route('home') }}#services" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">Services</a>
-                    <a href="{{ route('home') }}#portfolio" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">Case Studies</a>
-                    <a href="{{ route('home') }}#pricing" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">Pricing</a>
-                    <a href="{{ route('home') }}#about" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">About</a>
-                    <a href="{{ route('home') }}#team" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">Team</a>
-                    <a href="{{ route('home') }}#faqs" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">FAQs</a>
+                <nav class="hidden md:flex items-center gap-5 lg:gap-7 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                    <a href="{{ localized_route('home') }}#services" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">{{ __('ui.nav.services') }}</a>
+                    <a href="{{ localized_route('home') }}#portfolio" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">{{ __('ui.nav.case_studies') }}</a>
+                    <a href="{{ localized_route('home') }}#pricing" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">{{ __('ui.nav.pricing') }}</a>
+                    <a href="{{ localized_route('home') }}#about" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">{{ __('ui.nav.about') }}</a>
+                    <a href="{{ localized_route('home') }}#team" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">{{ __('ui.nav.team') }}</a>
+                    <a href="{{ localized_route('home') }}#faqs" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">{{ __('ui.nav.faqs') }}</a>
                 </nav>
 
-                <!-- Desktop Actions: Theme Toggle & WhatsApp CTA -->
-                <div class="hidden lg:flex items-center gap-3">
+                <!-- Desktop Actions: Language Switcher, Theme Toggle & WhatsApp CTA -->
+                <div class="hidden lg:flex items-center gap-2.5">
+                    <!-- Language Switcher Dropdown -->
+                    <div class="relative" x-data="{ langMenuOpen: false }" @click.outside="langMenuOpen = false">
+                        <button type="button" 
+                                @click="langMenuOpen = !langMenuOpen" 
+                                class="flex items-center gap-1.5 px-2.5 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                aria-label="{{ __('ui.toggles.language') }}"
+                                :aria-expanded="langMenuOpen">
+                            <span>{{ config("locales.supported.{$currentLocale}.flag", '🌐') }}</span>
+                            <span>{{ config("locales.supported.{$currentLocale}.native", strtoupper($currentLocale)) }}</span>
+                            <svg class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" :class="{ 'rotate-180': langMenuOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+                        <div x-show="langMenuOpen" 
+                             x-cloak 
+                             x-transition:enter="transition ease-out duration-150"
+                             x-transition:enter-start="opacity-0 scale-95"
+                             x-transition:enter-end="opacity-100 scale-100"
+                             x-transition:leave="transition ease-in duration-100"
+                             x-transition:leave-start="opacity-100 scale-100"
+                             x-transition:leave-end="opacity-0 scale-95"
+                             class="absolute {{ $isRtl ? 'left-0' : 'right-0' }} mt-2 w-36 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-1 z-50">
+                            @foreach(supported_locales() as $code => $localeData)
+                                <a href="{{ switch_locale_url($code) }}" 
+                                   class="flex items-center justify-between px-3 py-2 text-xs font-medium {{ $currentLocale === $code ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 font-bold' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} transition">
+                                    <span class="flex items-center gap-2">
+                                        <span>{{ $localeData['flag'] ?? '' }}</span>
+                                        <span>{{ $localeData['native'] ?? $localeData['name'] }}</span>
+                                    </span>
+                                    @if($currentLocale === $code)
+                                        <svg class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    @endif
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+
                     @if($themeMode !== 'dark_only' && $themeMode !== 'light_only')
                         <!-- Theme Toggle Button -->
                         <button type="button" 
                                 @click="toggleTheme()" 
                                 class="p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                :aria-label="theme === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'">
+                                :aria-label="theme === 'dark' ? '{{ __('ui.toggles.switch_to_light') }}' : '{{ __('ui.toggles.switch_to_dark') }}'">
                             <!-- Sun icon when dark -->
                             <svg x-show="theme === 'dark'" class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -375,19 +447,31 @@
                     @endif
 
                     <x-whatsapp-cta-button 
-                        text="Consult via WhatsApp" 
+                        :text="__('frontend.hero.consult_cta')" 
                         buttonLocation="navbar" 
                         variant="emerald" 
                         size="md" />
                 </div>
 
-                <!-- Mobile Menu Button & Mobile Theme Toggle -->
+                <!-- Mobile Menu Button, Mobile Language Switcher & Mobile Theme Toggle -->
                 <div class="flex md:hidden items-center gap-1.5">
+                    <!-- Mobile Direct Language Switch -->
+                    @php
+                        $alternateLocale = $currentLocale === 'ar' ? 'en' : 'ar';
+                        $alternateLocaleData = config("locales.supported.{$alternateLocale}", []);
+                    @endphp
+                    <a href="{{ switch_locale_url($alternateLocale) }}" 
+                       class="px-2 py-1.5 rounded-lg text-xs font-bold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition"
+                       aria-label="{{ __('ui.toggles.switch_language') }}">
+                        <span>{{ $alternateLocaleData['flag'] ?? '' }}</span>
+                        <span>{{ $alternateLocaleData['native'] ?? strtoupper($alternateLocale) }}</span>
+                    </a>
+
                     @if($themeMode !== 'dark_only' && $themeMode !== 'light_only')
                         <button type="button" 
                                 @click="toggleTheme()" 
                                 class="p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition"
-                                :aria-label="theme === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'">
+                                :aria-label="theme === 'dark' ? '{{ __('ui.toggles.switch_to_light') }}' : '{{ __('ui.toggles.switch_to_dark') }}'">
                             <svg x-show="theme === 'dark'" class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>
@@ -422,17 +506,32 @@
              x-transition:leave-start="opacity-100 translate-y-0"
              x-transition:leave-end="opacity-0 -translate-y-2"
              class="md:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-3">
-            <div class="flex flex-col space-y-2 font-semibold text-slate-700 dark:text-slate-200">
-                <a href="{{ route('home') }}#services" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">Services</a>
-                <a href="{{ route('home') }}#portfolio" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">Case Studies</a>
-                <a href="{{ route('home') }}#pricing" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">Pricing</a>
-                <a href="{{ route('home') }}#about" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">About</a>
-                <a href="{{ route('home') }}#team" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">Team</a>
-                <a href="{{ route('home') }}#faqs" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">FAQs</a>
+            <div class="flex flex-col space-y-1 font-semibold text-slate-700 dark:text-slate-200">
+                <a href="{{ localized_route('home') }}#services" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">{{ __('ui.nav.services') }}</a>
+                <a href="{{ localized_route('home') }}#portfolio" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">{{ __('ui.nav.case_studies') }}</a>
+                <a href="{{ localized_route('home') }}#pricing" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">{{ __('ui.nav.pricing') }}</a>
+                <a href="{{ localized_route('home') }}#about" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">{{ __('ui.nav.about') }}</a>
+                <a href="{{ localized_route('home') }}#team" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">{{ __('ui.nav.team') }}</a>
+                <a href="{{ localized_route('home') }}#faqs" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">{{ __('ui.nav.faqs') }}</a>
             </div>
-            <div class="pt-3 border-t border-slate-200 dark:border-slate-800">
+
+            <!-- Mobile Language Switcher -->
+            <div class="pt-3 pb-1 border-t border-slate-200 dark:border-slate-800">
+                <p class="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">{{ __('ui.toggles.language') }}</p>
+                <div class="grid grid-cols-2 gap-2 px-1">
+                    @foreach(supported_locales() as $code => $localeData)
+                        <a href="{{ switch_locale_url($code) }}" 
+                           class="flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold border transition {{ $currentLocale === $code ? 'bg-blue-600 text-white border-blue-600 shadow-sm' : 'bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:bg-slate-200 dark:hover:bg-slate-800' }}">
+                            <span>{{ $localeData['flag'] ?? '' }}</span>
+                            <span>{{ $localeData['native'] ?? $localeData['name'] }}</span>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="pt-2 border-t border-slate-200 dark:border-slate-800">
                 <x-whatsapp-cta-button 
-                    text="Consult via WhatsApp" 
+                    :text="__('frontend.hero.consult_cta')" 
                     buttonLocation="navbar_mobile" 
                     variant="emerald" 
                     size="md" 

@@ -1,14 +1,15 @@
 @php
     $siteName = setting('site_name', 'Apex Corporate Solutions');
-    $tagline = setting('company_tagline', 'Enterprise Growth Architecture');
+    $tagline = setting('company_tagline', current_locale() === 'ar' ? 'الاستشارات الاستراتيجية للمؤسسات والتحديث الرقمي' : 'Enterprise Growth Architecture');
     $logo = setting('company_logo');
-    $footerAbout = setting('footer_about', 'Apex Corporate Solutions delivers high-impact management consulting, digital transformation, and operational resilience to modern enterprises globally.');
-    $footerCopyright = setting('footer_copyright', '© ' . date('Y') . ' ' . $siteName . '. All rights reserved.');
+    $footerAbout = setting('footer_about', __('frontend.footer.about_text'));
+    $footerCopyright = setting('footer_copyright', '© ' . date('Y') . ' ' . $siteName . '. ' . __('frontend.footer.rights_reserved'));
     $email = setting('contact_email', 'contact@apexcorporate.com');
     $phone = setting('contact_phone', '+1 (555) 019-2834');
-    $address = setting('contact_address', '100 Montgomery Street, Suite 2400, San Francisco, CA 94104');
+    $address = setting('contact_address', __('frontend.footer.address'));
     $linkedin = setting('social_linkedin');
     $twitter = setting('social_twitter');
+    $currentLocale = current_locale();
 @endphp
 
 <footer class="bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-xs sm:text-sm transition-colors duration-200">
@@ -16,8 +17,8 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6">
             
             <!-- Brand Column -->
-            <div class="lg:col-span-2 space-y-4">
-                <a href="{{ route('home') }}" class="flex items-center gap-2.5 group">
+            <div class="lg:col-span-2 space-y-4 text-start">
+                <a href="{{ localized_route('home') }}" class="flex items-center gap-2.5 group">
                     @php
                         $footerLogoPath = $logo ? ltrim(parse_url($logo, PHP_URL_PATH) ?? $logo, '/') : null;
                         $hasFooterLogo = $footerLogoPath && (file_exists(public_path($footerLogoPath)) || str_starts_with($logo, 'http'));
@@ -43,6 +44,20 @@
                     {{ $footerAbout }}
                 </p>
 
+                <!-- Language Switcher in Footer -->
+                <div class="pt-1 flex items-center gap-2">
+                    <span class="text-[11px] font-semibold text-slate-500 dark:text-slate-400">{{ __('ui.toggles.language') }}:</span>
+                    <div class="flex items-center gap-1.5">
+                        @foreach(supported_locales() as $code => $localeData)
+                            <a href="{{ switch_locale_url($code) }}" 
+                               class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold transition {{ $currentLocale === $code ? 'bg-blue-600 text-white shadow-xs' : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-200 dark:hover:bg-slate-800' }}">
+                                <span>{{ $localeData['flag'] ?? '' }}</span>
+                                <span>{{ $localeData['native'] ?? $localeData['name'] }}</span>
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+
                 <!-- Social Icons -->
                 <div class="flex items-center gap-2 pt-1">
                     @if($linkedin)
@@ -59,41 +74,41 @@
             </div>
 
             <!-- Quick Navigation Links -->
-            <div class="space-y-3">
-                <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white">Navigation</h4>
+            <div class="space-y-3 text-start">
+                <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white">{{ __('frontend.footer.navigation_title') }}</h4>
                 <ul class="space-y-2 text-xs">
-                    <li><a href="{{ route('home') }}#services" class="hover:text-slate-900 dark:hover:text-white transition">Services</a></li>
-                    <li><a href="{{ route('home') }}#portfolio" class="hover:text-slate-900 dark:hover:text-white transition">Case Studies</a></li>
-                    <li><a href="{{ route('home') }}#pricing" class="hover:text-slate-900 dark:hover:text-white transition">Pricing Plans</a></li>
-                    <li><a href="{{ route('home') }}#about" class="hover:text-slate-900 dark:hover:text-white transition">About Apex</a></li>
-                    <li><a href="{{ route('home') }}#team" class="hover:text-slate-900 dark:hover:text-white transition">Leadership</a></li>
-                    <li><a href="{{ route('home') }}#faqs" class="hover:text-slate-900 dark:hover:text-white transition">FAQs</a></li>
+                    <li><a href="{{ localized_route('home') }}#services" class="hover:text-slate-900 dark:hover:text-white transition">{{ __('ui.nav.services') }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#portfolio" class="hover:text-slate-900 dark:hover:text-white transition">{{ __('ui.nav.case_studies') }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#pricing" class="hover:text-slate-900 dark:hover:text-white transition">{{ __('ui.nav.pricing') }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#about" class="hover:text-slate-900 dark:hover:text-white transition">{{ __('ui.nav.about') }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#team" class="hover:text-slate-900 dark:hover:text-white transition">{{ __('ui.nav.team') }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#faqs" class="hover:text-slate-900 dark:hover:text-white transition">{{ __('ui.nav.faqs') }}</a></li>
                 </ul>
             </div>
 
-            <!-- Direct Solutions -->
-            <div class="space-y-3">
-                <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white">Capabilities</h4>
+            <!-- Direct Solutions / Capabilities -->
+            <div class="space-y-3 text-start">
+                <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white">{{ __('frontend.footer.capabilities_title') }}</h4>
                 <ul class="space-y-2 text-xs">
-                    <li><a href="{{ route('home') }}#services" class="hover:text-slate-900 dark:hover:text-white transition">Digital Modernization</a></li>
-                    <li><a href="{{ route('home') }}#services" class="hover:text-slate-900 dark:hover:text-white transition">M&amp;A Due Diligence</a></li>
-                    <li><a href="{{ route('home') }}#services" class="hover:text-slate-900 dark:hover:text-white transition">Risk &amp; SOC2 Governance</a></li>
-                    <li><a href="{{ route('home') }}#services" class="hover:text-slate-900 dark:hover:text-white transition">Workflow Automation</a></li>
-                    <li><a href="{{ route('home') }}#services" class="hover:text-slate-900 dark:hover:text-white transition">Fractional C-Suite</a></li>
+                    <li><a href="{{ localized_route('home') }}#services" class="hover:text-slate-900 dark:hover:text-white transition">{{ $currentLocale === 'ar' ? 'التحديث الرقمي والأنظمة السحابية' : 'Digital Modernization' }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#services" class="hover:text-slate-900 dark:hover:text-white transition">{{ $currentLocale === 'ar' ? 'الفحص النافي للجهالة التقني' : 'M&A Due Diligence' }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#services" class="hover:text-slate-900 dark:hover:text-white transition">{{ $currentLocale === 'ar' ? 'حوكمة الامتثال ومعايير SOC 2' : 'Risk & SOC2 Governance' }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#services" class="hover:text-slate-900 dark:hover:text-white transition">{{ $currentLocale === 'ar' ? 'أتمتة العمليات وهندسة التدفقات' : 'Workflow Automation' }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#services" class="hover:text-slate-900 dark:hover:text-white transition">{{ $currentLocale === 'ar' ? 'القيادة التنفيذية التقنية الجزئية' : 'Fractional C-Suite' }}</a></li>
                 </ul>
             </div>
 
             <!-- Contact / Direct WhatsApp -->
-            <div class="space-y-3">
-                <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white">Direct Channel</h4>
+            <div class="space-y-3 text-start">
+                <h4 class="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white">{{ __('frontend.footer.direct_channel_title') }}</h4>
                 <div class="space-y-2 text-xs">
                     <p class="leading-relaxed text-slate-700 dark:text-slate-300">{{ $address }}</p>
-                    <p class="text-slate-700 dark:text-slate-300">{{ $phone }}</p>
-                    <p class="text-blue-600 dark:text-blue-400 font-mono">{{ $email }}</p>
+                    <p class="text-slate-700 dark:text-slate-300" dir="ltr">{{ $phone }}</p>
+                    <p class="text-blue-600 dark:text-blue-400 font-mono" dir="ltr">{{ $email }}</p>
                     
                     <div class="pt-1">
                         <x-whatsapp-cta-button 
-                            text="WhatsApp Channel" 
+                            :text="__('frontend.whatsapp.direct_channel')" 
                             buttonLocation="footer" 
                             variant="emerald" 
                             size="sm" 
@@ -108,9 +123,9 @@
         <div class="pt-8 mt-8 border-t border-slate-200 dark:border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
             <p>{{ $footerCopyright }}</p>
             <div class="flex items-center gap-4 text-[11px]">
-                <span>Enterprise Tier Infrastructure</span>
+                <span>{{ __('frontend.footer.enterprise_infrastructure') }}</span>
                 <span>•</span>
-                <span class="text-emerald-600 dark:text-emerald-400 font-semibold">100% WhatsApp Connected</span>
+                <span class="text-emerald-600 dark:text-emerald-400 font-semibold">{{ __('frontend.footer.whatsapp_connected') }}</span>
             </div>
         </div>
     </div>

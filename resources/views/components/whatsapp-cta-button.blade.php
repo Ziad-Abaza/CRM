@@ -1,5 +1,5 @@
 @props([
-    'text' => 'Consult via WhatsApp',
+    'text' => null,
     'buttonLocation' => 'general_cta',
     'location' => null,
     'message' => null,
@@ -11,8 +11,9 @@
 ])
 
 @php
+    $text = $text ?? __('frontend.hero.consult_cta');
     $finalLocation = $location ?? $buttonLocation;
-    $finalMessage = $message ?? $prefilledMessage ?? setting('whatsapp_default_message', 'Hello, I would like to inquire about your services.');
+    $finalMessage = $message ?? $prefilledMessage ?? setting('whatsapp_default_message', __('frontend.whatsapp.default_message'));
     
     // Style Variants with Light & Dark support
     $variantClasses = match ($variant) {
@@ -95,5 +96,5 @@
         </svg>
     @endif
 
-    <span class="truncate">{{ $slot->isEmpty() ? $text : $slot }}</span>
+    <span class="truncate">{{ trim((string)$slot) !== '' ? $slot : $text }}</span>
 </button>

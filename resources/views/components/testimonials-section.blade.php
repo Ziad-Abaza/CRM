@@ -6,23 +6,23 @@
         <!-- Section Header -->
         <div class="max-w-3xl mx-auto text-center space-y-3 sm:space-y-4 mb-10 sm:mb-14">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/80 border border-amber-200 dark:border-amber-500/30 text-amber-700 dark:text-amber-300 text-xs font-semibold uppercase tracking-wider">
-                Executive Endorsements
+                {{ __('frontend.testimonials.section_badge') }}
             </div>
             <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-                Validated Outcomes from Enterprise Partners
+                {{ setting('testimonials_section_title', __('frontend.testimonials.section_title')) }}
             </h2>
             <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-                Direct testimonials from Chief Technology Officers, CEOs, and Operations Executives.
+                {{ setting('testimonials_section_subtitle', __('frontend.testimonials.section_subtitle')) }}
             </p>
         </div>
 
         <!-- Testimonial Cards Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
             @foreach($testimonials as $testimonial)
-                <div class="rounded-2xl border border-slate-200 dark:border-slate-800/90 bg-slate-50/60 dark:bg-slate-900/80 p-5 sm:p-6 shadow-sm hover:shadow-md transition duration-200 flex flex-col justify-between space-y-4">
+                <div class="rounded-2xl border border-slate-200 dark:border-slate-800/90 bg-slate-50/60 dark:bg-slate-900/80 p-5 sm:p-6 shadow-sm hover:shadow-md transition duration-200 flex flex-col justify-between space-y-4 text-start">
                     <div class="space-y-3">
                         <!-- Rating Stars -->
-                        <div class="flex items-center gap-1 text-amber-500 text-xs font-bold">
+                        <div class="flex items-center gap-1 text-amber-500 text-xs font-bold" dir="ltr">
                             @for($i = 0; $i < ($testimonial->rating ?? 5); $i++)
                                 <span>★</span>
                             @endfor

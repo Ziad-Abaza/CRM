@@ -6,20 +6,20 @@
         <!-- Section Header -->
         <div class="max-w-3xl mx-auto text-center space-y-3 sm:space-y-4 mb-10 sm:mb-14">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-300 text-xs font-semibold uppercase tracking-wider">
-                Strategic Capabilities
+                {{ __('frontend.services.section_badge') }}
             </div>
             <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-                Institutional-Grade Advisory &amp; Technical Execution
+                {{ setting('services_section_title', __('frontend.services.section_title')) }}
             </h2>
             <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-                Engineered for mid-market and enterprise organizations navigating mission-critical scaling inflection points.
+                {{ setting('services_section_subtitle', __('frontend.services.section_subtitle')) }}
             </p>
         </div>
 
         <!-- Services Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             @foreach($services as $service)
-                <div class="rounded-2xl border border-slate-200 dark:border-slate-800/90 bg-white dark:bg-slate-900/90 p-5 sm:p-6 shadow-sm hover:shadow-xl hover:border-blue-500/50 transition duration-300 flex flex-col justify-between group">
+                <div class="rounded-2xl border border-slate-200 dark:border-slate-800/90 bg-white dark:bg-slate-900/90 p-5 sm:p-6 shadow-sm hover:shadow-xl hover:border-blue-500/50 transition duration-300 flex flex-col justify-between group text-start">
                     <div class="space-y-4">
                         
                         <!-- Service Icon Frame -->
@@ -40,7 +40,7 @@
                         <!-- Title & Description -->
                         <div class="space-y-1.5">
                             <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
-                                <a href="{{ route('service.detail', $service->slug) }}">
+                                <a href="{{ localized_route('service.detail', $service->slug) }}">
                                     {{ $service->title }}
                                 </a>
                             </h3>
@@ -67,15 +67,15 @@
 
                     <!-- Bottom Action Row -->
                     <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                        <a href="{{ route('service.detail', $service->slug) }}" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
-                            <span>Detailed Specification</span>
-                            <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <a href="{{ localized_route('service.detail', $service->slug) }}" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
+                            <span>{{ __('frontend.services.learn_more') }}</span>
+                            <svg class="w-3.5 h-3.5 rtl:rotate-180 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                             </svg>
                         </a>
 
                         <x-whatsapp-cta-button 
-                            text="Inquire" 
+                            :text="__('ui.buttons.contact_us')" 
                             :message="'Hello Apex Team, I would like to inquire about ' . $service->title . '.'"
                             buttonLocation="services_card" 
                             variant="dark" 

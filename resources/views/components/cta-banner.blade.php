@@ -1,9 +1,17 @@
 @props([
-    'title' => 'Ready to Modernize Your Enterprise Infrastructure?',
-    'subtitle' => 'Schedule a strategic diagnostic session with our managing partners on WhatsApp today.',
-    'ctaText' => 'Initiate Strategic Consultation',
+    'badge' => null,
+    'title' => null,
+    'subtitle' => null,
+    'ctaText' => null,
     'buttonLocation' => 'cta_banner',
 ])
+
+@php
+    $badge = $badge ?? __('frontend.cta_banner.badge');
+    $title = $title ?? setting('cta_banner_title', __('frontend.cta_banner.title'));
+    $subtitle = $subtitle ?? setting('cta_banner_subtitle', __('frontend.cta_banner.subtitle'));
+    $ctaText = $ctaText ?? setting('cta_banner_button_text', __('frontend.cta_banner.primary_button'));
+@endphp
 
 <section class="py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-slate-100 via-slate-50 to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 relative border-b border-slate-200 dark:border-slate-800/80 overflow-hidden transition-colors duration-200">
     <!-- Ambient Backdrop Light -->
@@ -12,7 +20,8 @@
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-5 sm:space-y-6">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-950/80 border border-blue-300 dark:border-blue-500/30 text-blue-800 dark:text-blue-300 text-xs font-semibold uppercase tracking-wider">
-            ⚡ Direct Executive Access
+            <span>⚡</span>
+            <span>{{ $badge }}</span>
         </div>
 
         <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight max-w-2xl mx-auto">

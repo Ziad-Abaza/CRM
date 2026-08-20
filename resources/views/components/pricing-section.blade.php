@@ -6,24 +6,24 @@
         <!-- Section Header -->
         <div class="max-w-3xl mx-auto text-center space-y-3 sm:space-y-4 mb-10 sm:mb-14">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/80 border border-indigo-200 dark:border-indigo-500/30 text-indigo-700 dark:text-indigo-300 text-xs font-semibold uppercase tracking-wider">
-                Transparent Advisory Retainers
+                {{ __('frontend.pricing.section_badge') }}
             </div>
             <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-                Predictable Engagement Models with Dedicated Capacity
+                {{ setting('pricing_section_title', __('frontend.pricing.section_title')) }}
             </h2>
             <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
-                Monthly advisory and engineering packages tailored for institutional velocity with direct executive SLAs.
+                {{ setting('pricing_section_subtitle', __('frontend.pricing.section_subtitle')) }}
             </p>
         </div>
 
         <!-- Pricing Cards Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
             @foreach($pricingPlans as $plan)
-                <div class="rounded-2xl border {{ $plan->is_featured ? 'border-emerald-500/60 bg-white dark:bg-slate-900 shadow-xl shadow-emerald-500/10 ring-2 ring-emerald-500/20' : 'border-slate-200 dark:border-slate-800/90 bg-white dark:bg-slate-900/80 shadow-sm' }} p-5 sm:p-6 lg:p-7 flex flex-col justify-between relative transition duration-300">
+                <div class="rounded-2xl border {{ $plan->is_featured ? 'border-emerald-500/60 bg-white dark:bg-slate-900 shadow-xl shadow-emerald-500/10 ring-2 ring-emerald-500/20' : 'border-slate-200 dark:border-slate-800/90 bg-white dark:bg-slate-900/80 shadow-sm' }} p-5 sm:p-6 lg:p-7 flex flex-col justify-between relative transition duration-300 text-start">
                     
                     @if($plan->is_featured)
                         <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-emerald-600 text-white font-bold text-[10px] uppercase tracking-wider shadow-md shadow-emerald-600/30">
-                            Most High-Growth Choice
+                            {{ __('frontend.pricing.popular_badge') }}
                         </div>
                     @endif
 
@@ -34,7 +34,7 @@
                         </div>
 
                         <!-- Price Tag -->
-                        <div class="py-2 border-y border-slate-100 dark:border-slate-800/80 flex items-baseline gap-1">
+                        <div class="py-2 border-y border-slate-100 dark:border-slate-800/80 flex items-baseline gap-1" dir="ltr">
                             <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold">{{ $plan->currency }}</span>
                             <span class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
                                 ${{ number_format($plan->price) }}
@@ -58,7 +58,7 @@
                     <!-- Action Button -->
                     <div class="pt-5 mt-5 border-t border-slate-100 dark:border-slate-800">
                         <x-whatsapp-cta-button 
-                            :text="'Initiate ' . $plan->name" 
+                            :text="__('frontend.pricing.get_started') . ' - ' . $plan->name" 
                             :message="$plan->whatsapp_message ?? 'Hello Apex team, I want to initiate the ' . $plan->name . ' tier.'"
                             buttonLocation="pricing_tier" 
                             :variant="$plan->is_featured ? 'emerald' : 'dark'" 

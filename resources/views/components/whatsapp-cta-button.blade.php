@@ -16,25 +16,25 @@
     
     // Style Variants
     $variantClasses = match ($variant) {
-        'primary' => 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30 border border-indigo-500/30',
-        'secondary' => 'bg-slate-800 hover:bg-slate-700 text-slate-100 shadow-md border border-slate-700',
-        'emerald' => 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/30 border border-emerald-500/30',
+        'primary' => 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-600/30 border border-indigo-500/30',
+        'secondary' => 'bg-slate-800 hover:bg-slate-700 text-slate-100 shadow-sm border border-slate-700',
+        'emerald' => 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-600/30 border border-emerald-500/30',
         'outline' => 'bg-transparent hover:bg-emerald-500/10 text-emerald-400 border border-emerald-500/40 hover:border-emerald-400',
-        'dark' => 'bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 shadow-md',
-        default => 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/30 border border-emerald-500/30',
+        'dark' => 'bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 shadow-sm',
+        default => 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-600/30 border border-emerald-500/30',
     };
 
-    // Sizes
+    // Responsive Sizes
     $sizeClasses = match ($size) {
-        'sm' => 'px-3.5 py-1.5 text-xs rounded-xl gap-1.5',
-        'lg' => 'px-6 py-3.5 text-base rounded-2xl gap-3 font-bold',
-        default => 'px-5 py-2.5 text-sm rounded-xl gap-2 font-semibold',
+        'sm' => 'px-3 py-1.5 text-xs rounded-lg gap-1.5 font-medium',
+        'lg' => 'px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm md:text-base rounded-xl gap-2 sm:gap-2.5 font-bold',
+        default => 'px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm rounded-xl gap-2 font-semibold',
     };
 
     $iconSize = match ($size) {
         'sm' => 'w-3.5 h-3.5',
-        'lg' => 'w-5 h-5',
-        default => 'w-4 h-4',
+        'lg' => 'w-4 h-4 sm:w-4.5 sm:h-4.5',
+        default => 'w-3.5 h-3.5 sm:w-4 sm:h-4',
     };
 @endphp
 
@@ -95,5 +95,5 @@
         </svg>
     @endif
 
-    <span>{{ $slot->isEmpty() ? $text : $slot }}</span>
+    <span class="truncate">{{ $slot->isEmpty() ? $text : $slot }}</span>
 </button>

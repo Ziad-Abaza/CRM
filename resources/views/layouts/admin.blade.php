@@ -235,82 +235,82 @@
         <!-- Main Content Area -->
         <div class="flex-1 flex flex-col min-w-0">
             <!-- Topbar -->
-            <header class="h-16 bg-slate-900/60 backdrop-blur-md border-b border-slate-800/80 px-4 sm:px-6 lg:px-8 flex items-center justify-between sticky top-0 z-30">
-                <div class="flex items-center gap-4">
-                    <button @click="sidebarOpen = true" class="lg:hidden p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <header class="h-14 sm:h-16 bg-slate-900/60 backdrop-blur-md border-b border-slate-800/80 px-3 sm:px-5 lg:px-6 flex items-center justify-between sticky top-0 z-30">
+                <div class="flex items-center gap-3">
+                    <button @click="sidebarOpen = true" class="lg:hidden p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
                     <!-- Breadcrumbs / Page Title Header -->
-                    <div class="flex items-center gap-2 text-sm">
+                    <div class="flex items-center gap-1.5 text-xs sm:text-sm">
                         <span class="text-slate-400">Portal</span>
                         <span class="text-slate-600">/</span>
-                        <span class="text-white font-medium">@yield('page_title', 'Dashboard')</span>
+                        <span class="text-white font-medium truncate max-w-[150px] sm:max-w-none">@yield('page_title', 'Dashboard')</span>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-3">
-                    <a href="{{ url('/') }}" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700 transition border border-slate-700/60">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <a href="{{ url('/') }}" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700 transition border border-slate-700/60">
                         <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
-                        <span>View Public Site</span>
+                        <span>View Site</span>
                     </a>
 
                     <div class="h-4 w-px bg-slate-800 hidden sm:block"></div>
 
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-1.5">
                         <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400 ring-4 ring-emerald-400/20"></span>
-                        <span class="text-xs text-slate-400 font-medium">Production</span>
+                        <span class="text-xs text-slate-400 font-medium hidden sm:inline">Production</span>
                     </div>
                 </div>
             </header>
 
             <!-- Flash Toast Notifications -->
-            <div class="px-4 sm:px-6 lg:px-8 pt-4">
+            <div class="px-3 sm:px-5 lg:px-6 pt-3">
                 @if (session('success'))
-                    <div x-data="{ show: true }" x-show="show" x-transition class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm flex items-center justify-between shadow-lg shadow-emerald-500/5">
-                        <div class="flex items-center gap-3">
-                            <svg class="w-5 h-5 flex-shrink-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div x-data="{ show: true }" x-show="show" x-transition class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm flex items-center justify-between shadow-md shadow-emerald-500/5">
+                        <div class="flex items-center gap-2.5">
+                            <svg class="w-4 h-4 flex-shrink-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             <span class="font-medium">{{ session('success') }}</span>
                         </div>
                         <button @click="show = false" class="text-emerald-400 hover:text-emerald-200">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                         </button>
                     </div>
                 @endif
 
                 @if (session('error'))
-                    <div x-data="{ show: true }" x-show="show" x-transition class="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-sm flex items-center justify-between shadow-lg shadow-rose-500/5">
-                        <div class="flex items-center gap-3">
-                            <svg class="w-5 h-5 flex-shrink-0 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div x-data="{ show: true }" x-show="show" x-transition class="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs sm:text-sm flex items-center justify-between shadow-md shadow-rose-500/5">
+                        <div class="flex items-center gap-2.5">
+                            <svg class="w-4 h-4 flex-shrink-0 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             <span class="font-medium">{{ session('error') }}</span>
                         </div>
                         <button @click="show = false" class="text-rose-400 hover:text-rose-200">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                         </button>
                     </div>
                 @endif
 
                 @if ($errors->any())
-                    <div x-data="{ show: true }" x-show="show" x-transition class="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-sm shadow-lg shadow-rose-500/5">
-                        <div class="flex items-center justify-between mb-2">
+                    <div x-data="{ show: true }" x-show="show" x-transition class="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs sm:text-sm shadow-md shadow-rose-500/5">
+                        <div class="flex items-center justify-between mb-1.5">
                             <div class="flex items-center gap-2 font-semibold">
-                                <svg class="w-5 h-5 flex-shrink-0 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-4 h-4 flex-shrink-0 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                 </svg>
                                 <span>Please resolve the following errors:</span>
                             </div>
                             <button @click="show = false" class="text-rose-400 hover:text-rose-200">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                             </button>
                         </div>
-                        <ul class="list-disc list-inside space-y-1 text-xs opacity-90 pl-1">
+                        <ul class="list-disc list-inside space-y-0.5 text-xs opacity-90 pl-1">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
@@ -320,7 +320,7 @@
             </div>
 
             <!-- Content Body -->
-            <main class="flex-1 p-4 sm:p-6 lg:p-8">
+            <main class="flex-1 p-3 sm:p-5 lg:p-6 min-w-0 overflow-x-hidden">
                 @yield('content')
             </main>
         </div>

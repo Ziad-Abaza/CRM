@@ -147,28 +147,28 @@
       x-data="{ mobileMenuOpen: false }">
 
     <!-- Top Sticky Corporate Navbar -->
-    <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-slate-950/85 border-b border-slate-800/80 transition-all duration-200">
+    <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-slate-950/90 border-b border-slate-800/80 transition-all duration-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
+            <div class="flex items-center justify-between h-16 sm:h-18">
                 <!-- Brand Logo & Name -->
-                <div class="flex items-center gap-3">
-                    <a href="{{ route('home') }}" class="flex items-center gap-3 group">
+                <div class="flex items-center gap-2.5 sm:gap-3">
+                    <a href="{{ route('home') }}" class="flex items-center gap-2.5 sm:gap-3 group">
                         @php
                             $logoPath = $logo ? ltrim(parse_url($logo, PHP_URL_PATH) ?? $logo, '/') : null;
                             $hasLogo = $logoPath && (file_exists(public_path($logoPath)) || str_starts_with($logo, 'http'));
                         @endphp
                         @if($hasLogo)
-                            <img src="{{ str_starts_with($logo, 'http') ? $logo : asset($logoPath) }}" alt="{{ $siteName }}" class="h-9 w-auto object-contain transition group-hover:opacity-90">
+                            <img src="{{ str_starts_with($logo, 'http') ? $logo : asset($logoPath) }}" alt="{{ $siteName }}" class="h-7 sm:h-8 w-auto object-contain transition group-hover:opacity-90">
                         @else
-                            <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shadow-lg shadow-blue-600/30 text-white font-bold text-base tracking-wider border border-blue-400/30 group-hover:scale-105 transition transform">
+                            <div class="h-8 w-8 sm:h-9 sm:w-9 rounded-lg sm:rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shadow-md shadow-blue-600/30 text-white font-bold text-xs sm:text-sm tracking-wider border border-blue-400/30 group-hover:scale-105 transition transform">
                                 {{ substr($siteName, 0, 2) }}
                             </div>
                         @endif
                         <div class="flex flex-col">
-                            <span class="font-extrabold text-base sm:text-lg text-white tracking-tight leading-tight group-hover:text-blue-400 transition">
+                            <span class="font-extrabold text-sm sm:text-base text-white tracking-tight leading-tight group-hover:text-blue-400 transition truncate max-w-[180px] sm:max-w-none">
                                 {{ $siteName }}
                             </span>
-                            <span class="text-[10px] text-slate-400 font-semibold tracking-wider uppercase hidden sm:block">
+                            <span class="text-[9px] text-slate-400 font-semibold tracking-wider uppercase hidden sm:block">
                                 {{ $tagline }}
                             </span>
                         </div>

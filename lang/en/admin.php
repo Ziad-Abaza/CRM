@@ -29,7 +29,7 @@ return [
         'theme_brand' => 'Theme & Brand',
     ],
     'dashboard' => [
-        'title' => 'Executive Dashboard',
+        'title' => 'System Performance & Telemetry',
         'subtitle' => 'Real-time telemetry, lead flow, and portal governance overview.',
         'welcome' => 'Welcome back, :name',
         'quick_actions' => 'Quick Actions',
@@ -49,7 +49,7 @@ return [
         'top_services' => 'Top Inquired Capabilities',
     ],
     'leads' => [
-        'title' => 'WhatsApp Leads CRM',
+        'title' => 'WhatsApp CRM Leads',
         'subtitle' => 'Track, qualify, and manage real-time WhatsApp conversion inquiries.',
         'export_csv' => 'Export Leads CSV',
         'filter_status' => 'Filter by Status',
@@ -77,7 +77,7 @@ return [
         'conversion_source' => 'Acquisition Channel & Button Location',
     ],
     'audit_logs' => [
-        'title' => 'Audit & Security Trail',
+        'title' => 'System Audit & Security Logs',
         'subtitle' => 'Immutable administrative activity logs for compliance and governance.',
         'export_csv' => 'Export Audit Log',
         'table_user' => 'Administrator',

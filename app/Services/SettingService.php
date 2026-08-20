@@ -74,6 +74,14 @@ class SettingService
             $type = is_array($item) ? ($item['type'] ?? null) : ($item->type ?? null);
             $cast = $this->castValue($val, $type);
 
+            // Check if $cast or raw $val is localized JSON
+            if (is_string($cast) && str_starts_with(trim($cast), '{')) {
+                $decoded = json_decode($cast, true);
+                if (is_array($decoded) && $this->isLocalizedArray($decoded)) {
+                    $cast = $decoded;
+                }
+            }
+
             // If it's a localized JSON array (e.g. ['en' => '...', 'ar' => '...'])
             if (is_array($cast) && $this->isLocalizedArray($cast)) {
                 $resolved = $this->resolveTranslationFromArray($cast, $currentLocale);
@@ -138,6 +146,9 @@ class SettingService
      */
     public function set(string $key, mixed $value, string $group = 'general', string $type = 'string', bool $isPublic = true): Setting
     {
+        if (is_array($value)) {
+            $type = 'json';
+        }
         $formattedValue = is_array($value) ? json_encode($value, JSON_UNESCAPED_UNICODE) : (is_bool($value) ? ($value ? '1' : '0') : (string) $value);
 
         $setting = Setting::updateOrCreate(

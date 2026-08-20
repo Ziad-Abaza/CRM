@@ -47,23 +47,24 @@ class ServiceController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:services,slug'],
-            'short_description' => ['nullable', 'string', 'max:500'],
-            'description' => ['nullable', 'string'],
+            'short_description' => ['nullable'],
+            'description' => ['nullable'],
             'icon' => ['nullable', 'string', 'max:100'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:2048'],
-            'features' => ['nullable', 'array'],
-            'features.*' => ['nullable', 'string', 'max:255'],
+            'features' => ['nullable'],
             'order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
         ]);
 
         if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['title']);
-            $count = Service::where('slug', 'like', $validated['slug'] . '%')->count();
+            $titleValue = is_array($validated['title']) ? ($validated['title']['en'] ?? reset($validated['title'])) : $validated['title'];
+            $validated['slug'] = Str::slug($titleValue ?: 'service');
+            $baseSlug = $validated['slug'];
+            $count = Service::where('slug', 'like', $baseSlug . '%')->count();
             if ($count > 0) {
-                $validated['slug'] .= '-' . ($count + 1);
+                $validated['slug'] = $baseSlug . '-' . ($count + 1);
             }
         } else {
             $validated['slug'] = Str::slug($validated['slug']);
@@ -74,7 +75,17 @@ class ServiceController extends Controller
             $validated['image'] = Storage::url($path);
         }
 
-        $validated['features'] = !empty($validated['features']) ? array_values(array_filter($validated['features'])) : [];
+        if (is_array($validated['features'] ?? null)) {
+            if (isset($validated['features']['en']) || isset($validated['features']['ar'])) {
+                $validated['features'] = [
+                    'en' => array_values(array_filter((array) ($validated['features']['en'] ?? []))),
+                    'ar' => array_values(array_filter((array) ($validated['features']['ar'] ?? []))),
+                ];
+            } else {
+                $validated['features'] = array_values(array_filter($validated['features']));
+            }
+        }
+
         $validated['order'] = $validated['order'] ?? 0;
         $validated['is_active'] = $request->boolean('is_active', true);
 
@@ -90,7 +101,7 @@ class ServiceController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.services.index')->with('success', 'Service created successfully.');
+        return redirect()->route('admin.services.index')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function edit(Service $service): View
@@ -101,14 +112,13 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service): RedirectResponse
     {
         $validated = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required'],
             'slug' => ['nullable', 'string', 'max:255', Rule::unique('services', 'slug')->ignore($service->id)],
-            'short_description' => ['nullable', 'string', 'max:500'],
-            'description' => ['nullable', 'string'],
+            'short_description' => ['nullable'],
+            'description' => ['nullable'],
             'icon' => ['nullable', 'string', 'max:100'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:2048'],
-            'features' => ['nullable', 'array'],
-            'features.*' => ['nullable', 'string', 'max:255'],
+            'features' => ['nullable'],
             'order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
         ]);
@@ -116,7 +126,8 @@ class ServiceController extends Controller
         $oldValues = $service->toArray();
 
         if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['title']);
+            $titleValue = is_array($validated['title']) ? ($validated['title']['en'] ?? reset($validated['title'])) : $validated['title'];
+            $validated['slug'] = Str::slug($titleValue ?: 'service');
         } else {
             $validated['slug'] = Str::slug($validated['slug']);
         }
@@ -126,7 +137,17 @@ class ServiceController extends Controller
             $validated['image'] = Storage::url($path);
         }
 
-        $validated['features'] = !empty($validated['features']) ? array_values(array_filter($validated['features'])) : [];
+        if (is_array($validated['features'] ?? null)) {
+            if (isset($validated['features']['en']) || isset($validated['features']['ar'])) {
+                $validated['features'] = [
+                    'en' => array_values(array_filter((array) ($validated['features']['en'] ?? []))),
+                    'ar' => array_values(array_filter((array) ($validated['features']['ar'] ?? []))),
+                ];
+            } else {
+                $validated['features'] = array_values(array_filter($validated['features']));
+            }
+        }
+
         $validated['order'] = $validated['order'] ?? $service->order;
         $validated['is_active'] = $request->boolean('is_active');
 
@@ -143,7 +164,7 @@ class ServiceController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.services.index')->with('success', 'Service updated successfully.');
+        return redirect()->route('admin.services.index')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function destroy(Request $request, Service $service): RedirectResponse
@@ -162,7 +183,7 @@ class ServiceController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.services.index')->with('success', 'Service deleted successfully.');
+        return redirect()->route('admin.services.index')->with('success', __('admin.messages.deleted_successfully'));
     }
 
     public function toggle(Request $request, Service $service): JsonResponse|RedirectResponse
@@ -186,10 +207,10 @@ class ServiceController extends Controller
             return response()->json([
                 'success' => true,
                 'is_active' => $service->is_active,
-                'message' => 'Service status updated.',
+                'message' => __('admin.messages.saved_successfully'),
             ]);
         }
 
-        return back()->with('success', 'Service status updated successfully.');
+        return back()->with('success', __('admin.messages.saved_successfully'));
     }
 }

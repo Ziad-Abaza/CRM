@@ -25,6 +25,7 @@ class Faq extends Model
     protected $translatable = [
         'question',
         'answer',
+        'category',
     ];
 
     protected function casts(): array

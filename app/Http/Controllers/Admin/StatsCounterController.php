@@ -44,9 +44,9 @@ class StatsCounterController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'label' => ['required', 'string', 'max:255'],
+            'label' => ['required'],
             'value' => ['required', 'string', 'max:50'],
-            'suffix' => ['nullable', 'string', 'max:50'],
+            'suffix' => ['nullable'],
             'icon' => ['nullable', 'string', 'max:100'],
             'order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
@@ -67,7 +67,7 @@ class StatsCounterController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.stats.index')->with('success', 'Metric counter created successfully.');
+        return redirect()->route('admin.stats.index')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function edit(StatsCounter $stat): View
@@ -78,9 +78,9 @@ class StatsCounterController extends Controller
     public function update(Request $request, StatsCounter $stat): RedirectResponse
     {
         $validated = $request->validate([
-            'label' => ['required', 'string', 'max:255'],
+            'label' => ['required'],
             'value' => ['required', 'string', 'max:50'],
-            'suffix' => ['nullable', 'string', 'max:50'],
+            'suffix' => ['nullable'],
             'icon' => ['nullable', 'string', 'max:100'],
             'order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
@@ -104,7 +104,7 @@ class StatsCounterController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.stats.index')->with('success', 'Metric counter updated successfully.');
+        return redirect()->route('admin.stats.index')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function destroy(Request $request, StatsCounter $stat): RedirectResponse
@@ -123,7 +123,7 @@ class StatsCounterController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.stats.index')->with('success', 'Metric counter deleted successfully.');
+        return redirect()->route('admin.stats.index')->with('success', __('admin.messages.deleted_successfully'));
     }
 
     public function toggle(Request $request, StatsCounter $stat): JsonResponse|RedirectResponse
@@ -147,10 +147,10 @@ class StatsCounterController extends Controller
             return response()->json([
                 'success' => true,
                 'is_active' => $stat->is_active,
-                'message' => 'Metric counter status updated.',
+                'message' => __('admin.messages.saved_successfully'),
             ]);
         }
 
-        return back()->with('success', 'Metric counter status updated successfully.');
+        return back()->with('success', __('admin.messages.saved_successfully'));
     }
 }

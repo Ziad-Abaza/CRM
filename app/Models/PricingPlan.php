@@ -33,6 +33,7 @@ class PricingPlan extends Model
         'billing_period',
         'description',
         'features',
+        'whatsapp_message',
     ];
 
     protected function casts(): array

@@ -52,10 +52,10 @@ class TestimonialController extends Controller
     {
         $validated = $request->validate([
             'client_name' => ['required', 'string', 'max:255'],
-            'client_role' => ['nullable', 'string', 'max:255'],
-            'company' => ['nullable', 'string', 'max:255'],
+            'client_role' => ['nullable'],
+            'company' => ['nullable'],
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:2048'],
-            'content' => ['required', 'string'],
+            'content' => ['required'],
             'rating' => ['required', 'integer', 'between:1,5'],
             'is_featured' => ['nullable', 'boolean'],
             'is_active' => ['nullable', 'boolean'],
@@ -83,7 +83,7 @@ class TestimonialController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.testimonials.index')->with('success', 'Endorsement registered successfully.');
+        return redirect()->route('admin.testimonials.index')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function edit(Testimonial $testimonial): View
@@ -95,10 +95,10 @@ class TestimonialController extends Controller
     {
         $validated = $request->validate([
             'client_name' => ['required', 'string', 'max:255'],
-            'client_role' => ['nullable', 'string', 'max:255'],
-            'company' => ['nullable', 'string', 'max:255'],
+            'client_role' => ['nullable'],
+            'company' => ['nullable'],
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:2048'],
-            'content' => ['required', 'string'],
+            'content' => ['required'],
             'rating' => ['required', 'integer', 'between:1,5'],
             'is_featured' => ['nullable', 'boolean'],
             'is_active' => ['nullable', 'boolean'],
@@ -129,7 +129,7 @@ class TestimonialController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.testimonials.index')->with('success', 'Endorsement updated successfully.');
+        return redirect()->route('admin.testimonials.index')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function destroy(Request $request, Testimonial $testimonial): RedirectResponse
@@ -148,7 +148,7 @@ class TestimonialController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.testimonials.index')->with('success', 'Endorsement deleted successfully.');
+        return redirect()->route('admin.testimonials.index')->with('success', __('admin.messages.deleted_successfully'));
     }
 
     public function toggle(Request $request, Testimonial $testimonial): JsonResponse|RedirectResponse
@@ -172,10 +172,10 @@ class TestimonialController extends Controller
             return response()->json([
                 'success' => true,
                 'is_active' => $testimonial->is_active,
-                'message' => 'Testimonial status updated.',
+                'message' => __('admin.messages.saved_successfully'),
             ]);
         }
 
-        return back()->with('success', 'Testimonial status updated successfully.');
+        return back()->with('success', __('admin.messages.saved_successfully'));
     }
 }

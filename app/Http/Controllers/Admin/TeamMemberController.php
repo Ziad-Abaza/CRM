@@ -46,9 +46,9 @@ class TeamMemberController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'role' => ['required', 'string', 'max:255'],
-            'bio' => ['nullable', 'string', 'max:1000'],
+            'name' => ['required'],
+            'role' => ['required'],
+            'bio' => ['nullable'],
             'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:2048'],
             'social_links' => ['nullable', 'array'],
             'social_links.*' => ['nullable', 'string', 'max:255'],
@@ -79,7 +79,7 @@ class TeamMemberController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.team.index')->with('success', 'Executive profile created successfully.');
+        return redirect()->route('admin.team.index')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function edit(TeamMember $team): View
@@ -90,9 +90,9 @@ class TeamMemberController extends Controller
     public function update(Request $request, TeamMember $team): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'role' => ['required', 'string', 'max:255'],
-            'bio' => ['nullable', 'string', 'max:1000'],
+            'name' => ['required'],
+            'role' => ['required'],
+            'bio' => ['nullable'],
             'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:2048'],
             'social_links' => ['nullable', 'array'],
             'social_links.*' => ['nullable', 'string', 'max:255'],
@@ -126,7 +126,7 @@ class TeamMemberController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.team.index')->with('success', 'Executive profile updated successfully.');
+        return redirect()->route('admin.team.index')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function destroy(Request $request, TeamMember $team): RedirectResponse
@@ -145,7 +145,7 @@ class TeamMemberController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.team.index')->with('success', 'Executive profile deleted successfully.');
+        return redirect()->route('admin.team.index')->with('success', __('admin.messages.deleted_successfully'));
     }
 
     public function toggle(Request $request, TeamMember $team): JsonResponse|RedirectResponse
@@ -169,10 +169,10 @@ class TeamMemberController extends Controller
             return response()->json([
                 'success' => true,
                 'is_active' => $team->is_active,
-                'message' => 'Team member status updated.',
+                'message' => __('admin.messages.saved_successfully'),
             ]);
         }
 
-        return back()->with('success', 'Team member status updated successfully.');
+        return back()->with('success', __('admin.messages.saved_successfully'));
     }
 }

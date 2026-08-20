@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Theme Engine & Branding Customizer')
-@section('page_title', 'Theme & Branding')
+@section('title', __('admin.branding.title'))
+@section('page_title', __('admin.nav.branding'))
 
 @section('content')
 <div x-data="{
@@ -192,16 +192,16 @@
     <!-- Header Section -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-            <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">Theme Engine &amp; Visual Identity</h1>
-            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5 sm:mt-1">Full control of dual Light/Dark color systems, typography, geometry, presets, and live simulation.</p>
+            <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">{{ __('admin.branding.title') }}</h1>
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5 sm:mt-1">{{ __('admin.branding.subtitle') }}</p>
         </div>
 
         <!-- Reset Button Action -->
-        <form method="POST" action="{{ route('admin.branding.reset') }}" onsubmit="return confirm('Reset all visual theme tokens back to default settings?');">
+        <form method="POST" action="{{ route('admin.branding.reset') }}" onsubmit="return confirm('{{ __('ui.confirmations.action_irreversible') }}');">
             @csrf
             <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-rose-900/60 text-slate-700 dark:text-slate-300 hover:text-rose-200 border border-slate-700 transition">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                <span>Reset to Factory Defaults</span>
+                <span>{{ __('ui.buttons.reset') }}</span>
             </button>
         </form>
     </div>
@@ -209,20 +209,20 @@
     <!-- Presets Quick Bar -->
     <div class="p-3.5 sm:p-4 rounded-xl bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
         <div class="flex items-center gap-2">
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">Quick Theme Presets:</span>
-            <span class="text-[11px] text-slate-500 dark:text-slate-400">Click to apply palette instantly</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-300">{{ __('admin.branding.colors') }}:</span>
+            <span class="text-[11px] text-slate-400">{{ __('admin.branding.subtitle') }}</span>
         </div>
         <div class="flex flex-wrap items-center gap-2">
-            <button type="button" @click="applyPreset('midnight')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-700 text-blue-300 border border-blue-500/30 transition">
+            <button type="button" @click="applyPreset('midnight')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-blue-300 border border-blue-500/30 transition">
                 Executive Midnight
             </button>
-            <button type="button" @click="applyPreset('obsidian')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/30 transition">
+            <button type="button" @click="applyPreset('obsidian')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/30 transition">
                 Obsidian Emerald
             </button>
-            <button type="button" @click="applyPreset('nordic')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-500/30 transition">
+            <button type="button" @click="applyPreset('nordic')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-500/30 transition">
                 Nordic Violet
             </button>
-            <button type="button" @click="applyPreset('sapphire')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-700 text-sky-300 border border-sky-500/30 transition">
+            <button type="button" @click="applyPreset('sapphire')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-sky-300 border border-sky-500/30 transition">
                 Corporate Sapphire
             </button>
         </div>
@@ -238,28 +238,27 @@
             
             <!-- Navigation Tabs -->
             <div class="flex flex-wrap items-center gap-1.5 p-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl">
-                <button type="button" @click="activeTab = 'dark'" :class="activeTab === 'dark' ? 'bg-indigo-600 text-slate-900 dark:text-white shadow-md' : 'text-slate-500 dark:text-slate-400 hover:text-slate-200'" class="px-3 py-1.5 rounded-lg text-xs font-bold transition">
-                    🌙 Dark Mode Tokens
+                <button type="button" @click="activeTab = 'dark'" :class="activeTab === 'dark' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 dark:text-slate-400 hover:text-slate-200'" class="px-3 py-1.5 rounded-lg text-xs font-bold transition">
+                    🌙 {{ __('admin.branding.dark_palette') }}
                 </button>
-                <button type="button" @click="activeTab = 'light'" :class="activeTab === 'light' ? 'bg-indigo-600 text-slate-900 dark:text-white shadow-md' : 'text-slate-500 dark:text-slate-400 hover:text-slate-200'" class="px-3 py-1.5 rounded-lg text-xs font-bold transition">
-                    ☀️ Light Mode Tokens
+                <button type="button" @click="activeTab = 'light'" :class="activeTab === 'light' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 dark:text-slate-400 hover:text-slate-200'" class="px-3 py-1.5 rounded-lg text-xs font-bold transition">
+                    ☀️ {{ __('admin.branding.light_palette') }}
                 </button>
-                <button type="button" @click="activeTab = 'typography'" :class="activeTab === 'typography' ? 'bg-indigo-600 text-slate-900 dark:text-white shadow-md' : 'text-slate-500 dark:text-slate-400 hover:text-slate-200'" class="px-3 py-1.5 rounded-lg text-xs font-bold transition">
-                    📐 Geometry &amp; Fonts
+                <button type="button" @click="activeTab = 'typography'" :class="activeTab === 'typography' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 dark:text-slate-400 hover:text-slate-200'" class="px-3 py-1.5 rounded-lg text-xs font-bold transition">
+                    📐 {{ __('admin.branding.typography') }}
                 </button>
-                <button type="button" @click="activeTab = 'brand'" :class="activeTab === 'brand' ? 'bg-indigo-600 text-slate-900 dark:text-white shadow-md' : 'text-slate-500 dark:text-slate-400 hover:text-slate-200'" class="px-3 py-1.5 rounded-lg text-xs font-bold transition">
-                    🏢 Company Assets
+                <button type="button" @click="activeTab = 'brand'" :class="activeTab === 'brand' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 dark:text-slate-400 hover:text-slate-200'" class="px-3 py-1.5 rounded-lg text-xs font-bold transition">
+                    🏢 {{ __('admin.branding.site_identity') }}
                 </button>
             </div>
 
             <!-- Tab 1: Dark Mode Tokens -->
-            <div x-show="activeTab === 'dark'" x-cloak class="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-200 dark:border-slate-800/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+            <div x-show="activeTab === 'dark'" x-cloak class="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
                 <div class="border-b border-slate-200 dark:border-slate-800 pb-3 flex items-center justify-between">
                     <div>
-                        <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Dark Mode Spectrum</h2>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Tokens applied when visitor or system is in Dark Mode</p>
+                        <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">{{ __('admin.branding.dark_palette') }}</h2>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('admin.branding.colors') }}</p>
                     </div>
-                    <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-700 dark:text-slate-300 text-[10px] font-mono font-bold">Dark Palette</span>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
@@ -268,7 +267,7 @@
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Base Background</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="darkBgBody" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="dark_bg_body" x-model="darkBgBody" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="dark_bg_body" x-model="darkBgBody" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
@@ -277,7 +276,7 @@
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Surface / Secondary BG</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="darkBgSurface" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="dark_bg_surface" x-model="darkBgSurface" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="dark_bg_surface" x-model="darkBgSurface" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
@@ -286,7 +285,7 @@
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Card / Component BG</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="darkBgCard" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="dark_bg_card" x-model="darkBgCard" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="dark_bg_card" x-model="darkBgCard" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
@@ -295,7 +294,7 @@
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Input Background</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="darkBgInput" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="dark_bg_input" x-model="darkBgInput" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="dark_bg_input" x-model="darkBgInput" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
@@ -304,7 +303,7 @@
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Primary Headings/Text</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="darkTextPrimary" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="dark_text_primary" x-model="darkTextPrimary" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="dark_text_primary" x-model="darkTextPrimary" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
@@ -313,7 +312,7 @@
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Muted Body Text</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="darkTextMuted" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="dark_text_muted" x-model="darkTextMuted" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="dark_text_muted" x-model="darkTextMuted" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
@@ -322,38 +321,37 @@
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Border Subtle</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="darkBorderSubtle" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="dark_border_subtle" x-model="darkBorderSubtle" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="dark_border_subtle" x-model="darkBorderSubtle" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
                     <!-- Accent / Brand Primary -->
                     <div>
-                        <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Primary Brand Brand Accent</label>
+                        <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">{{ __('admin.branding.primary_color') }}</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="darkPrimaryColor" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="dark_primary_color" x-model="darkPrimaryColor" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="dark_primary_color" x-model="darkPrimaryColor" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
                     <!-- Accent Interactive -->
                     <div>
-                        <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">CTA Action Accent (WhatsApp)</label>
+                        <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">{{ __('admin.branding.accent_color') }}</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="darkAccentColor" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="dark_accent_color" x-model="darkAccentColor" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="dark_accent_color" x-model="darkAccentColor" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Tab 2: Light Mode Tokens -->
-            <div x-show="activeTab === 'light'" x-cloak class="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-200 dark:border-slate-800/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+            <div x-show="activeTab === 'light'" x-cloak class="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
                 <div class="border-b border-slate-200 dark:border-slate-800 pb-3 flex items-center justify-between">
                     <div>
-                        <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Light Mode Spectrum</h2>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Tokens applied when visitor or system is in Light Mode</p>
+                        <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">{{ __('admin.branding.light_palette') }}</h2>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('admin.branding.colors') }}</p>
                     </div>
-                    <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 text-[10px] font-mono font-bold">Light Palette</span>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
@@ -362,7 +360,7 @@
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Base Background</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="lightBgBody" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="light_bg_body" x-model="lightBgBody" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="light_bg_body" x-model="lightBgBody" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
@@ -371,7 +369,7 @@
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Surface / Secondary BG</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="lightBgSurface" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="light_bg_surface" x-model="lightBgSurface" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="light_bg_surface" x-model="lightBgSurface" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
@@ -380,7 +378,7 @@
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Card / Component BG</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="lightBgCard" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="light_bg_card" x-model="lightBgCard" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="light_bg_card" x-model="lightBgCard" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
@@ -389,7 +387,7 @@
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Input Background</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="lightBgInput" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="light_bg_input" x-model="lightBgInput" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="light_bg_input" x-model="lightBgInput" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
@@ -398,7 +396,7 @@
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Primary Headings/Text</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="lightTextPrimary" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="light_text_primary" x-model="lightTextPrimary" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="light_text_primary" x-model="lightTextPrimary" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
@@ -407,7 +405,7 @@
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Muted Body Text</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="lightTextMuted" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="light_text_muted" x-model="lightTextMuted" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="light_text_muted" x-model="lightTextMuted" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
@@ -416,42 +414,42 @@
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Border Subtle</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="lightBorderSubtle" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="light_border_subtle" x-model="lightBorderSubtle" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="light_border_subtle" x-model="lightBorderSubtle" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
                     <!-- Light Primary Brand -->
                     <div>
-                        <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Primary Brand Accent</label>
+                        <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">{{ __('admin.branding.primary_color') }}</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="lightPrimaryColor" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="light_primary_color" x-model="lightPrimaryColor" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="light_primary_color" x-model="lightPrimaryColor" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
 
                     <!-- Light Accent Interactive -->
                     <div>
-                        <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">CTA Action Accent (WhatsApp)</label>
+                        <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">{{ __('admin.branding.accent_color') }}</label>
                         <div class="flex items-center gap-2">
                             <input type="color" x-model="lightAccentColor" class="h-8 w-10 rounded bg-transparent border-0 cursor-pointer p-0">
-                            <input type="text" name="light_accent_color" x-model="lightAccentColor" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
+                            <input type="text" name="light_accent_color" x-model="lightAccentColor" class="flex-1 px-3 py-1.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white font-mono uppercase text-xs">
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Tab 3: Geometry & Fonts -->
-            <div x-show="activeTab === 'typography'" x-cloak class="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-200 dark:border-slate-800/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+            <div x-show="activeTab === 'typography'" x-cloak class="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
                 <div class="border-b border-slate-200 dark:border-slate-800 pb-3">
-                    <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Geometry, Radii &amp; Typography</h2>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Controls corner roundness, input styles, and font family hierarchy</p>
+                    <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">{{ __('admin.branding.typography') }}</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('admin.branding.subtitle') }}</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                     <!-- Theme Mode Behavior -->
                     <div class="sm:col-span-2">
-                        <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Public Theme Switcher Mode</label>
-                        <select name="theme_mode" x-model="themeMode" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
+                        <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">{{ __('admin.branding.theme_mode') }}</label>
+                        <select name="theme_mode" x-model="themeMode" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
                             <option value="toggle_allowed">Allow Visitor Light/Dark Toggle (Default)</option>
                             <option value="dark_only">Lock to Dark Mode Only</option>
                             <option value="light_only">Lock to Light Mode Only</option>
@@ -462,17 +460,18 @@
                     <!-- Default Theme Initial -->
                     <div>
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Initial Default Theme</label>
-                        <select name="active_theme_default" x-model="activeThemeDefault" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
-                            <option value="dark">Dark Theme Initial</option>
-                            <option value="light">Light Theme Initial</option>
+                        <select name="active_theme_default" x-model="activeThemeDefault" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
+                            <option value="dark">{{ __('ui.toggles.dark_mode') }}</option>
+                            <option value="light">{{ __('ui.toggles.light_mode') }}</option>
                         </select>
                     </div>
 
                     <!-- Typography Body Font -->
                     <div>
-                        <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Typography Font Family</label>
-                        <select name="typography_font" x-model="typographyFont" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
+                        <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">{{ __('admin.branding.font_family') }}</label>
+                        <select name="typography_font" x-model="typographyFont" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
                             <option value="Plus Jakarta Sans">Plus Jakarta Sans (Modern Editorial)</option>
+                            <option value="Cairo">Cairo (Arabic Optimized)</option>
                             <option value="Inter">Inter (Clean High-Density)</option>
                             <option value="Manrope">Manrope (Geometric Modern)</option>
                             <option value="Space Grotesk">Space Grotesk (Tech Modern)</option>
@@ -482,8 +481,8 @@
 
                     <!-- Card Radius -->
                     <div>
-                        <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Card Border Radius</label>
-                        <select name="radius_card" x-model="radiusCard" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
+                        <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">{{ __('admin.branding.border_radius') }}</label>
+                        <select name="radius_card" x-model="radiusCard" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
                             <option value="0.5rem">Subtle (8px)</option>
                             <option value="0.75rem">Medium (12px)</option>
                             <option value="1rem">Modern (16px - Default)</option>
@@ -495,7 +494,7 @@
                     <!-- Button Radius -->
                     <div>
                         <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Button Border Radius</label>
-                        <select name="radius_button" x-model="radiusButton" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
+                        <select name="radius_button" x-model="radiusButton" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
                             <option value="0.5rem">Subtle (8px)</option>
                             <option value="0.75rem">Medium (12px - Default)</option>
                             <option value="1rem">Soft (16px)</option>
@@ -507,36 +506,36 @@
             </div>
 
             <!-- Tab 4: Brand Identity & Media -->
-            <div x-show="activeTab === 'brand'" x-cloak class="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-200 dark:border-slate-800/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+            <div x-show="activeTab === 'brand'" x-cloak class="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
                 <div class="border-b border-slate-200 dark:border-slate-800 pb-3">
-                    <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Company Identity &amp; Assets</h2>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Core company name, tagline, and brand marks</p>
+                    <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">{{ __('admin.branding.site_identity') }}</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('admin.branding.subtitle') }}</p>
                 </div>
 
                 <div class="space-y-4 text-xs">
                     <div>
                         <label for="site_name" class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-                            Company Name <span class="text-rose-400">*</span>
+                            {{ __('admin.branding.company_name') }} <span class="text-rose-400">*</span>
                         </label>
-                        <input type="text" id="site_name" name="site_name" x-model="siteName" required class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
+                        <input type="text" id="site_name" name="site_name" x-model="siteName" required class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
                     </div>
 
                     <div>
                         <label for="company_tagline" class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
-                            Company Tagline
+                            {{ __('admin.branding.company_tagline') }}
                         </label>
-                        <input type="text" id="company_tagline" name="company_tagline" x-model="tagline" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
+                        <input type="text" id="company_tagline" name="company_tagline" x-model="tagline" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-200 dark:border-slate-800">
                         <div>
-                            <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Company Logo</label>
-                            <input type="file" name="company_logo" accept=".svg,.png,.jpg,.jpeg,.webp,image/*" @change="updateLogoPreview" class="w-full text-[11px] text-slate-500 dark:text-slate-400 file:mr-2 file:py-1.5 file:px-2.5 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-100 dark:bg-slate-800 file:text-indigo-300 hover:file:bg-slate-700 cursor-pointer">
+                            <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">{{ __('admin.branding.logo') }}</label>
+                            <input type="file" name="company_logo" accept=".svg,.png,.jpg,.jpeg,.webp,image/*" @change="updateLogoPreview" class="w-full text-[11px] text-slate-500 dark:text-slate-400 file:me-2 file:py-1.5 file:px-2.5 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-100 dark:bg-slate-800 file:text-indigo-300 hover:file:bg-slate-700 cursor-pointer">
                         </div>
 
                         <div>
-                            <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">Favicon (.ico, PNG, SVG)</label>
-                            <input type="file" name="company_favicon" accept=".ico,.png,.svg,.webp,.jpg,.jpeg,image/*" @change="updateFaviconPreview" class="w-full text-[11px] text-slate-500 dark:text-slate-400 file:mr-2 file:py-1.5 file:px-2.5 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-100 dark:bg-slate-800 file:text-indigo-300 hover:file:bg-slate-700 cursor-pointer">
+                            <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">{{ __('admin.branding.favicon') }}</label>
+                            <input type="file" name="company_favicon" accept=".ico,.png,.svg,.webp,.jpg,.jpeg,image/*" @change="updateFaviconPreview" class="w-full text-[11px] text-slate-500 dark:text-slate-400 file:me-2 file:py-1.5 file:px-2.5 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-100 dark:bg-slate-800 file:text-indigo-300 hover:file:bg-slate-700 cursor-pointer">
                         </div>
                     </div>
                 </div>
@@ -544,9 +543,9 @@
 
             <!-- Submit Button -->
             <div class="pt-2 flex items-center justify-end">
-                <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-900 dark:text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 shadow-lg shadow-indigo-600/30 transition">
+                <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 shadow-lg shadow-indigo-600/30 transition">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                    <span>Save Visual Theme Configuration</span>
+                    <span>{{ __('admin.branding.save_branding') }}</span>
                 </button>
             </div>
 
@@ -567,7 +566,7 @@
                             <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                             <span class="text-[11px] font-bold uppercase tracking-wider"
                                   :style="`color: ${previewMode === 'dark' ? darkTextPrimary : lightTextPrimary};`">
-                                Live Interactive Preview
+                                {{ __('ui.modals.preview') }}
                             </span>
                         </div>
 
@@ -576,13 +575,13 @@
                              :style="`background-color: ${previewMode === 'dark' ? darkBgSurface : lightBgSurface}; border-color: ${previewMode === 'dark' ? darkBorderSubtle : lightBorderSubtle};`">
                             <button type="button" 
                                     @click="previewMode = 'dark'" 
-                                    :class="previewMode === 'dark' ? 'bg-indigo-600 text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-200'"
+                                    :class="previewMode === 'dark' ? 'bg-indigo-600 text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-200'"
                                     class="px-2 py-0.5 rounded text-[10px] font-bold transition">
                                 🌙 Dark
                             </button>
                             <button type="button" 
                                     @click="previewMode = 'light'" 
-                                    :class="previewMode === 'light' ? 'bg-indigo-600 text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-600'"
+                                    :class="previewMode === 'light' ? 'bg-indigo-600 text-white' : 'text-slate-500 dark:text-slate-400 hover:text-slate-600'"
                                     class="px-2 py-0.5 rounded text-[10px] font-bold transition">
                                 ☀️ Light
                             </button>
@@ -597,7 +596,7 @@
                                 <img :src="logoPreview" alt="Logo" class="h-5 w-auto object-contain">
                             </template>
                             <template x-if="!logoPreview">
-                                <div class="h-6 w-6 rounded-md flex items-center justify-center text-slate-900 dark:text-white text-[10px] font-bold"
+                                <div class="h-6 w-6 rounded-md flex items-center justify-center text-white text-[10px] font-bold"
                                      :style="`background-color: ${previewMode === 'dark' ? darkPrimaryColor : lightPrimaryColor};`"
                                      x-text="siteName ? siteName.substring(0,2).toUpperCase() : 'AP'"></div>
                             </template>
@@ -631,7 +630,7 @@
                         <!-- Simulated CTA Button -->
                         <div class="pt-1 flex items-center gap-2">
                             <button type="button" 
-                                    class="px-3 py-1.5 text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5 shadow-sm transition"
+                                    class="px-3 py-1.5 text-xs font-bold text-white flex items-center gap-1.5 shadow-sm transition"
                                     :style="`background-color: ${previewMode === 'dark' ? darkAccentColor : lightAccentColor}; border-radius: ${radiusButton};`">
                                 <span>Consult on WhatsApp</span>
                                 <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm.01 1.67c4.54 0 8.24 3.7 8.24 8.24 0 2.2-.86 4.27-2.42 5.83s-3.63 2.42-5.82 2.42c-1.42 0-2.82-.37-4.06-1.07l-.29-.17-3.02.79.81-2.94-.19-.3A8.216 8.216 0 013.8 11.91c0-4.54 3.7-8.24 8.25-8.24z"/></svg>

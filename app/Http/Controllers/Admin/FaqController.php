@@ -51,9 +51,9 @@ class FaqController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'question' => ['required', 'string', 'max:500'],
-            'answer' => ['required', 'string'],
-            'category' => ['nullable', 'string', 'max:100'],
+            'question' => ['required'],
+            'answer' => ['required'],
+            'category' => ['nullable'],
             'order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
         ]);
@@ -73,7 +73,7 @@ class FaqController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.faqs.index')->with('success', 'FAQ registered successfully.');
+        return redirect()->route('admin.faqs.index')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function edit(Faq $faq): View
@@ -85,9 +85,9 @@ class FaqController extends Controller
     public function update(Request $request, Faq $faq): RedirectResponse
     {
         $validated = $request->validate([
-            'question' => ['required', 'string', 'max:500'],
-            'answer' => ['required', 'string'],
-            'category' => ['nullable', 'string', 'max:100'],
+            'question' => ['required'],
+            'answer' => ['required'],
+            'category' => ['nullable'],
             'order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
         ]);
@@ -110,7 +110,7 @@ class FaqController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.faqs.index')->with('success', 'FAQ updated successfully.');
+        return redirect()->route('admin.faqs.index')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function destroy(Request $request, Faq $faq): RedirectResponse
@@ -129,7 +129,7 @@ class FaqController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.faqs.index')->with('success', 'FAQ deleted successfully.');
+        return redirect()->route('admin.faqs.index')->with('success', __('admin.messages.deleted_successfully'));
     }
 
     public function toggle(Request $request, Faq $faq): JsonResponse|RedirectResponse
@@ -153,10 +153,10 @@ class FaqController extends Controller
             return response()->json([
                 'success' => true,
                 'is_active' => $faq->is_active,
-                'message' => 'FAQ status updated.',
+                'message' => __('admin.messages.saved_successfully'),
             ]);
         }
 
-        return back()->with('success', 'FAQ status updated successfully.');
+        return back()->with('success', __('admin.messages.saved_successfully'));
     }
 }

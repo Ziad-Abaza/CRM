@@ -1,7 +1,7 @@
-﻿@extends('layouts.admin')
+@extends('layouts.admin')
 
-@section('title', 'Security Audit Logs')
-@section('page_title', 'Security Audit Logs')
+@section('title', __('admin.audit_logs.title'))
+@section('page_title', __('admin.audit_logs.title'))
 
 @section('content')
 <div class="space-y-6" x-data="{
@@ -19,9 +19,9 @@
                 <svg class="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                System Audit & Security Logs
+                {!! __('admin.audit_logs.title') !!}
             </h1>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Immutable change tracking, admin actions, and resource modifications.</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ __('admin.audit_logs.subtitle') }}</p>
         </div>
 
         <div class="flex items-center gap-3">
@@ -30,7 +30,7 @@
                 <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
-                <span>Export CSV</span>
+                <span>{{ __('admin.audit_logs.export_csv') }}</span>
             </a>
         </div>
     </div>
@@ -39,15 +39,15 @@
     <div class="bg-white dark:bg-slate-900/40 p-4 rounded-xl border border-slate-200 dark:border-slate-800/80 shadow-sm">
         <form method="GET" action="{{ route('admin.audit-logs.index') }}" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
             <div>
-                <label class="block text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-1">Search Keywords</label>
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="User, model, IP..." 
+                <label class="block text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-1">{{ __('ui.buttons.search') }}</label>
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('ui.search.placeholder') }}" 
                        class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500">
             </div>
 
             <div>
-                <label class="block text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-1">Action Type</label>
+                <label class="block text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-1">{{ __('admin.audit_logs.filter_action') }}</label>
                 <select name="action" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
-                    <option value="">All Actions</option>
+                    <option value="">{{ __('ui.filter.all') }}</option>
                     @foreach($distinctActions as $act)
                         <option value="{{ $act }}" {{ request('action') == $act ? 'selected' : '' }}>{{ strtoupper($act) }}</option>
                     @endforeach
@@ -55,24 +55,24 @@
             </div>
 
             <div>
-                <label class="block text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-1">From Date</label>
+                <label class="block text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-1">{{ __('ui.time.date') }} ({{ __('ui.filter.oldest') }})</label>
                 <input type="date" name="from_date" value="{{ request('from_date') }}" 
                        class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
             </div>
 
             <div>
-                <label class="block text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-1">To Date</label>
+                <label class="block text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-1">{{ __('ui.time.date') }} ({{ __('ui.filter.newest') }})</label>
                 <input type="date" name="to_date" value="{{ request('to_date') }}" 
                        class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500">
             </div>
 
             <div class="flex items-end gap-2">
                 <button type="submit" class="flex-1 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold transition shadow-sm">
-                    Filter
+                    {{ __('ui.buttons.filter') }}
                 </button>
                 @if(request()->hasAny(['search', 'action', 'from_date', 'to_date']))
                     <a href="{{ route('admin.audit-logs.index') }}" class="px-3 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-lg text-xs font-medium border border-slate-300 dark:border-slate-700 transition">
-                        Reset
+                        {{ __('ui.buttons.reset') }}
                     </a>
                 @endif
             </div>
@@ -82,15 +82,15 @@
     <!-- Audit Logs Table -->
     <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-slate-700 dark:text-slate-300">
+            <table class="w-full text-start text-xs text-slate-700 dark:text-slate-300">
                 <thead class="bg-slate-100 dark:bg-slate-950/60 text-[11px] uppercase tracking-wider text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 font-semibold">
                     <tr>
-                        <th class="py-3.5 px-4">User</th>
-                        <th class="py-3.5 px-4">Action</th>
-                        <th class="py-3.5 px-4">Target Resource</th>
-                        <th class="py-3.5 px-4">IP &amp; Client</th>
-                        <th class="py-3.5 px-4">Timestamp</th>
-                        <th class="py-3.5 px-4 text-right">Payload</th>
+                        <th class="py-3.5 px-4">{{ __('admin.audit_logs.table_user') }}</th>
+                        <th class="py-3.5 px-4">{{ __('admin.audit_logs.table_action') }}</th>
+                        <th class="py-3.5 px-4">{{ __('admin.audit_logs.table_entity') }}</th>
+                        <th class="py-3.5 px-4">{{ __('admin.audit_logs.table_ip') }}</th>
+                        <th class="py-3.5 px-4">{{ __('admin.audit_logs.table_timestamp') }}</th>
+                        <th class="py-3.5 px-4 text-end">{{ __('admin.audit_logs.table_details') }}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-200 dark:divide-slate-800/60 font-mono">
@@ -132,11 +132,11 @@
                                 <div>{{ $log->created_at->format('M d, Y H:i:s') }}</div>
                                 <div class="text-[10px] text-slate-400 dark:text-slate-500">{{ $log->created_at->diffForHumans() }}</div>
                             </td>
-                            <td class="py-3 px-4 text-right font-sans">
+                            <td class="py-3 px-4 text-end font-sans">
                                 <button type="button" 
                                         @click="viewDetails(@js($log))" 
                                         class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 text-xs font-medium transition">
-                                    Diff Viewer
+                                    {{ __('ui.modals.details') }}
                                 </button>
                             </td>
                         </tr>
@@ -146,8 +146,8 @@
                                 <svg class="w-12 h-12 mx-auto text-slate-300 dark:text-slate-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
-                                <p class="text-sm font-semibold text-slate-600 dark:text-slate-400">No audit logs found</p>
-                                <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">Actions performed across the admin portal will be recorded here automatically.</p>
+                                <p class="text-sm font-semibold text-slate-600 dark:text-slate-400">{{ __('ui.empty_states.no_records_found') }}</p>
+                                <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">{{ __('admin.audit_logs.subtitle') }}</p>
                             </td>
                         </tr>
                     @endforelse
@@ -173,10 +173,10 @@
             
             <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-950/50">
                 <div class="flex items-center gap-2">
-                    <span class="font-bold text-slate-900 dark:text-white text-sm">Audit Payload Details</span>
+                    <span class="font-bold text-slate-900 dark:text-white text-sm">{{ __('admin.audit_logs.table_details') }}</span>
                     <span class="text-xs px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-500/30 font-mono" x-text="selectedLog ? '#' + selectedLog.id : ''"></span>
                 </div>
-                <button @click="detailModalOpen = false" class="text-slate-400 hover:text-slate-700 dark:hover:text-white">
+                <button @click="detailModalOpen = false" class="text-slate-400 hover:text-slate-700 dark:hover:text-white" aria-label="{{ __('ui.buttons.close') }}">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
             </div>
@@ -184,11 +184,11 @@
             <div class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
                 <div class="grid grid-cols-2 gap-4 text-xs">
                     <div class="p-3 bg-slate-50 dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-800">
-                        <span class="text-slate-500 dark:text-slate-400 block mb-1">Actor</span>
+                        <span class="text-slate-500 dark:text-slate-400 block mb-1">{{ __('admin.audit_logs.table_user') }}</span>
                         <span class="font-semibold text-slate-900 dark:text-white" x-text="selectedLog?.user?.name || 'System / Anonymous'"></span>
                     </div>
                     <div class="p-3 bg-slate-50 dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-800">
-                        <span class="text-slate-500 dark:text-slate-400 block mb-1">Resource</span>
+                        <span class="text-slate-500 dark:text-slate-400 block mb-1">{{ __('admin.audit_logs.table_entity') }}</span>
                         <span class="font-semibold text-slate-900 dark:text-white font-mono" x-text="(selectedLog?.auditable_type ? selectedLog.auditable_type.split('\\').pop() : 'N/A') + ' #' + (selectedLog?.auditable_id || '')"></span>
                     </div>
                 </div>
@@ -196,14 +196,14 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <!-- Old Values -->
                     <div>
-                        <span class="text-xs font-semibold text-rose-600 dark:text-rose-400 block mb-2">Previous State (Old)</span>
+                        <span class="text-xs font-semibold text-rose-600 dark:text-rose-400 block mb-2">{{ __('admin.audit_logs.old_value') }}</span>
                         <pre class="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-800 dark:text-slate-300 font-mono overflow-x-auto max-h-60"
                              x-text="selectedLog?.old_values ? JSON.stringify(selectedLog.old_values, null, 2) : 'None / Null'"></pre>
                     </div>
 
                     <!-- New Values -->
                     <div>
-                        <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 block mb-2">Updated State (New)</span>
+                        <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 block mb-2">{{ __('admin.audit_logs.new_value') }}</span>
                         <pre class="p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-[11px] text-slate-800 dark:text-slate-300 font-mono overflow-x-auto max-h-60"
                              x-text="selectedLog?.new_values ? JSON.stringify(selectedLog.new_values, null, 2) : 'None / Null'"></pre>
                     </div>
@@ -212,7 +212,7 @@
 
             <div class="px-6 py-3 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50 flex justify-end">
                 <button type="button" @click="detailModalOpen = false" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-white rounded-xl text-xs font-medium border border-slate-300 dark:border-slate-700 transition">
-                    Close
+                    {{ __('ui.buttons.close') }}
                 </button>
             </div>
         </div>

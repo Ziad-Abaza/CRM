@@ -18,13 +18,31 @@ class ContentSectionController extends Controller
     public function hero(): View
     {
         $settings = [
-            'hero_badge' => $this->settingService->get('hero_badge', 'Enterprise Digital Acceleration'),
-            'hero_title' => $this->settingService->get('hero_title', 'Scale High-Performance Systems with Precision'),
-            'hero_subtitle' => $this->settingService->get('hero_subtitle', 'We design, build, and optimize enterprise-grade technology and corporate strategies.'),
-            'hero_cta_text' => $this->settingService->get('hero_cta_text', 'Start Executive Consultation'),
-            'hero_cta_whatsapp_message' => $this->settingService->get('hero_cta_whatsapp_message', 'Hello, I would like to schedule an executive advisory consultation.'),
+            'hero_badge' => [
+                'en' => $this->settingService->get('hero_badge', 'Enterprise Digital Acceleration', 'en'),
+                'ar' => $this->settingService->get('hero_badge', 'التسريع الرقمي المؤسسي', 'ar'),
+            ],
+            'hero_title' => [
+                'en' => $this->settingService->get('hero_title', 'Scale High-Performance Systems with Precision', 'en'),
+                'ar' => $this->settingService->get('hero_title', 'تطوير وتوسيع الأنظمة عالية الأداء بدقة واحترافية', 'ar'),
+            ],
+            'hero_subtitle' => [
+                'en' => $this->settingService->get('hero_subtitle', 'We design, build, and optimize enterprise-grade technology and corporate strategies.', 'en'),
+                'ar' => $this->settingService->get('hero_subtitle', 'نصمم ونبني ونطور التقنيات والاستراتيجيات المؤسسية عالية الكفاءة.', 'ar'),
+            ],
+            'hero_cta_text' => [
+                'en' => $this->settingService->get('hero_cta_text', 'Start Executive Consultation', 'en'),
+                'ar' => $this->settingService->get('hero_cta_text', 'ابدأ الاستشارة التنفيذية', 'ar'),
+            ],
+            'hero_cta_whatsapp_message' => [
+                'en' => $this->settingService->get('hero_cta_whatsapp_message', 'Hello, I would like to schedule an executive advisory consultation.', 'en'),
+                'ar' => $this->settingService->get('hero_cta_whatsapp_message', 'مرحباً، أود حجز جلسة استشارية تنفيذية.', 'ar'),
+            ],
             'hero_rating_score' => $this->settingService->get('hero_rating_score', '4.9/5.0'),
-            'hero_rating_count' => $this->settingService->get('hero_rating_count', 'Over 200+ Enterprise Transformations'),
+            'hero_rating_count' => [
+                'en' => $this->settingService->get('hero_rating_count', 'Over 200+ Enterprise Transformations', 'en'),
+                'ar' => $this->settingService->get('hero_rating_count', 'أكثر من 200+ تحول مؤسسي ناجح', 'ar'),
+            ],
         ];
 
         return view('admin.content.hero', compact('settings'));
@@ -33,13 +51,13 @@ class ContentSectionController extends Controller
     public function updateHero(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'hero_badge' => ['required', 'string', 'max:100'],
-            'hero_title' => ['required', 'string', 'max:255'],
-            'hero_subtitle' => ['required', 'string', 'max:500'],
-            'hero_cta_text' => ['required', 'string', 'max:100'],
-            'hero_cta_whatsapp_message' => ['required', 'string', 'max:500'],
+            'hero_badge' => ['required'],
+            'hero_title' => ['required'],
+            'hero_subtitle' => ['required'],
+            'hero_cta_text' => ['required'],
+            'hero_cta_whatsapp_message' => ['required'],
             'hero_rating_score' => ['nullable', 'string', 'max:50'],
-            'hero_rating_count' => ['nullable', 'string', 'max:100'],
+            'hero_rating_count' => ['nullable'],
         ]);
 
         foreach ($validated as $key => $val) {
@@ -54,17 +72,32 @@ class ContentSectionController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.content.hero')->with('success', 'Hero section updated successfully.');
+        return redirect()->route('admin.content.hero')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function about(): View
     {
         $settings = [
-            'about_title' => $this->settingService->get('about_title', 'Engineered for Global Enterprise Excellence'),
-            'about_description' => $this->settingService->get('about_description', 'Our strategic advisory frameworks empower high-growth organizations with agile technology architectures.'),
-            'about_bullet_1' => $this->settingService->get('about_bullet_1', 'Enterprise Cloud & Data Engineering'),
-            'about_bullet_2' => $this->settingService->get('about_bullet_2', 'Automated Lead & CRM Integration'),
-            'about_bullet_3' => $this->settingService->get('about_bullet_3', '99.99% Guaranteed SLA Deployments'),
+            'about_title' => [
+                'en' => $this->settingService->get('about_title', 'Engineered for Global Enterprise Excellence', 'en'),
+                'ar' => $this->settingService->get('about_title', 'مصمم لتحقيق التميز المؤسسي العالمي', 'ar'),
+            ],
+            'about_description' => [
+                'en' => $this->settingService->get('about_description', 'Our strategic advisory frameworks empower high-growth organizations with agile technology architectures.', 'en'),
+                'ar' => $this->settingService->get('about_description', 'أطر العمل الاستشارية الاستراتيجية لدينا تدعم المؤسسات سريعة النمو ببنى تكنولوجية مرنة.', 'ar'),
+            ],
+            'about_bullet_1' => [
+                'en' => $this->settingService->get('about_bullet_1', 'Enterprise Cloud & Data Engineering', 'en'),
+                'ar' => $this->settingService->get('about_bullet_1', 'هندسة السحابة والبيانات المؤسسية', 'ar'),
+            ],
+            'about_bullet_2' => [
+                'en' => $this->settingService->get('about_bullet_2', 'Automated Lead & CRM Integration', 'en'),
+                'ar' => $this->settingService->get('about_bullet_2', 'تكامل آلي لإدارة العملاء المحتملين والـ CRM', 'ar'),
+            ],
+            'about_bullet_3' => [
+                'en' => $this->settingService->get('about_bullet_3', '99.99% Guaranteed SLA Deployments', 'en'),
+                'ar' => $this->settingService->get('about_bullet_3', 'ضمان اتفاقية مستوى خدمة 99.99%', 'ar'),
+            ],
         ];
 
         return view('admin.content.about', compact('settings'));
@@ -73,11 +106,11 @@ class ContentSectionController extends Controller
     public function updateAbout(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'about_title' => ['required', 'string', 'max:255'],
-            'about_description' => ['required', 'string', 'max:1000'],
-            'about_bullet_1' => ['nullable', 'string', 'max:255'],
-            'about_bullet_2' => ['nullable', 'string', 'max:255'],
-            'about_bullet_3' => ['nullable', 'string', 'max:255'],
+            'about_title' => ['required'],
+            'about_description' => ['required'],
+            'about_bullet_1' => ['nullable'],
+            'about_bullet_2' => ['nullable'],
+            'about_bullet_3' => ['nullable'],
         ]);
 
         foreach ($validated as $key => $val) {
@@ -92,17 +125,23 @@ class ContentSectionController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.content.about')->with('success', 'About section updated successfully.');
+        return redirect()->route('admin.content.about')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function contact(): View
     {
         $settings = [
             'whatsapp_number' => $this->settingService->get('whatsapp_number', '+12345678901'),
-            'whatsapp_default_message' => $this->settingService->get('whatsapp_default_message', 'Hello, I would like to inquire about your services.'),
+            'whatsapp_default_message' => [
+                'en' => $this->settingService->get('whatsapp_default_message', 'Hello, I would like to inquire about your services.', 'en'),
+                'ar' => $this->settingService->get('whatsapp_default_message', 'مرحباً، أود الاستفسار عن خدماتكم الاستشارية.', 'ar'),
+            ],
             'contact_email' => $this->settingService->get('contact_email', 'contact@corporate.test'),
             'contact_phone' => $this->settingService->get('contact_phone', '+1 (555) 019-2834'),
-            'contact_address' => $this->settingService->get('contact_address', '100 Enterprise Way, Suite 500, San Francisco, CA'),
+            'contact_address' => [
+                'en' => $this->settingService->get('contact_address', '100 Enterprise Way, Suite 500, San Francisco, CA', 'en'),
+                'ar' => $this->settingService->get('contact_address', 'طريق الملك فهد، الرياض، المملكة العربية السعودية', 'ar'),
+            ],
         ];
 
         return view('admin.content.contact', compact('settings'));
@@ -112,10 +151,10 @@ class ContentSectionController extends Controller
     {
         $validated = $request->validate([
             'whatsapp_number' => ['required', 'string', 'regex:/^\+[1-9]\d{1,14}$/'],
-            'whatsapp_default_message' => ['required', 'string', 'max:500'],
+            'whatsapp_default_message' => ['required'],
             'contact_email' => ['required', 'email', 'max:255'],
             'contact_phone' => ['required', 'string', 'max:50'],
-            'contact_address' => ['required', 'string', 'max:255'],
+            'contact_address' => ['required'],
         ]);
 
         foreach ($validated as $key => $val) {
@@ -130,15 +169,24 @@ class ContentSectionController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.content.contact')->with('success', 'Contact and WhatsApp profile updated successfully.');
+        return redirect()->route('admin.content.contact')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function seo(): View
     {
         $settings = [
-            'seo_meta_title' => $this->settingService->get('seo_meta_title', 'Apex Corporate Solutions | Enterprise Transformation'),
-            'seo_meta_description' => $this->settingService->get('seo_meta_description', 'High-impact enterprise digital consulting, high throughput architecture, and corporate acceleration solutions.'),
-            'seo_meta_keywords' => $this->settingService->get('seo_meta_keywords', 'consulting, enterprise solutions, digital transformation, crm architecture'),
+            'seo_meta_title' => [
+                'en' => $this->settingService->get('seo_meta_title', 'Apex Corporate Solutions | Enterprise Transformation', 'en'),
+                'ar' => $this->settingService->get('seo_meta_title', 'حلول أبيكس المؤسسية | التحول الرقمي والاستشارات', 'ar'),
+            ],
+            'seo_meta_description' => [
+                'en' => $this->settingService->get('seo_meta_description', 'High-impact enterprise digital consulting, high throughput architecture, and corporate acceleration solutions.', 'en'),
+                'ar' => $this->settingService->get('seo_meta_description', 'استشارات رقمية مؤسسية عالية التأثير، بنية تحتية فائقة الأداء، وحلول تسريع الأعمال.', 'ar'),
+            ],
+            'seo_meta_keywords' => [
+                'en' => $this->settingService->get('seo_meta_keywords', 'consulting, enterprise solutions, digital transformation, crm architecture', 'en'),
+                'ar' => $this->settingService->get('seo_meta_keywords', 'استشارات, حلول مؤسسية, تحول رقمي, بنية إدارة علاقات العملاء', 'ar'),
+            ],
         ];
 
         return view('admin.content.seo', compact('settings'));
@@ -147,9 +195,9 @@ class ContentSectionController extends Controller
     public function updateSeo(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'seo_meta_title' => ['required', 'string', 'max:255'],
-            'seo_meta_description' => ['required', 'string', 'max:500'],
-            'seo_meta_keywords' => ['nullable', 'string', 'max:500'],
+            'seo_meta_title' => ['required'],
+            'seo_meta_description' => ['required'],
+            'seo_meta_keywords' => ['nullable'],
         ]);
 
         foreach ($validated as $key => $val) {
@@ -164,14 +212,20 @@ class ContentSectionController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.content.seo')->with('success', 'SEO metadata updated successfully.');
+        return redirect()->route('admin.content.seo')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function footer(): View
     {
         $settings = [
-            'footer_about' => $this->settingService->get('footer_about', 'Delivering tier-one corporate digital transformation and revenue acceleration engines globally.'),
-            'footer_copyright' => $this->settingService->get('footer_copyright', '© 2026 Apex Corporate Solutions. All rights reserved.'),
+            'footer_about' => [
+                'en' => $this->settingService->get('footer_about', 'Delivering tier-one corporate digital transformation and revenue acceleration engines globally.', 'en'),
+                'ar' => $this->settingService->get('footer_about', 'تقديم حلول التحول الرقمي المؤسسي من الفئة الأولى ومحركات تسريع الإيرادات عالمياً.', 'ar'),
+            ],
+            'footer_copyright' => [
+                'en' => $this->settingService->get('footer_copyright', '© 2026 Apex Corporate Solutions. All rights reserved.', 'en'),
+                'ar' => $this->settingService->get('footer_copyright', '© 2026 حلول أبيكس المؤسسية. جميع الحقوق محفوظة.', 'ar'),
+            ],
             'social_linkedin' => $this->settingService->get('social_linkedin', 'https://linkedin.com/company/apex-corporate'),
             'social_twitter' => $this->settingService->get('social_twitter', 'https://twitter.com/apex_corporate'),
         ];
@@ -182,8 +236,8 @@ class ContentSectionController extends Controller
     public function updateFooter(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'footer_about' => ['required', 'string', 'max:500'],
-            'footer_copyright' => ['required', 'string', 'max:255'],
+            'footer_about' => ['required'],
+            'footer_copyright' => ['required'],
             'social_linkedin' => ['nullable', 'url', 'max:255'],
             'social_twitter' => ['nullable', 'url', 'max:255'],
         ]);
@@ -200,6 +254,6 @@ class ContentSectionController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.content.footer')->with('success', 'Footer content and social links updated successfully.');
+        return redirect()->route('admin.content.footer')->with('success', __('admin.messages.saved_successfully'));
     }
 }

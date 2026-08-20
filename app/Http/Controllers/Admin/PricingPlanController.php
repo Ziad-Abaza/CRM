@@ -46,31 +46,42 @@ class PricingPlanController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:pricing_plans,slug'],
             'price' => ['required', 'numeric', 'min:0'],
             'currency' => ['required', 'string', 'max:10'],
-            'billing_period' => ['required', 'string', 'max:50'],
-            'description' => ['nullable', 'string', 'max:500'],
-            'features' => ['nullable', 'array'],
-            'features.*' => ['nullable', 'string', 'max:255'],
+            'billing_period' => ['required'],
+            'description' => ['nullable'],
+            'features' => ['nullable'],
             'is_featured' => ['nullable', 'boolean'],
             'is_active' => ['nullable', 'boolean'],
             'order' => ['nullable', 'integer', 'min:0'],
-            'whatsapp_message' => ['nullable', 'string', 'max:500'],
+            'whatsapp_message' => ['nullable'],
         ]);
 
         if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['name']);
-            $count = PricingPlan::where('slug', 'like', $validated['slug'] . '%')->count();
+            $nameValue = is_array($validated['name']) ? ($validated['name']['en'] ?? reset($validated['name'])) : $validated['name'];
+            $validated['slug'] = Str::slug($nameValue ?: 'plan');
+            $baseSlug = $validated['slug'];
+            $count = PricingPlan::where('slug', 'like', $baseSlug . '%')->count();
             if ($count > 0) {
-                $validated['slug'] .= '-' . ($count + 1);
+                $validated['slug'] = $baseSlug . '-' . ($count + 1);
             }
         } else {
             $validated['slug'] = Str::slug($validated['slug']);
         }
 
-        $validated['features'] = !empty($validated['features']) ? array_values(array_filter($validated['features'])) : [];
+        if (is_array($validated['features'] ?? null)) {
+            if (isset($validated['features']['en']) || isset($validated['features']['ar'])) {
+                $validated['features'] = [
+                    'en' => array_values(array_filter((array) ($validated['features']['en'] ?? []))),
+                    'ar' => array_values(array_filter((array) ($validated['features']['ar'] ?? []))),
+                ];
+            } else {
+                $validated['features'] = array_values(array_filter($validated['features']));
+            }
+        }
+
         $validated['is_featured'] = $request->boolean('is_featured');
         $validated['is_active'] = $request->boolean('is_active', true);
         $validated['order'] = $validated['order'] ?? 0;
@@ -87,7 +98,7 @@ class PricingPlanController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.pricing.index')->with('success', 'Pricing tier created successfully.');
+        return redirect()->route('admin.pricing.index')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function edit(PricingPlan $pricing): View
@@ -98,29 +109,39 @@ class PricingPlanController extends Controller
     public function update(Request $request, PricingPlan $pricing): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required'],
             'slug' => ['nullable', 'string', 'max:255', Rule::unique('pricing_plans', 'slug')->ignore($pricing->id)],
             'price' => ['required', 'numeric', 'min:0'],
             'currency' => ['required', 'string', 'max:10'],
-            'billing_period' => ['required', 'string', 'max:50'],
-            'description' => ['nullable', 'string', 'max:500'],
-            'features' => ['nullable', 'array'],
-            'features.*' => ['nullable', 'string', 'max:255'],
+            'billing_period' => ['required'],
+            'description' => ['nullable'],
+            'features' => ['nullable'],
             'is_featured' => ['nullable', 'boolean'],
             'is_active' => ['nullable', 'boolean'],
             'order' => ['nullable', 'integer', 'min:0'],
-            'whatsapp_message' => ['nullable', 'string', 'max:500'],
+            'whatsapp_message' => ['nullable'],
         ]);
 
         $oldValues = $pricing->toArray();
 
         if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['name']);
+            $nameValue = is_array($validated['name']) ? ($validated['name']['en'] ?? reset($validated['name'])) : $validated['name'];
+            $validated['slug'] = Str::slug($nameValue ?: 'plan');
         } else {
             $validated['slug'] = Str::slug($validated['slug']);
         }
 
-        $validated['features'] = !empty($validated['features']) ? array_values(array_filter($validated['features'])) : [];
+        if (is_array($validated['features'] ?? null)) {
+            if (isset($validated['features']['en']) || isset($validated['features']['ar'])) {
+                $validated['features'] = [
+                    'en' => array_values(array_filter((array) ($validated['features']['en'] ?? []))),
+                    'ar' => array_values(array_filter((array) ($validated['features']['ar'] ?? []))),
+                ];
+            } else {
+                $validated['features'] = array_values(array_filter($validated['features']));
+            }
+        }
+
         $validated['is_featured'] = $request->boolean('is_featured');
         $validated['is_active'] = $request->boolean('is_active');
         $validated['order'] = $validated['order'] ?? $pricing->order;
@@ -138,7 +159,7 @@ class PricingPlanController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.pricing.index')->with('success', 'Pricing tier updated successfully.');
+        return redirect()->route('admin.pricing.index')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function destroy(Request $request, PricingPlan $pricing): RedirectResponse
@@ -157,7 +178,7 @@ class PricingPlanController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.pricing.index')->with('success', 'Pricing tier deleted successfully.');
+        return redirect()->route('admin.pricing.index')->with('success', __('admin.messages.deleted_successfully'));
     }
 
     public function toggle(Request $request, PricingPlan $pricing): JsonResponse|RedirectResponse
@@ -181,10 +202,10 @@ class PricingPlanController extends Controller
             return response()->json([
                 'success' => true,
                 'is_active' => $pricing->is_active,
-                'message' => 'Pricing plan status updated.',
+                'message' => __('admin.messages.saved_successfully'),
             ]);
         }
 
-        return back()->with('success', 'Pricing plan status updated successfully.');
+        return back()->with('success', __('admin.messages.saved_successfully'));
     }
 }

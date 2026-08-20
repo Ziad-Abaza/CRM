@@ -1,98 +1,157 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit Metric: ' . $stat->label)
-@section('page_title', 'Stats / Edit')
+@section('title', __('ui.buttons.edit') . ': ' . $stat->label)
+@section('page_title', __('admin.stats.title'))
+
+@php
+    $labelTrans = $stat->getTranslations('label');
+    $suffixTrans = $stat->getTranslations('suffix');
+@endphp
 
 @section('content')
-<div class="max-w-3xl space-y-6">
-    <div class="flex items-center justify-between">
+<div class="max-w-4xl space-y-6" x-data="{ langTab: 'en' }">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">Edit Metric Counter</h1>
-            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Update values for "{{ $stat->label }}".</p>
+            <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">{{ __('ui.buttons.edit') }}: {{ $stat->label }}</h1>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{{ __('admin.content.switch_tab_notice') }}</p>
         </div>
-        <a href="{{ route('admin.stats.index') }}" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold transition">
-            &larr; Back to Stats
-        </a>
+        <div class="flex items-center gap-3">
+            <div class="inline-flex items-center gap-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1 rounded-xl shadow-sm text-xs">
+                <button type="button" @click="langTab = 'en'" :class="langTab === 'en' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'" class="px-3 py-1.5 rounded-lg font-semibold transition">
+                    {{ __('admin.content.bilingual_tab_en') }}
+                </button>
+                <button type="button" @click="langTab = 'ar'" :class="langTab === 'ar' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'" class="px-3 py-1.5 rounded-lg font-semibold transition">
+                    {{ __('admin.content.bilingual_tab_ar') }}
+                </button>
+            </div>
+            <a href="{{ route('admin.stats.index') }}" class="px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-semibold transition">
+                &larr; {{ __('ui.buttons.back') }}
+            </a>
+        </div>
     </div>
 
     <form method="POST" action="{{ route('admin.stats.update', $stat) }}" class="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl space-y-6">
         @csrf
         @method('PUT')
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div class="sm:col-span-2">
-                <label for="label" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Metric Label / Description <span class="text-rose-400">*</span>
-                </label>
-                <input type="text" 
-                       id="label" 
-                       name="label" 
-                       value="{{ old('label', $stat->label) }}" 
-                       required 
-                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500 @error('label') border-rose-500 @enderror">
-                @error('label') <p class="mt-1 text-xs text-rose-400">{{ $message }}</p> @enderror
+        <!-- English Tab -->
+        <div x-show="langTab === 'en'" class="space-y-4">
+            <div class="flex items-center gap-2 pb-2 border-b border-slate-200 dark:border-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
+                <span>{{ __('admin.content.bilingual_tab_en') }}</span>
             </div>
 
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label for="label_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+                        Metric Label (English) <span class="text-rose-400">*</span>
+                    </label>
+                    <input type="text" 
+                           id="label_en" 
+                           name="label[en]" 
+                           value="{{ old('label.en', $labelTrans['en'] ?? $stat->label) }}" 
+                           required 
+                           dir="ltr"
+                           class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500">
+                </div>
+
+                <div>
+                    <label for="suffix_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+                        Suffix (English)
+                    </label>
+                    <input type="text" 
+                           id="suffix_en" 
+                           name="suffix[en]" 
+                           value="{{ old('suffix.en', $suffixTrans['en'] ?? $stat->suffix) }}" 
+                           dir="ltr"
+                           class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500">
+                </div>
+            </div>
+        </div>
+
+        <!-- Arabic Tab -->
+        <div x-show="langTab === 'ar'" x-cloak class="space-y-4">
+            <div class="flex items-center gap-2 pb-2 border-b border-slate-200 dark:border-slate-800 text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
+                <span>{{ __('admin.content.bilingual_tab_ar') }}</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label for="label_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+                        عنوان المؤشر (العربية) <span class="text-rose-400">*</span>
+                    </label>
+                    <input type="text" 
+                           id="label_ar" 
+                           name="label[ar]" 
+                           value="{{ old('label.ar', $labelTrans['ar'] ?? '') }}" 
+                           required 
+                           dir="rtl"
+                           class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500">
+                </div>
+
+                <div>
+                    <label for="suffix_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+                        اللاحقة الرقمية (العربية)
+                    </label>
+                    <input type="text" 
+                           id="suffix_ar" 
+                           name="suffix[ar]" 
+                           value="{{ old('suffix.ar', $suffixTrans['ar'] ?? '') }}" 
+                           dir="rtl"
+                           class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500">
+                </div>
+            </div>
+        </div>
+
+        <!-- Global Fields -->
+        <div class="border-t border-slate-200 dark:border-slate-800 pt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
                 <label for="value" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Primary Numerical Value <span class="text-rose-400">*</span>
+                    {{ __('admin.stats.value_label') }} <span class="text-rose-400">*</span>
                 </label>
                 <input type="text" 
                        id="value" 
                        name="value" 
                        value="{{ old('value', $stat->value) }}" 
                        required 
-                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm font-mono focus:ring-2 focus:ring-indigo-500 @error('value') border-rose-500 @enderror">
-                @error('value') <p class="mt-1 text-xs text-rose-400">{{ $message }}</p> @enderror
-            </div>
-
-            <div>
-                <label for="suffix" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Unit / Suffix
-                </label>
-                <input type="text" 
-                       id="suffix" 
-                       name="suffix" 
-                       value="{{ old('suffix', $stat->suffix) }}" 
-                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm font-mono focus:ring-2 focus:ring-indigo-500">
+                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500 font-mono">
             </div>
 
             <div>
                 <label for="icon" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Icon Identifier
+                    {{ __('admin.stats.icon_label') }}
                 </label>
                 <input type="text" 
                        id="icon" 
                        name="icon" 
                        value="{{ old('icon', $stat->icon) }}" 
-                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500">
+                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500 font-mono">
             </div>
 
             <div>
                 <label for="order" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Display Order
+                    {{ __('admin.stats.order_label') }}
                 </label>
                 <input type="number" 
                        id="order" 
                        name="order" 
                        value="{{ old('order', $stat->order) }}" 
                        min="0" 
-                       class="w-full px-4 py-2 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500">
+                       class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500">
             </div>
 
-            <div class="sm:col-span-2 flex items-center pt-2">
+            <div class="flex items-center pt-6">
                 <label class="relative flex items-center gap-3 cursor-pointer">
                     <input type="checkbox" name="is_active" value="1" {{ old('is_active', $stat->is_active) ? 'checked' : '' }} class="sr-only peer">
-                    <div class="w-11 h-6 bg-slate-100 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">Active / Visible on Counter Bar</span>
+                    <div class="w-11 h-6 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">{{ __('admin.stats.is_active_label') }}</span>
                 </label>
             </div>
         </div>
 
         <div class="pt-4 flex justify-end gap-3">
-            <a href="{{ route('admin.stats.index') }}" class="px-5 py-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white text-sm transition">Cancel</a>
-            <button type="submit" class="px-6 py-2.5 rounded-xl text-slate-900 dark:text-white font-semibold bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-600/30 transition">
-                Update Statistic
+            <a href="{{ route('admin.stats.index') }}" class="px-5 py-2.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white text-sm transition">{{ __('ui.buttons.cancel') }}</a>
+            <button type="submit" class="px-6 py-2.5 rounded-xl text-white font-semibold bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-600/30 transition">
+                {{ __('ui.buttons.save_changes') }}
             </button>
         </div>
     </form>

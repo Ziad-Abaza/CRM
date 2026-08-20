@@ -56,12 +56,12 @@ class PortfolioController extends Controller
     {
         $validated = $request->validate([
             'category_id' => ['nullable', 'exists:portfolio_categories,id'],
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:portfolios,slug'],
             'client' => ['nullable', 'string', 'max:255'],
             'completion_date' => ['nullable', 'date'],
-            'summary' => ['nullable', 'string', 'max:500'],
-            'content' => ['nullable', 'string'],
+            'summary' => ['nullable'],
+            'content' => ['nullable'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:2048'],
             'technologies' => ['nullable', 'array'],
             'technologies.*' => ['nullable', 'string', 'max:100'],
@@ -72,10 +72,12 @@ class PortfolioController extends Controller
         ]);
 
         if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['title']);
-            $count = Portfolio::where('slug', 'like', $validated['slug'] . '%')->count();
+            $titleValue = is_array($validated['title']) ? ($validated['title']['en'] ?? reset($validated['title'])) : $validated['title'];
+            $validated['slug'] = Str::slug($titleValue ?: 'project');
+            $baseSlug = $validated['slug'];
+            $count = Portfolio::where('slug', 'like', $baseSlug . '%')->count();
             if ($count > 0) {
-                $validated['slug'] .= '-' . ($count + 1);
+                $validated['slug'] = $baseSlug . '-' . ($count + 1);
             }
         } else {
             $validated['slug'] = Str::slug($validated['slug']);
@@ -103,7 +105,7 @@ class PortfolioController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.portfolio.index')->with('success', 'Case study created successfully.');
+        return redirect()->route('admin.portfolio.index')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function edit(Portfolio $portfolio): View
@@ -116,12 +118,12 @@ class PortfolioController extends Controller
     {
         $validated = $request->validate([
             'category_id' => ['nullable', 'exists:portfolio_categories,id'],
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required'],
             'slug' => ['nullable', 'string', 'max:255', Rule::unique('portfolios', 'slug')->ignore($portfolio->id)],
             'client' => ['nullable', 'string', 'max:255'],
             'completion_date' => ['nullable', 'date'],
-            'summary' => ['nullable', 'string', 'max:500'],
-            'content' => ['nullable', 'string'],
+            'summary' => ['nullable'],
+            'content' => ['nullable'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:2048'],
             'technologies' => ['nullable', 'array'],
             'technologies.*' => ['nullable', 'string', 'max:100'],
@@ -134,7 +136,8 @@ class PortfolioController extends Controller
         $oldValues = $portfolio->toArray();
 
         if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['title']);
+            $titleValue = is_array($validated['title']) ? ($validated['title']['en'] ?? reset($validated['title'])) : $validated['title'];
+            $validated['slug'] = Str::slug($titleValue ?: 'project');
         } else {
             $validated['slug'] = Str::slug($validated['slug']);
         }
@@ -162,7 +165,7 @@ class PortfolioController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.portfolio.index')->with('success', 'Case study updated successfully.');
+        return redirect()->route('admin.portfolio.index')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function destroy(Request $request, Portfolio $portfolio): RedirectResponse
@@ -181,7 +184,7 @@ class PortfolioController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.portfolio.index')->with('success', 'Case study deleted successfully.');
+        return redirect()->route('admin.portfolio.index')->with('success', __('admin.messages.deleted_successfully'));
     }
 
     public function toggle(Request $request, Portfolio $portfolio): JsonResponse|RedirectResponse
@@ -205,11 +208,11 @@ class PortfolioController extends Controller
             return response()->json([
                 'success' => true,
                 'is_active' => $portfolio->is_active,
-                'message' => 'Portfolio status updated.',
+                'message' => __('admin.messages.saved_successfully'),
             ]);
         }
 
-        return back()->with('success', 'Portfolio status updated successfully.');
+        return back()->with('success', __('admin.messages.saved_successfully'));
     }
 
     // Category sub-management
@@ -222,16 +225,18 @@ class PortfolioController extends Controller
     public function storeCategory(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:portfolio_categories,slug'],
-            'description' => ['nullable', 'string', 'max:500'],
+            'description' => ['nullable'],
             'order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
         ]);
 
         if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['name']);
-            $count = PortfolioCategory::where('slug', 'like', $validated['slug'] . '%')->count();
+            $nameValue = is_array($validated['name']) ? ($validated['name']['en'] ?? reset($validated['name'])) : $validated['name'];
+            $validated['slug'] = Str::slug($nameValue ?: 'category');
+            $baseSlug = $validated['slug'];
+            $count = PortfolioCategory::where('slug', 'like', $baseSlug . '%')->count();
             if ($count > 0) {
                 $validated['slug'] .= '-' . ($count + 1);
             }
@@ -254,15 +259,15 @@ class PortfolioController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.portfolio.categories')->with('success', 'Category created successfully.');
+        return redirect()->route('admin.portfolio.categories')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function updateCategory(Request $request, PortfolioCategory $category): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required'],
             'slug' => ['nullable', 'string', 'max:255', Rule::unique('portfolio_categories', 'slug')->ignore($category->id)],
-            'description' => ['nullable', 'string', 'max:500'],
+            'description' => ['nullable'],
             'order' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['nullable', 'boolean'],
         ]);
@@ -270,7 +275,8 @@ class PortfolioController extends Controller
         $oldValues = $category->toArray();
 
         if (empty($validated['slug'])) {
-            $validated['slug'] = Str::slug($validated['name']);
+            $nameValue = is_array($validated['name']) ? ($validated['name']['en'] ?? reset($validated['name'])) : $validated['name'];
+            $validated['slug'] = Str::slug($nameValue ?: 'category');
         } else {
             $validated['slug'] = Str::slug($validated['slug']);
         }
@@ -291,7 +297,7 @@ class PortfolioController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.portfolio.categories')->with('success', 'Category updated successfully.');
+        return redirect()->route('admin.portfolio.categories')->with('success', __('admin.messages.saved_successfully'));
     }
 
     public function destroyCategory(Request $request, PortfolioCategory $category): RedirectResponse
@@ -310,6 +316,6 @@ class PortfolioController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        return redirect()->route('admin.portfolio.categories')->with('success', 'Category deleted successfully.');
+        return redirect()->route('admin.portfolio.categories')->with('success', __('admin.messages.deleted_successfully'));
     }
 }

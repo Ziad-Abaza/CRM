@@ -12,33 +12,33 @@ class SettingService
     public const CACHE_TTL = 86400; // 24 hours
 
     /**
-     * Get all cached settings.
+     * Get all cached settings as pure associative array.
      *
-     * @return Collection<string, object>
+     * @return array<string, array<string, mixed>>
      */
-    public function getAll(): Collection
+    public function getAll(): array
     {
         $cached = Cache::get(self::CACHE_KEY);
 
-        // If corrupted, incomplete class, or not an array, rebuild from database
-        if (!is_array($cached)) {
-            $cached = Setting::query()
-                ->get(['id', 'key', 'value', 'group', 'type', 'is_public'])
-                ->keyBy('key')
-                ->map(fn ($item) => (object) [
-                    'id' => $item->id,
-                    'key' => $item->key,
-                    'value' => $item->value,
-                    'group' => $item->group,
-                    'type' => $item->type,
-                    'is_public' => (bool) $item->is_public,
-                ])
-                ->toArray();
+        // Ensure cache is a valid array of arrays; if corrupted or incomplete, rebuild from database
+        if (!is_array($cached) || (count($cached) > 0 && !is_array(reset($cached)))) {
+            $cached = [];
+            $settings = Setting::query()->get(['id', 'key', 'value', 'group', 'type', 'is_public']);
+            foreach ($settings as $setting) {
+                $cached[$setting->key] = [
+                    'id' => $setting->id,
+                    'key' => $setting->key,
+                    'value' => $setting->value,
+                    'group' => $setting->group,
+                    'type' => $setting->type,
+                    'is_public' => (bool) $setting->is_public,
+                ];
+            }
 
             Cache::put(self::CACHE_KEY, $cached, self::CACHE_TTL);
         }
 
-        return collect($cached)->map(fn ($item) => is_object($item) ? $item : (object) $item);
+        return $cached;
     }
 
     /**
@@ -52,13 +52,15 @@ class SettingService
     {
         $settings = $this->getAll();
 
-        if (!$settings->has($key)) {
+        if (!isset($settings[$key])) {
             return $default;
         }
 
-        $setting = $settings->get($key);
+        $item = $settings[$key];
+        $val = is_array($item) ? ($item['value'] ?? null) : ($item->value ?? null);
+        $type = is_array($item) ? ($item['type'] ?? null) : ($item->type ?? null);
 
-        return $this->castValue($setting->value ?? null, $setting->type ?? null);
+        return $this->castValue($val, $type);
     }
 
     /**
@@ -72,9 +74,13 @@ class SettingService
         $settings = $this->getAll();
 
         $groupSettings = [];
-        foreach ($settings as $key => $setting) {
-            if (($setting->group ?? null) === $group) {
-                $groupSettings[$key] = $this->castValue($setting->value ?? null, $setting->type ?? null);
+        foreach ($settings as $key => $item) {
+            $itemGroup = is_array($item) ? ($item['group'] ?? null) : ($item->group ?? null);
+            $itemValue = is_array($item) ? ($item['value'] ?? null) : ($item->value ?? null);
+            $itemType = is_array($item) ? ($item['type'] ?? null) : ($item->type ?? null);
+
+            if ($itemGroup === $group) {
+                $groupSettings[$key] = $this->castValue($itemValue, $itemType);
             }
         }
 

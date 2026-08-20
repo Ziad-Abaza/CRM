@@ -58,7 +58,13 @@
                     <!-- Cover Visual Frame -->
                     <div class="relative h-36 sm:h-40 overflow-hidden bg-slate-100 dark:bg-slate-950">
                         @if($portfolio->image)
-                            <img src="{{ $portfolio->image }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <img src="{{ $portfolio->image }}" 
+                                 alt="{{ $portfolio->title }}" 
+                                 loading="lazy" 
+                                 decoding="async" 
+                                 width="400" 
+                                 height="160"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         @else
                             <div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-slate-200 via-slate-100 to-slate-200 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 text-slate-400 dark:text-slate-600">
                                 <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>

@@ -165,6 +165,7 @@ class SettingService
     public function clearCache(): void
     {
         Cache::forget(self::CACHE_KEY);
+        Cache::forget('public.home.page_data');
     }
 
     /**

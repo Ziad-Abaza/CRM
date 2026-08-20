@@ -22,13 +22,14 @@ class SecurityHeadersMiddleware
         $response->headers->set('X-Content-Type-Options', 'nosniff');
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
         $response->headers->set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+        $response->headers->set('X-DNS-Prefetch-Control', 'on');
 
         // Content-Security-Policy (supports production and local Vite dev server)
         $csp = "default-src 'self' http: https: data: blob:; " .
                "script-src 'self' 'unsafe-inline' 'unsafe-eval' http: https:; " .
-               "style-src 'self' 'unsafe-inline' http: https:; " .
+               "style-src 'self' 'unsafe-inline' http: https: https://fonts.googleapis.com; " .
                "img-src 'self' data: blob: http: https:; " .
-               "font-src 'self' data: http: https:; " .
+               "font-src 'self' data: http: https: https://fonts.gstatic.com; " .
                "connect-src 'self' http: https: ws: wss:; " .
                "frame-ancestors 'self'; " .
                "base-uri 'self'; " .

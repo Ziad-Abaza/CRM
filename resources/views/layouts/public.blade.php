@@ -94,7 +94,7 @@
         <meta name="twitter:image" content="{{ url($logo) }}">
     @endif
 
-    <!-- Schema.org JSON-LD Structured Data for Organization and WebSite -->
+    <!-- Schema.org JSON-LD Structured Data -->
     @php
         $jsonLd = [
             '@context' => 'https://schema.org',
@@ -141,10 +141,14 @@
         <link rel="icon" href="{{ $favicon }}">
     @endif
 
-    <!-- Dynamic Google Fonts Preconnect & Stylesheet -->
+    <!-- High Performance Asynchronous Font Delivery (Zero Render-Blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family={{ $encodedFont }}:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family={{ $encodedFont }}:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ $encodedFont }}:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ $encodedFont }}:wght@400;500;600;700;800&display=swap">
+    </noscript>
 
     <!-- Vite Assets (Tailwind CSS v4 & Alpine.js) -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -156,8 +160,8 @@
             --brand-primary: {{ $primaryColor }};
             --brand-secondary: {{ $secondaryColor }};
             --brand-accent: {{ $accentColor }};
-            --font-heading: '{{ $typographyFontHeading }}', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            --font-body: '{{ $typographyFont }}', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-heading: '{{ $typographyFontHeading }}', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-body: '{{ $typographyFont }}', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --radius-base: {{ $radiusBase }};
             --radius-card: {{ $radiusCard }};
             --radius-button: {{ $radiusButton }};
@@ -198,6 +202,7 @@
         body {
             font-family: var(--font-body);
             overflow-x: hidden;
+            content-visibility: auto;
         }
 
         h1, h2, h3, h4, h5, h6, .font-heading {
@@ -290,7 +295,12 @@
                             $hasLogo = $logoPath && (file_exists(public_path($logoPath)) || str_starts_with($logo, 'http'));
                         @endphp
                         @if($hasLogo)
-                            <img src="{{ str_starts_with($logo, 'http') ? $logo : asset($logoPath) }}" alt="{{ $siteName }}" class="h-7 sm:h-8 w-auto object-contain transition group-hover:opacity-90">
+                            <img src="{{ str_starts_with($logo, 'http') ? $logo : asset($logoPath) }}" 
+                                 alt="{{ $siteName }}" 
+                                 width="32" 
+                                 height="32" 
+                                 fetchpriority="high"
+                                 class="h-7 sm:h-8 w-auto object-contain transition group-hover:opacity-90">
                         @else
                             <div class="h-8 w-8 sm:h-9 sm:w-9 rounded-lg sm:rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shadow-md shadow-blue-600/30 text-white font-bold text-xs sm:text-sm tracking-wider border border-blue-400/30 group-hover:scale-105 transition transform">
                                 {{ substr($siteName, 0, 2) }}

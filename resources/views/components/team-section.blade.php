@@ -24,7 +24,13 @@
                     <!-- Portrait Frame -->
                     <div class="h-44 sm:h-48 bg-slate-100 dark:bg-slate-950 relative overflow-hidden flex items-center justify-center">
                         @if($member->photo)
-                            <img src="{{ $member->photo }}" alt="{{ $member->name }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <img src="{{ $member->photo }}" 
+                                 alt="{{ $member->name }}" 
+                                 loading="lazy" 
+                                 decoding="async" 
+                                 width="300" 
+                                 height="192"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         @else
                             <div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-slate-200 to-slate-300 dark:from-slate-900 dark:to-slate-800 text-slate-500 dark:text-slate-400 font-bold text-2xl">
                                 {{ substr($member->name, 0, 2) }}

@@ -94,3 +94,30 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('faqs', \App\Http\Controllers\Admin\FaqController::class)->except(['show']);
     });
 });
+
+// High-Performance Static Asset Delivery with Long-term Cache Headers
+Route::get('/build/assets/{file}', function ($file) {
+    $path = public_path('build/assets/' . $file);
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    $mime = str_ends_with($file, '.css') ? 'text/css; charset=UTF-8' : (str_ends_with($file, '.js') ? 'application/javascript; charset=UTF-8' : mime_content_type($path));
+    return response()->file($path, [
+        'Content-Type' => $mime,
+        'Cache-Control' => 'public, max-age=31536000, immutable',
+        'Vary' => 'Accept-Encoding',
+    ]);
+})->where('file', '.*');
+
+Route::get('/storage/branding/{file}', function ($file) {
+    $path = storage_path('app/public/branding/' . $file);
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    return response()->file($path, [
+        'Content-Type' => mime_content_type($path),
+        'Cache-Control' => 'public, max-age=31536000, immutable',
+        'Vary' => 'Accept-Encoding',
+    ]);
+})->where('file', '.*');
+

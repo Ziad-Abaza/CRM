@@ -150,8 +150,26 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ $encodedFont }}:wght@400;500;600;700;800&display=swap">
     </noscript>
 
-    <!-- Vite Assets (Tailwind CSS v4 & Alpine.js) -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Production Optimized Asset Delivery (Zero Render-Blocking) -->
+    @php
+        $manifestPath = public_path('build/manifest.json');
+        $manifest = file_exists($manifestPath) ? json_decode(file_get_contents($manifestPath), true) : [];
+        $cssFile = $manifest['resources/css/app.css']['file'] ?? null;
+        $jsFile = $manifest['resources/js/app.js']['file'] ?? null;
+    @endphp
+
+    @if($cssFile)
+        <link rel="preload" href="{{ asset('build/' . $cssFile) }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="{{ asset('build/' . $cssFile) }}"></noscript>
+    @else
+        @vite(['resources/css/app.css'])
+    @endif
+
+    @if($jsFile)
+        <script type="module" src="{{ asset('build/' . $jsFile) }}" defer></script>
+    @else
+        @vite(['resources/js/app.js'])
+    @endif
 
     <!-- Real-time Dynamic Light/Dark Theme Custom Properties Injection -->
     <style id="dynamic-theme-vars">
@@ -295,12 +313,22 @@
                             $hasLogo = $logoPath && (file_exists(public_path($logoPath)) || str_starts_with($logo, 'http'));
                         @endphp
                         @if($hasLogo)
-                            <img src="{{ str_starts_with($logo, 'http') ? $logo : asset($logoPath) }}" 
-                                 alt="{{ $siteName }}" 
-                                 width="32" 
-                                 height="32" 
-                                 fetchpriority="high"
-                                 class="h-7 sm:h-8 w-auto object-contain transition group-hover:opacity-90">
+                            @php
+                                $webpLogoPath = preg_replace('/\.png$/i', '.webp', $logoPath);
+                                $hasWebp = file_exists(public_path($webpLogoPath));
+                            @endphp
+                            <picture>
+                                @if($hasWebp)
+                                    <source srcset="{{ asset($webpLogoPath) }}" type="image/webp">
+                                @endif
+                                <img src="{{ str_starts_with($logo, 'http') ? $logo : asset($logoPath) }}" 
+                                     alt="{{ $siteName }}" 
+                                     width="64" 
+                                     height="35" 
+                                     fetchpriority="high"
+                                     decoding="async"
+                                     class="h-7 sm:h-8 w-auto object-contain transition group-hover:opacity-90">
+                            </picture>
                         @else
                             <div class="h-8 w-8 sm:h-9 sm:w-9 rounded-lg sm:rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shadow-md shadow-blue-600/30 text-white font-bold text-xs sm:text-sm tracking-wider border border-blue-400/30 group-hover:scale-105 transition transform">
                                 {{ substr($siteName, 0, 2) }}

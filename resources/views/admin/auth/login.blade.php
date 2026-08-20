@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-950">
+<html lang="en" class="h-full" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +14,7 @@
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
-<body class="h-full antialiased text-slate-100 flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.15),rgba(255,255,255,0))]">
+<body class="h-full antialiased bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex items-center justify-center p-4 sm:p-6 lg:p-8 transition-colors duration-200">
     <div class="w-full max-w-md space-y-8">
         <!-- Brand Header -->
         <div class="text-center space-y-3">
@@ -22,21 +22,21 @@
                 <img src="{{ $companyLogo }}" alt="{{ $companyName }}" class="h-12 w-auto mx-auto object-contain mb-2">
             @else
                 <div class="mx-auto h-12 w-12 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/25 ring-1 ring-white/20">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <svg class="w-6 h-6 text-slate-900 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                 </div>
             @endif
-            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">{{ $companyName }}</h1>
-            <p class="text-sm text-slate-400">Enterprise CRM Administration Portal</p>
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">{{ $companyName }}</h1>
+            <p class="text-sm text-slate-500 dark:text-slate-400">Enterprise CRM Administration Portal</p>
         </div>
 
         <!-- Login Card -->
-        <div class="bg-slate-900/80 backdrop-blur-xl border border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-2xl ring-1 ring-white/5">
+        <div class="bg-white dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200 dark:border-slate-200 dark:border-slate-800/80 rounded-2xl p-6 sm:p-8 shadow-xl dark:shadow-2xl">
             <!-- Status message -->
             @if (session('status'))
-                <div role="status" class="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm flex items-center gap-3">
-                    <svg class="w-5 h-5 flex-shrink-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div role="status" class="mb-6 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-800 dark:text-emerald-400 text-sm flex items-center gap-3">
+                    <svg class="w-5 h-5 flex-shrink-0 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span>{{ session('status') }}</span>
@@ -45,9 +45,9 @@
 
             <!-- Errors Alert -->
             @if ($errors->any())
-                <div role="alert" class="mb-6 p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm">
+                <div role="alert" class="mb-6 p-4 rounded-xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 text-rose-800 dark:text-rose-400 text-sm">
                     <div class="flex items-center gap-2 font-semibold mb-1">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 flex-shrink-0 text-rose-600 dark:text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <span>Authentication Failed</span>
@@ -65,8 +65,8 @@
 
                 <!-- Email Input -->
                 <div>
-                    <label for="email" class="block text-sm font-medium text-slate-300 mb-1.5">
-                        Email Address <span class="text-rose-400" aria-hidden="true">*</span>
+                    <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-700 dark:text-slate-300 mb-1.5">
+                        Email Address <span class="text-rose-500" aria-hidden="true">*</span>
                     </label>
                     <div class="relative">
                         <input id="email" 
@@ -76,7 +76,7 @@
                                required 
                                value="{{ old('email') }}"
                                placeholder="admin@corporate-crm.com"
-                               class="w-full px-4 py-2.5 bg-slate-950/60 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm transition duration-150 ease-in-out @error('email') border-rose-500 ring-1 ring-rose-500 @enderror"
+                               class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm transition duration-150 ease-in-out @error('email') border-rose-500 ring-1 ring-rose-500 @enderror"
                                aria-required="true"
                                aria-invalid="{{ $errors->has('email') ? 'true' : 'false' }}">
                     </div>
@@ -84,8 +84,8 @@
 
                 <!-- Password Input with Alpine.js Show/Hide -->
                 <div>
-                    <label for="password" class="block text-sm font-medium text-slate-300 mb-1.5">
-                        Password <span class="text-rose-400" aria-hidden="true">*</span>
+                    <label for="password" class="block text-sm font-medium text-slate-700 dark:text-slate-700 dark:text-slate-300 mb-1.5">
+                        Password <span class="text-rose-500" aria-hidden="true">*</span>
                     </label>
                     <div class="relative">
                         <input id="password" 
@@ -94,12 +94,12 @@
                                autocomplete="current-password" 
                                required 
                                placeholder="••••••••••••"
-                               class="w-full px-4 py-2.5 pr-11 bg-slate-950/60 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm transition duration-150 ease-in-out @error('password') border-rose-500 ring-1 ring-rose-500 @enderror"
+                               class="w-full px-4 py-2.5 pr-11 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm transition duration-150 ease-in-out @error('password') border-rose-500 ring-1 ring-rose-500 @enderror"
                                aria-required="true"
                                aria-invalid="{{ $errors->has('password') ? 'true' : 'false' }}">
                         <button type="button" 
                                 @click="showPassword = !showPassword" 
-                                class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 hover:text-slate-200 focus:outline-none"
+                                class="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 focus:outline-none"
                                 :aria-label="showPassword ? 'Hide password' : 'Show password'">
                             <!-- Eye icon -->
                             <svg x-show="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -119,18 +119,18 @@
                     <label class="flex items-center gap-2.5 cursor-pointer">
                         <input type="checkbox" 
                                name="remember" 
-                               class="w-4 h-4 rounded bg-slate-950/60 border-slate-800 text-indigo-600 focus:ring-indigo-500 focus:ring-offset-slate-900">
-                        <span class="text-sm text-slate-300">Remember this device</span>
+                               class="w-4 h-4 rounded bg-slate-100 dark:bg-slate-50 dark:bg-slate-950/60 border-slate-300 dark:border-slate-200 dark:border-slate-800 text-indigo-600 focus:ring-indigo-500">
+                        <span class="text-sm text-slate-600 dark:text-slate-700 dark:text-slate-300">Remember this device</span>
                     </label>
                 </div>
 
                 <!-- Submit Button -->
                 <button type="submit" 
                         :disabled="submitting" 
-                        class="w-full relative flex justify-center items-center py-2.5 px-4 rounded-xl text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-indigo-500 shadow-lg shadow-indigo-600/30 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed">
+                        class="w-full relative flex justify-center items-center py-2.5 px-4 rounded-xl text-sm font-semibold text-slate-900 dark:text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-lg shadow-indigo-600/30 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed">
                     <span x-show="!submitting">Sign in to Admin</span>
                     <span x-show="submitting" class="flex items-center gap-2" style="display: none;">
-                        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-slate-900 dark:text-white" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
@@ -141,7 +141,7 @@
         </div>
 
         <!-- Security Footer Notice -->
-        <p class="text-center text-xs text-slate-500">
+        <p class="text-center text-xs text-slate-500 dark:text-slate-400">
             Protected by Enterprise Security Layer &amp; Real-time Audit Trails.
         </p>
     </div>

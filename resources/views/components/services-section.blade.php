@@ -1,99 +1,90 @@
-@props([
-    'services' => collect(),
-])
+@props(['services'])
 
-<section id="services" class="py-12 sm:py-16 lg:py-20 bg-slate-950 relative border-b border-slate-800/80">
+<section id="services" class="py-12 sm:py-16 lg:py-20 bg-slate-50/60 dark:bg-slate-950 relative border-b border-slate-200 dark:border-slate-800/80 transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Section Header -->
-        <div class="max-w-2xl mx-auto text-center space-y-3 mb-10 sm:mb-14">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/70 border border-blue-500/30 text-blue-300 text-xs font-semibold uppercase tracking-wider">
-                Our Capabilities
+        <div class="max-w-3xl mx-auto text-center space-y-3 sm:space-y-4 mb-10 sm:mb-14">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-300 text-xs font-semibold uppercase tracking-wider">
+                Strategic Capabilities
             </div>
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
-                Engineered for High-Stakes Transformation
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+                Institutional-Grade Advisory &amp; Technical Execution
             </h2>
-            <p class="text-sm sm:text-base text-slate-300">
-                Institutional-grade technology, workflow engineering, and governance solutions built to accelerate modern enterprises.
+            <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                Engineered for mid-market and enterprise organizations navigating mission-critical scaling inflection points.
             </p>
         </div>
 
         <!-- Services Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-            @forelse($services as $service)
-                <div class="group rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-blue-500/40 p-5 sm:p-6 flex flex-col justify-between transition duration-300 hover:shadow-xl hover:shadow-blue-950/40 relative overflow-hidden backdrop-blur-sm">
-                    
-                    <!-- Hover Glow Background Accent -->
-                    <div class="absolute -right-16 -top-16 w-32 h-32 bg-blue-600/10 rounded-full blur-xl group-hover:bg-blue-600/20 transition duration-500 pointer-events-none"></div>
-
-                    <div class="space-y-4 relative z-10">
-                        <!-- Icon Pill -->
-                        <div class="h-11 w-11 sm:h-12 sm:w-12 rounded-xl bg-blue-950/80 border border-blue-500/30 flex items-center justify-center text-blue-400 group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white transition duration-300 shadow-sm">
+            @foreach($services as $service)
+                <div class="rounded-2xl border border-slate-200 dark:border-slate-800/90 bg-white dark:bg-slate-900/90 p-5 sm:p-6 shadow-sm hover:shadow-xl hover:border-blue-500/50 transition duration-300 flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        
+                        <!-- Service Icon Frame -->
+                        <div class="h-11 w-11 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-tr from-blue-600/10 to-indigo-600/10 dark:from-blue-600/20 dark:to-indigo-600/20 border border-blue-500/30 dark:border-blue-500/40 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition duration-200">
                             @if($service->icon === 'server-stack')
-                                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" /></svg>
                             @elseif($service->icon === 'chart-bar-square')
-                                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
                             @elseif($service->icon === 'shield-check')
-                                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                             @elseif($service->icon === 'cpu-chip')
-                                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
-                            @elseif($service->icon === 'user-group')
-                                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>
                             @else
-                                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                             @endif
                         </div>
 
                         <!-- Title & Description -->
                         <div class="space-y-1.5">
-                            <h3 class="text-base sm:text-lg font-bold text-white group-hover:text-blue-400 transition leading-snug">
-                                <a href="{{ route('service.detail', $service->slug) }}" class="hover:underline">
+                            <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">
+                                <a href="{{ route('service.detail', $service->slug) }}">
                                     {{ $service->title }}
                                 </a>
                             </h3>
-                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-3">
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3">
                                 {{ $service->short_description }}
                             </p>
                         </div>
 
-                        <!-- Features bullet list -->
+                        <!-- Bullet Feature Checklist -->
                         @if(!empty($service->features))
-                            <ul class="space-y-2 pt-2 text-xs text-slate-300 border-t border-slate-800">
+                            <ul class="space-y-1.5 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300">
                                 @foreach(array_slice($service->features, 0, 3) as $feature)
-                                    <li class="flex items-center gap-2">
-                                        <svg class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    <li class="flex items-start gap-2">
+                                        <svg class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                                         </svg>
                                         <span class="truncate">{{ $feature }}</span>
                                     </li>
                                 @endforeach
                             </ul>
                         @endif
+
                     </div>
 
-                    <!-- Footer Action Link -->
-                    <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between gap-2 relative z-10">
-                        <a href="{{ route('service.detail', $service->slug) }}" class="inline-flex items-center gap-1 text-xs font-bold text-blue-400 hover:text-blue-300 transition group-hover:translate-x-0.5 duration-200 truncate">
-                            <span>Details</span>
-                            <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Bottom Action Row -->
+                    <div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                        <a href="{{ route('service.detail', $service->slug) }}" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1">
+                            <span>Detailed Specification</span>
+                            <svg class="w-3.5 h-3.5 group-hover:translate-x-0.5 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                             </svg>
                         </a>
 
                         <x-whatsapp-cta-button 
                             text="Inquire" 
-                            :message="'Hello, I would like to inquire regarding ' . $service->title . '.' "
-                            :buttonLocation="'service_card_' . $service->slug" 
-                            variant="emerald" 
-                            size="sm" />
+                            :message="'Hello Apex Team, I would like to inquire about ' . $service->title . '.'"
+                            buttonLocation="services_card" 
+                            variant="dark" 
+                            size="sm" 
+                            :icon="false" />
                     </div>
 
                 </div>
-            @empty
-                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12 text-slate-400 text-sm">
-                    No active services currently published.
-                </div>
-            @endforelse
+            @endforeach
         </div>
 
     </div>

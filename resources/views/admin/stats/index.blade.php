@@ -7,11 +7,11 @@
 <div class="space-y-6">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <h1 class="text-2xl font-extrabold text-white tracking-tight">Key Metrics & Impact Statistics</h1>
-            <p class="text-sm text-slate-400 mt-1">Configure proof metrics (e.g. 99.9% Uptime, $500M+ Volume, 120+ Clients).</p>
+            <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">Key Metrics & Impact Statistics</h1>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Configure proof metrics (e.g. 99.9% Uptime, $500M+ Volume, 120+ Clients).</p>
         </div>
         <div class="flex items-center gap-3">
-            <a href="{{ route('admin.stats.create') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-600/20 transition">
+            <a href="{{ route('admin.stats.create') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-slate-900 dark:text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-600/20 transition">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                 <span>Add Statistic Counter</span>
             </a>
@@ -19,7 +19,7 @@
     </div>
 
     <!-- Filters & Search -->
-    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 shadow-xl">
+    <div class="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-xl">
         <form method="GET" action="{{ route('admin.stats.index') }}" class="grid grid-cols-1 sm:grid-cols-12 gap-3">
             <div class="sm:col-span-8">
                 <div class="relative">
@@ -27,21 +27,21 @@
                            name="search" 
                            value="{{ $search }}" 
                            placeholder="Search counters by label, value, or suffix..." 
-                           class="w-full pl-10 pr-4 py-2 bg-slate-950/60 border border-slate-800 rounded-xl text-white text-sm focus:ring-2 focus:ring-indigo-500">
+                           class="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500">
                     <svg class="w-4 h-4 text-slate-500 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                     </svg>
                 </div>
             </div>
             <div class="sm:col-span-3">
-                <select name="status" class="w-full px-3 py-2 bg-slate-950/60 border border-slate-800 rounded-xl text-white text-sm focus:ring-2 focus:ring-indigo-500">
+                <select name="status" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500">
                     <option value="">All Statuses</option>
                     <option value="1" {{ $status === '1' ? 'selected' : '' }}>Active</option>
                     <option value="0" {{ $status === '0' ? 'selected' : '' }}>Disabled</option>
                 </select>
             </div>
             <div class="sm:col-span-1">
-                <button type="submit" class="w-full py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-sm font-semibold transition text-center flex items-center justify-center">
+                <button type="submit" class="w-full py-2 px-3 bg-white dark:bg-slate-100 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 rounded-xl text-sm font-semibold transition text-center flex items-center justify-center">
                     Filter
                 </button>
             </div>
@@ -49,11 +49,11 @@
     </div>
 
     <!-- Stats Table -->
-    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+    <div class="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xl">
         @if($stats->count() > 0)
             <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm text-slate-300">
-                    <thead class="bg-slate-950/60 text-[11px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-800">
+                <table class="w-full text-left text-sm text-slate-700 dark:text-slate-300">
+                    <thead class="bg-slate-50 dark:bg-slate-950/60 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
                         <tr>
                             <th class="px-6 py-3.5">Order</th>
                             <th class="px-6 py-3.5">Display Metric</th>
@@ -63,21 +63,21 @@
                             <th class="px-6 py-3.5 text-right">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-800/60">
+                    <tbody class="divide-y divide-slate-200 dark:divide-slate-200 dark:divide-slate-800/60">
                         @foreach($stats as $stat)
-                            <tr class="hover:bg-slate-800/30 transition">
-                                <td class="px-6 py-4 font-mono text-xs text-slate-400">
+                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-100 dark:bg-slate-800/30 transition">
+                                <td class="px-6 py-4 font-mono text-xs text-slate-500 dark:text-slate-400">
                                     #{{ $stat->order }}
                                 </td>
-                                <td class="px-6 py-4 font-extrabold text-xl text-white font-mono">
+                                <td class="px-6 py-4 font-extrabold text-xl text-slate-900 dark:text-white font-mono">
                                     {{ $stat->value }}<span class="text-indigo-400 text-lg">{{ $stat->suffix }}</span>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="{{ route('admin.stats.edit', $stat) }}" class="font-semibold text-white hover:text-indigo-400 transition">
+                                    <a href="{{ route('admin.stats.edit', $stat) }}" class="font-semibold text-slate-900 dark:text-white hover:text-indigo-400 transition">
                                         {{ $stat->label }}
                                     </a>
                                 </td>
-                                <td class="px-6 py-4 font-mono text-xs text-slate-400">
+                                <td class="px-6 py-4 font-mono text-xs text-slate-500 dark:text-slate-400">
                                     {{ $stat->icon ?? 'default' }}
                                 </td>
                                 <td class="px-6 py-4">
@@ -92,13 +92,13 @@
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex items-center justify-end gap-2">
-                                        <a href="{{ route('admin.stats.edit', $stat) }}" class="p-1.5 text-slate-400 hover:text-indigo-400 hover:bg-slate-800 rounded-lg transition" title="Edit">
+                                        <a href="{{ route('admin.stats.edit', $stat) }}" class="p-1.5 text-slate-500 dark:text-slate-400 hover:text-indigo-400 hover:bg-slate-100 dark:bg-slate-800 rounded-lg transition" title="Edit">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
                                         </a>
                                         <form method="POST" action="{{ route('admin.stats.destroy', $stat) }}" onsubmit="return confirm('Delete this statistic?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded-lg transition" title="Delete">
+                                            <button type="submit" class="p-1.5 text-slate-500 dark:text-slate-400 hover:text-rose-400 hover:bg-slate-100 dark:bg-slate-800 rounded-lg transition" title="Delete">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
                                             </button>
                                         </form>
@@ -110,19 +110,19 @@
                 </table>
             </div>
             @if($stats->hasPages())
-                <div class="px-6 py-4 border-t border-slate-800">
+                <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-800">
                     {{ $stats->links() }}
                 </div>
             @endif
         @else
             <div class="py-16 px-4 text-center">
-                <div class="h-12 w-12 rounded-2xl bg-slate-800 text-slate-400 flex items-center justify-center mx-auto mb-3">
+                <div class="h-12 w-12 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 flex items-center justify-center mx-auto mb-3">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                 </div>
-                <h3 class="text-base font-bold text-white">No Metric Counters Configured</h3>
-                <p class="text-xs text-slate-400 mt-1 max-w-sm mx-auto">Create numerical milestones to visually highlight scale and delivery track record.</p>
+                <h3 class="text-base font-bold text-slate-900 dark:text-white">No Metric Counters Configured</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">Create numerical milestones to visually highlight scale and delivery track record.</p>
                 <div class="mt-4">
-                    <a href="{{ route('admin.stats.create') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition">
+                    <a href="{{ route('admin.stats.create') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-slate-900 dark:text-white bg-indigo-600 hover:bg-indigo-500 transition">
                         <span>Add Metric Counter</span>
                     </a>
                 </div>

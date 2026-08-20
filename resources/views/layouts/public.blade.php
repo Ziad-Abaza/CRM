@@ -65,10 +65,6 @@
         $lightSecondary = setting('light_secondary_color', '#4338ca');
         $lightAccent = setting('light_accent_color', '#059669');
 
-        $primaryColor = $darkPrimary;
-        $secondaryColor = $darkSecondary;
-        $accentColor = $darkAccent;
-
         $favicon = setting('company_favicon');
         $logo = setting('company_logo');
 
@@ -201,10 +197,7 @@
 
         body {
             font-family: var(--font-body);
-            background-color: var(--bg-body, #030712);
-            color: var(--text-primary, #f3f4f6);
             overflow-x: hidden;
-            transition: background-color 0.25s ease, color 0.25s ease;
         }
 
         h1, h2, h3, h4, h5, h6, .font-heading {
@@ -224,12 +217,12 @@
 
         /* Subtle grid background pattern */
         .bg-grid-pattern {
-            background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+            background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
             background-size: 32px 32px;
         }
 
-        html[data-theme="light"] .bg-grid-pattern {
-            background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+        html[data-theme="dark"] .bg-grid-pattern, html.dark .bg-grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
         }
     </style>
 
@@ -267,7 +260,7 @@
 
     @stack('styles')
 </head>
-<body class="h-full antialiased text-slate-200 selection:bg-blue-600 selection:text-white flex flex-col min-h-screen bg-slate-950"
+<body class="h-full antialiased text-slate-800 dark:text-slate-200 selection:bg-blue-600 selection:text-white flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-200"
       x-data="{
           mobileMenuOpen: false,
           theme: document.documentElement.getAttribute('data-theme') || '{{ $activeThemeDefault }}',
@@ -286,7 +279,7 @@
       }">
 
     <!-- Top Sticky Corporate Navbar -->
-    <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-slate-950/90 border-b border-slate-800/80 transition-all duration-200">
+    <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-white/90 dark:bg-slate-950/90 border-b border-slate-200/80 dark:border-slate-800/80 transition-all duration-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-18">
                 <!-- Brand Logo & Name -->
@@ -304,10 +297,10 @@
                             </div>
                         @endif
                         <div class="flex flex-col">
-                            <span class="font-extrabold text-sm sm:text-base text-white tracking-tight leading-tight group-hover:text-blue-400 transition truncate max-w-[180px] sm:max-w-none">
+                            <span class="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white tracking-tight leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition truncate max-w-[180px] sm:max-w-none">
                                 {{ $siteName }}
                             </span>
-                            <span class="text-[9px] text-slate-400 font-semibold tracking-wider uppercase hidden sm:block">
+                            <span class="text-[9px] text-slate-500 dark:text-slate-400 font-semibold tracking-wider uppercase hidden sm:block">
                                 {{ $tagline }}
                             </span>
                         </div>
@@ -315,13 +308,13 @@
                 </div>
 
                 <!-- Desktop Navigation Links -->
-                <nav class="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-semibold text-slate-300">
-                    <a href="{{ route('home') }}#services" class="hover:text-blue-400 transition duration-150 py-1">Services</a>
-                    <a href="{{ route('home') }}#portfolio" class="hover:text-blue-400 transition duration-150 py-1">Case Studies</a>
-                    <a href="{{ route('home') }}#pricing" class="hover:text-blue-400 transition duration-150 py-1">Pricing</a>
-                    <a href="{{ route('home') }}#about" class="hover:text-blue-400 transition duration-150 py-1">About</a>
-                    <a href="{{ route('home') }}#team" class="hover:text-blue-400 transition duration-150 py-1">Team</a>
-                    <a href="{{ route('home') }}#faqs" class="hover:text-blue-400 transition duration-150 py-1">FAQs</a>
+                <nav class="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                    <a href="{{ route('home') }}#services" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">Services</a>
+                    <a href="{{ route('home') }}#portfolio" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">Case Studies</a>
+                    <a href="{{ route('home') }}#pricing" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">Pricing</a>
+                    <a href="{{ route('home') }}#about" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">About</a>
+                    <a href="{{ route('home') }}#team" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">Team</a>
+                    <a href="{{ route('home') }}#faqs" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">FAQs</a>
                 </nav>
 
                 <!-- Desktop Actions: Theme Toggle & WhatsApp CTA -->
@@ -330,14 +323,14 @@
                         <!-- Theme Toggle Button -->
                         <button type="button" 
                                 @click="toggleTheme()" 
-                                class="p-2 rounded-xl text-slate-400 hover:text-white bg-slate-900/90 hover:bg-slate-800 border border-slate-800 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                class="p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 :aria-label="theme === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'">
                             <!-- Sun icon when dark -->
                             <svg x-show="theme === 'dark'" class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>
                             <!-- Moon icon when light -->
-                            <svg x-show="theme === 'light'" x-cloak class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg x-show="theme === 'light'" x-cloak class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                             </svg>
                         </button>
@@ -355,12 +348,12 @@
                     @if($themeMode !== 'dark_only' && $themeMode !== 'light_only')
                         <button type="button" 
                                 @click="toggleTheme()" 
-                                class="p-2 rounded-xl text-slate-400 hover:text-white bg-slate-900 border border-slate-800 transition"
+                                class="p-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition"
                                 :aria-label="theme === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'">
                             <svg x-show="theme === 'dark'" class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>
-                            <svg x-show="theme === 'light'" x-cloak class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg x-show="theme === 'light'" x-cloak class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                             </svg>
                         </button>
@@ -368,7 +361,7 @@
 
                     <button type="button" 
                             @click="mobileMenuOpen = !mobileMenuOpen" 
-                            class="p-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            class="p-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             aria-label="Toggle navigation menu">
                         <svg x-show="!mobileMenuOpen" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -390,16 +383,16 @@
              x-transition:leave="transition ease-in duration-150"
              x-transition:leave-start="opacity-100 translate-y-0"
              x-transition:leave-end="opacity-0 -translate-y-2"
-             class="md:hidden border-b border-slate-800 bg-slate-950/95 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-3">
-            <div class="flex flex-col space-y-2 font-semibold text-slate-200">
-                <a href="{{ route('home') }}#services" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-800/80 hover:text-blue-400 transition text-xs sm:text-sm">Services</a>
-                <a href="{{ route('home') }}#portfolio" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-800/80 hover:text-blue-400 transition text-xs sm:text-sm">Case Studies</a>
-                <a href="{{ route('home') }}#pricing" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-800/80 hover:text-blue-400 transition text-xs sm:text-sm">Pricing</a>
-                <a href="{{ route('home') }}#about" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-800/80 hover:text-blue-400 transition text-xs sm:text-sm">About</a>
-                <a href="{{ route('home') }}#team" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-800/80 hover:text-blue-400 transition text-xs sm:text-sm">Team</a>
-                <a href="{{ route('home') }}#faqs" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-800/80 hover:text-blue-400 transition text-xs sm:text-sm">FAQs</a>
+             class="md:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-3">
+            <div class="flex flex-col space-y-2 font-semibold text-slate-700 dark:text-slate-200">
+                <a href="{{ route('home') }}#services" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">Services</a>
+                <a href="{{ route('home') }}#portfolio" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">Case Studies</a>
+                <a href="{{ route('home') }}#pricing" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">Pricing</a>
+                <a href="{{ route('home') }}#about" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">About</a>
+                <a href="{{ route('home') }}#team" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">Team</a>
+                <a href="{{ route('home') }}#faqs" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">FAQs</a>
             </div>
-            <div class="pt-3 border-t border-slate-800">
+            <div class="pt-3 border-t border-slate-200 dark:border-slate-800">
                 <x-whatsapp-cta-button 
                     text="Consult via WhatsApp" 
                     buttonLocation="navbar_mobile" 

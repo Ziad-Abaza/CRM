@@ -88,7 +88,7 @@
     class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end"
     @keydown.escape.window="isOpen = false">
 
-    <!-- Floating Chat Card (Fluid and responsive on all screens down to 320px) -->
+    <!-- Floating Chat Card (Fluid and responsive with Light/Dark support) -->
     <div x-show="isOpen" 
          x-cloak
          x-transition:enter="transition ease-out duration-300 transform origin-bottom-right"
@@ -98,10 +98,10 @@
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 translate-y-4 scale-95"
          @click.outside="isOpen = false"
-         class="mb-3 w-[calc(100vw-2rem)] max-w-[350px] rounded-2xl bg-slate-900 border border-slate-700/80 shadow-2xl shadow-slate-950/90 overflow-hidden flex flex-col backdrop-blur-xl">
+         class="mb-3 w-[calc(100vw-2rem)] max-w-[350px] rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 shadow-2xl shadow-slate-900/10 dark:shadow-slate-950/90 overflow-hidden flex flex-col backdrop-blur-xl transition-colors duration-200">
 
         <!-- Card Header -->
-        <div class="px-4 py-3 bg-gradient-to-r from-emerald-700 to-teal-800 text-white flex items-center justify-between relative overflow-hidden">
+        <div class="px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-700 dark:from-emerald-700 dark:to-teal-800 text-white flex items-center justify-between relative overflow-hidden">
             <div class="flex items-center gap-2.5 relative z-10 min-w-0">
                 <div class="relative flex-shrink-0">
                     @php
@@ -115,7 +115,7 @@
                             {{ substr($companyName, 0, 2) }}
                         </div>
                     @endif
-                    <span class="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-400 border-2 border-slate-900"></span>
+                    <span class="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-400 border-2 border-white dark:border-slate-900"></span>
                 </div>
                 <div class="min-w-0">
                     <h3 class="font-bold text-xs sm:text-sm leading-tight text-white truncate">{{ $companyName }}</h3>
@@ -137,31 +137,31 @@
         </div>
 
         <!-- Chat Body & Prompt Options -->
-        <div class="p-3 space-y-3 max-h-[300px] overflow-y-auto bg-slate-950/60">
+        <div class="p-3 space-y-3 max-h-[300px] overflow-y-auto bg-slate-50/80 dark:bg-slate-950/60">
             <!-- Automated Welcome Bubble -->
             <div class="flex items-start gap-2">
-                <div class="h-6 w-6 rounded-full bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xs font-bold flex-shrink-0 mt-0.5">
+                <div class="h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-600/20 border border-emerald-300 dark:border-emerald-500/30 flex items-center justify-center text-emerald-700 dark:text-emerald-400 text-xs font-bold flex-shrink-0 mt-0.5">
                     ⚡
                 </div>
-                <div class="p-2.5 rounded-xl rounded-tl-sm bg-slate-800 border border-slate-700/80 text-xs text-slate-200 leading-relaxed shadow-sm">
-                    <p class="font-semibold text-white mb-0.5">Welcome.</p>
-                    <p class="text-slate-300 text-[11px]">Select a topic or send a note directly to our WhatsApp line:</p>
+                <div class="p-2.5 rounded-xl rounded-tl-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-800 dark:text-slate-200 leading-relaxed shadow-sm">
+                    <p class="font-semibold text-slate-900 dark:text-white mb-0.5">Welcome.</p>
+                    <p class="text-slate-600 dark:text-slate-300 text-[11px]">Select a topic or send a note directly to our WhatsApp line:</p>
                 </div>
             </div>
 
             <!-- Quick Inquiry Prompt Pills -->
             <div class="space-y-1.5 pt-0.5">
-                <p class="text-[9px] font-bold uppercase tracking-wider text-slate-400 px-0.5">Suggested Topics</p>
+                <p class="text-[9px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 px-0.5">Suggested Topics</p>
                 @foreach($promptOptions as $option)
                     <button type="button" 
                             @click="startChat('{{ addslashes($option['text']) }}')"
                             :disabled="isSending"
-                            class="w-full text-left p-2 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-500/40 transition group flex items-center justify-between text-xs gap-2">
+                            class="w-full text-left p-2 rounded-lg bg-white dark:bg-slate-900/90 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 hover:border-emerald-500/40 transition group flex items-center justify-between text-xs gap-2">
                         <div class="flex items-center gap-2 min-w-0">
                             <span class="text-sm flex-shrink-0">{{ $option['icon'] }}</span>
-                            <span class="font-medium text-slate-200 group-hover:text-emerald-300 truncate text-[11px] transition">{{ $option['title'] }}</span>
+                            <span class="font-medium text-slate-700 dark:text-slate-200 group-hover:text-emerald-600 dark:group-hover:text-emerald-300 truncate text-[11px] transition">{{ $option['title'] }}</span>
                         </div>
-                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-400 group-hover:translate-x-0.5 transition flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 group-hover:translate-x-0.5 transition flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </button>
@@ -170,13 +170,13 @@
         </div>
 
         <!-- Custom Message Input Box -->
-        <div class="p-2.5 bg-slate-900 border-t border-slate-800">
+        <div class="p-2.5 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
             <form @submit.prevent="startChat(customMessage)" class="flex items-center gap-1.5">
                 <input type="text" 
                        x-model="customMessage" 
                        placeholder="Type your strategic inquiry..." 
                        :disabled="isSending"
-                       class="flex-1 bg-slate-950 border border-slate-700/80 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+                       class="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700/80 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
                 <button type="submit" 
                         :disabled="isSending"
                         class="p-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition disabled:opacity-50 shadow-md shadow-emerald-600/30 flex items-center justify-center flex-shrink-0">
@@ -189,7 +189,7 @@
                     </svg>
                 </button>
             </form>
-            <div class="mt-1 text-center text-[9px] text-slate-400">
+            <div class="mt-1 text-center text-[9px] text-slate-500 dark:text-slate-400">
                 🔒 Privacy-First Communication via Official WhatsApp Channel
             </div>
         </div>
@@ -209,7 +209,7 @@
 
         <button type="button" 
                 @click="isOpen = !isOpen" 
-                class="h-12 w-12 sm:h-13 sm:w-13 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white shadow-xl shadow-emerald-950/80 flex items-center justify-center transition transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-emerald-500/30 relative"
+                class="h-12 w-12 sm:h-13 sm:w-13 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white shadow-xl shadow-emerald-600/30 dark:shadow-emerald-950/80 flex items-center justify-center transition transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-emerald-500/30 relative"
                 aria-label="Open WhatsApp Chat">
             
             <!-- Pulse Glow Ring -->

@@ -14,13 +14,13 @@
     $finalLocation = $location ?? $buttonLocation;
     $finalMessage = $message ?? $prefilledMessage ?? setting('whatsapp_default_message', 'Hello, I would like to inquire about your services.');
     
-    // Style Variants
+    // Style Variants with Light & Dark support
     $variantClasses = match ($variant) {
-        'primary' => 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-600/30 border border-indigo-500/30',
-        'secondary' => 'bg-slate-800 hover:bg-slate-700 text-slate-100 shadow-sm border border-slate-700',
+        'primary' => 'bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/30 border border-blue-500/30',
+        'secondary' => 'bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-100 shadow-sm border border-slate-300 dark:border-slate-700',
         'emerald' => 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-600/30 border border-emerald-500/30',
-        'outline' => 'bg-transparent hover:bg-emerald-500/10 text-emerald-400 border border-emerald-500/40 hover:border-emerald-400',
-        'dark' => 'bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 shadow-sm',
+        'outline' => 'bg-transparent hover:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40 hover:border-emerald-500',
+        'dark' => 'bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200 border border-slate-700 dark:border-slate-700/80 shadow-sm',
         default => 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-600/30 border border-emerald-500/30',
     };
 

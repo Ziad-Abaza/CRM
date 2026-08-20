@@ -28,12 +28,12 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 shadow-lg position-relative overflow-hidden group hover:border-slate-700 transition">
+            <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 shadow-lg relative overflow-hidden group hover:border-slate-700 transition">
                 <div class="flex items-center justify-between">
                     <span class="text-xs font-bold uppercase tracking-wider text-slate-400">WhatsApps (Today)</span>
                     <span class="p-2 rounded-xl bg-emerald-500/10 text-emerald-400">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7R9-11h-7z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </span>
                 </div>
@@ -46,45 +46,43 @@
                 </div>
             </div>
 
-            <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 shadow-lg position-relative overflow-hidden group hover:border-slate-700 transition">
+            <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 shadow-lg relative overflow-hidden group hover:border-slate-700 transition">
                 <div class="flex items-center justify-between">
                     <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Total Leads</span>
                     <span class="p-2 rounded-xl bg-indigo-500/10 text-indigo-400">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-widdth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
                     </span>
                 </div>
                 <div class="mt-4 flex items-baseline gap-2">
-                    <span class="text-3xl font-extrabold text-white tracking-tight">{{ number_format($metrics['total_whatsapp_clicks'])  }}</span>
-                    <span class="text-x{ text-indigo-400 font-medium">All Time</span>
+                    <span class="text-3xl font-extrabold text-white tracking-tight">{{ number_format($metrics['total_whatsapp_clicks']) }}</span>
+                    <span class="text-xs text-indigo-400 font-medium">All Time</span>
                 </div>
                 <div class="mt-3 flex items-center text-xs text-slate-400">
                     Direct high-intent conversions
                 </div>
             </div>
 
-
-            <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 shadow-lg position-relative overflow-hidden group hover:border-slate-700 transition">
+            <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 shadow-lg relative overflow-hidden group hover:border-slate-700 transition">
                 <div class="flex items-center justify-between">
                     <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Services & Offerings</span>
                     <span class="p-2 rounded-xl bg-blue-500/10 text-blue-400">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2zai" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                     </span>
                 </div>
                 <div class="mt-4 flex items-baseline gap-2">
                     <span class="text-3xl font-extrabold text-white tracking-tight">{{ number_format($metrics['services_count']) }}</span>
-                    <span class="text-x{ text-blue-400 font-medium">Modules</span>
+                    <span class="text-xs text-blue-400 font-medium">Modules</span>
                 </div>
                 <div class="mt-3 flex items-center text-xs text-slate-400">
                     <span class="text-slate-300 font-semibold mr-1">{{ $metrics['pricing_plans_count'] }}</span> pricing tiers configured
                 </div>
             </div>
 
-
-            <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 shadow-lg position-relative overflow-hidden group hover:border-slate-700 transition">
+            <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-5 shadow-lg relative overflow-hidden group hover:border-slate-700 transition">
                 <div class="flex items-center justify-between">
                     <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Social Proof</span>
                     <span class="p-2 rounded-xl bg-amber-500/10 text-amber-400">
@@ -94,7 +92,7 @@
                     </span>
                 </div>
                 <div class="mt-4 flex items-baseline gap-2">
-                    <span class="text-3xl font-extrabold text-white tracking-tight">{{ number_format($metrics['portfolio_count'] + $metrics['testimonials_count'])  }}</span>
+                    <span class="text-3xl font-extrabold text-white tracking-tight">{{ number_format($metrics['portfolio_count'] + $metrics['testimonials_count']) }}</span>
                     <span class="text-xs text-amber-400 font-medium">Assets</span>
                 </div>
                 <div class="mt-3 flex items-center text-xs text-slate-400">
@@ -103,7 +101,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-6 shadow-xl flex flex-col">
@@ -145,14 +142,14 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
                     <p class="text-sm font-medium text-slate-300">No WhatsApp lead clicks recorded yet</p>
-                    <p class="text-xs text-slate-400 mt-1"<Interactions on public CTAs will appear here automatically.</p>
+                    <p class="text-xs text-slate-400 mt-1">Interactions on public CTAs will appear here automatically.</p>
                 </div>
             @endif
         </div>
 
         <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-6 shadow-xl flex flex-col">
             <div class="flex items-center justify-between mb-5">
-                <div">
+                <div>
                     <h2 class="text-base font-bold text-white">System Audit & Security Logs</h2>
                     <p class="text-xs text-slate-400 mt-0.5">Immutable record of administrator actions and system events</p>
                 </div>

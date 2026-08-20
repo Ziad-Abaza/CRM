@@ -140,12 +140,12 @@
                     <!-- Logo Upload -->
                     <div>
                         <label for="company_logo" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
-                            Company Logo (SVG, PNG, WebP)
+                            Company Logo (SVG, PNG, WebP, JPG)
                         </label>
                         <input type="file" 
                                id="company_logo" 
                                name="company_logo" 
-                               accept="image/png,image/jpeg,image/svg+xml,image/webp" 
+                               accept=".svg,.png,.jpg,.jpeg,.webp,image/*" 
                                @change="updateLogoPreview"
                                class="w-full text-xs text-slate-400 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-indigo-300 hover:file:bg-slate-700 cursor-pointer">
                         @error('company_logo')
@@ -156,12 +156,12 @@
                     <!-- Favicon Upload -->
                     <div>
                         <label for="company_favicon" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">
-                            Favicon (.ico, PNG, SVG)
+                            Favicon (.ico, PNG, SVG, WebP)
                         </label>
                         <input type="file" 
                                id="company_favicon" 
                                name="company_favicon" 
-                               accept=".ico,image/png,image/svg+xml" 
+                               accept=".ico,.png,.svg,.webp,.jpg,.jpeg,image/*" 
                                @change="updateFaviconPreview"
                                class="w-full text-xs text-slate-400 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-indigo-300 hover:file:bg-slate-700 cursor-pointer">
                         @error('company_favicon')

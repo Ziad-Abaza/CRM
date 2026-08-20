@@ -41,10 +41,10 @@ class BrandingController extends Controller
             'secondary_color' => ['nullable', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
             'accent_color' => ['required', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
             'typography_font' => ['nullable', 'string', 'max:50'],
-            'logo' => ['nullable', 'file', 'mimes:png,jpg,jpeg,svg,webp', 'max:2048'],
-            'company_logo' => ['nullable', 'file', 'mimes:png,jpg,jpeg,svg,webp', 'max:2048'],
-            'favicon' => ['nullable', 'file', 'mimes:ico,png,svg', 'max:1024'],
-            'company_favicon' => ['nullable', 'file', 'mimes:ico,png,svg', 'max:1024'],
+            'logo' => ['nullable', 'file', 'max:4096', 'extensions:png,jpg,jpeg,svg,webp,gif'],
+            'company_logo' => ['nullable', 'file', 'max:4096', 'extensions:png,jpg,jpeg,svg,webp,gif'],
+            'favicon' => ['nullable', 'file', 'max:2048', 'extensions:ico,png,svg,webp,jpg,jpeg,gif'],
+            'company_favicon' => ['nullable', 'file', 'max:2048', 'extensions:ico,png,svg,webp,jpg,jpeg,gif'],
         ]);
 
         $this->settingService->set('site_name', $validated['site_name'], 'branding');

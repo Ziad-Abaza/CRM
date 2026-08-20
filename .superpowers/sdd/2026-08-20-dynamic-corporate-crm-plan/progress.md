@@ -1,0 +1,16 @@
+# SDD ledger — plan: docs/superpowers/plans/2026-08-20-dynamic-corporate-crm-plan.md
+
+## Plan Overview
+- Total Tasks: 9
+- Status: In Progress
+
+## Tasks
+- [ ] Task 1: Initialize Laravel Application & Environment Setup
+- [ ] Task 2: Database Migrations & Eloquent Data Models
+- [ ] Task 3: Dynamic Setting Service & Default Seeders
+- [ ] Task 4: Security Layer, Authentication & Admin Authorization
+- [ ] Task 5: Admin Panel UI & Core Configuration Modules
+- [ ] Task 6: Admin Content Management (Services, Portfolio, Pricing, Testimonials, Team, FAQs)
+- [ ] Task 7: WhatsApp CRM Engine & Telemetry Analytics
+- [ ] Task 8: Public Corporate Website Frontend & Dynamic Theming
+- [ ] Task 9: SEO, Sitemap, Audit Logs & Production Self-Audit

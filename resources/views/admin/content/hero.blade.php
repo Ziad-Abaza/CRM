@@ -34,7 +34,7 @@
 
             <div>
                 <label for="hero_badge_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Eyebrow / Badge Text (English) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.hero_badge_label') }} ({{ __('admin.content.bilingual_tab_en') }}) <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" 
                        id="hero_badge_en" 
@@ -47,7 +47,7 @@
 
             <div>
                 <label for="hero_title_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Hero Main Headline (English) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.hero_headline_label') }} ({{ __('admin.content.bilingual_tab_en') }}) <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" 
                        id="hero_title_en"
@@ -60,7 +60,7 @@
 
             <div>
                 <label for="hero_subtitle_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Hero Subtitle / Description (English) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.hero_subtitle_label') }} ({{ __('admin.content.bilingual_tab_en') }}) <span class="text-rose-500">*</span>
                 </label>
                 <textarea id="hero_subtitle_en" 
                           name="hero_subtitle[en]"
@@ -73,7 +73,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label for="hero_cta_text_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                        CTA Button Label (English) <span class="text-rose-500">*</span>
+                        {{ __('admin.content.hero_cta_label') }} ({{ __('admin.content.bilingual_tab_en') }}) <span class="text-rose-500">*</span>
                     </label>
                     <input type="text" 
                            id="hero_cta_text_en"
@@ -86,7 +86,7 @@
 
                 <div>
                     <label for="hero_cta_whatsapp_message_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                        WhatsApp Message (English) <span class="text-rose-500">*</span>
+                        {{ __('admin.content.hero_whatsapp_label') }} ({{ __('admin.content.bilingual_tab_en') }}) <span class="text-rose-500">*</span>
                     </label>
                     <input type="text" 
                            id="hero_cta_whatsapp_message_en" 
@@ -100,7 +100,7 @@
 
             <div>
                 <label for="hero_rating_count_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Rating Label (English)
+                    {{ __('admin.content.hero_rating_label') }} ({{ __('admin.content.bilingual_tab_en') }})
                 </label>
                 <input type="text" 
                        id="hero_rating_count_en" 
@@ -119,7 +119,7 @@
 
             <div>
                 <label for="hero_badge_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    النص الترويجي العلوي (العربية) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.hero_badge_label') }} ({{ __('admin.content.bilingual_tab_ar') }}) <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" 
                        id="hero_badge_ar" 
@@ -132,7 +132,7 @@
 
             <div>
                 <label for="hero_title_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    العنوان الرئيسي (العربية) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.hero_headline_label') }} ({{ __('admin.content.bilingual_tab_ar') }}) <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" 
                        id="hero_title_ar"
@@ -145,7 +145,7 @@
 
             <div>
                 <label for="hero_subtitle_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    الوصف التفصيلي (العربية) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.hero_subtitle_label') }} ({{ __('admin.content.bilingual_tab_ar') }}) <span class="text-rose-500">*</span>
                 </label>
                 <textarea id="hero_subtitle_ar" 
                           name="hero_subtitle[ar]"
@@ -158,7 +158,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label for="hero_cta_text_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                        نص زر الإجراء (العربية) <span class="text-rose-500">*</span>
+                        {{ __('admin.content.hero_cta_label') }} ({{ __('admin.content.bilingual_tab_ar') }}) <span class="text-rose-500">*</span>
                     </label>
                     <input type="text" 
                            id="hero_cta_text_ar"
@@ -171,7 +171,7 @@
 
                 <div>
                     <label for="hero_cta_whatsapp_message_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                        رسالة واتساب المعبأة مسبقاً (العربية) <span class="text-rose-500">*</span>
+                        {{ __('admin.content.hero_whatsapp_label') }} ({{ __('admin.content.bilingual_tab_ar') }}) <span class="text-rose-500">*</span>
                     </label>
                     <input type="text" 
                            id="hero_cta_whatsapp_message_ar" 
@@ -185,7 +185,7 @@
 
             <div>
                 <label for="hero_rating_count_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    وصف التقييم / العملاء (العربية)
+                    {{ __('admin.content.hero_rating_label') }} ({{ __('admin.content.bilingual_tab_ar') }})
                 </label>
                 <input type="text" 
                        id="hero_rating_count_ar" 
@@ -200,7 +200,7 @@
         <div class="border-t border-slate-200 dark:border-slate-800 pt-6">
             <div class="max-w-xs">
                 <label for="hero_rating_score" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Rating Score (e.g. 4.9/5.0)
+                    {{ __('admin.content.hero_rating_label') }} (Score: 4.9/5.0)
                 </label>
                 <input type="text" 
                        id="hero_rating_score" 

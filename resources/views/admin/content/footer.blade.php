@@ -34,7 +34,7 @@
 
             <div>
                 <label for="footer_about_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Footer About Synopsis (English) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.footer_about_label') }} ({{ __('admin.content.bilingual_tab_en') }}) <span class="text-rose-500">*</span>
                 </label>
                 <textarea id="footer_about_en" 
                           name="footer_about[en]" 
@@ -46,7 +46,7 @@
 
             <div>
                 <label for="footer_copyright_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Copyright Notice (English) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.footer_copyright_label') }} ({{ __('admin.content.bilingual_tab_en') }}) <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" 
                        id="footer_copyright_en" 
@@ -66,7 +66,7 @@
 
             <div>
                 <label for="footer_about_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    نبذة التذييل (العربية) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.footer_about_label') }} ({{ __('admin.content.bilingual_tab_ar') }}) <span class="text-rose-500">*</span>
                 </label>
                 <textarea id="footer_about_ar" 
                           name="footer_about[ar]" 
@@ -78,7 +78,7 @@
 
             <div>
                 <label for="footer_copyright_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    حقوق النشر (العربية) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.footer_copyright_label') }} ({{ __('admin.content.bilingual_tab_ar') }}) <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" 
                        id="footer_copyright_ar" 
@@ -91,12 +91,12 @@
         </div>
 
         <div class="border-t border-slate-200 dark:border-slate-800 pt-6 space-y-4">
-            <h2 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Social Channels &amp; Links</h2>
+            <h2 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">{{ __('ui.footer.stay_connected') }}</h2>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label for="social_linkedin" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                        LinkedIn Profile URL
+                        {{ __('admin.team.linkedin_label') }}
                     </label>
                     <input type="url" 
                            id="social_linkedin" 
@@ -109,7 +109,7 @@
 
                 <div>
                     <label for="social_twitter" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                        Twitter / X Profile URL
+                        {{ __('admin.team.twitter_label') }}
                     </label>
                     <input type="url" 
                            id="social_twitter" 

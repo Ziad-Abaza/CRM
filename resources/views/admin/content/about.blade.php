@@ -34,7 +34,7 @@
 
             <div>
                 <label for="about_title_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Section Title (English) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.about_heading_label') }} ({{ __('admin.content.bilingual_tab_en') }}) <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" 
                        id="about_title_en" 
@@ -47,7 +47,7 @@
 
             <div>
                 <label for="about_description_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Primary Story / Overview (English) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.about_desc_label') }} ({{ __('admin.content.bilingual_tab_en') }}) <span class="text-rose-500">*</span>
                 </label>
                 <textarea id="about_description_en" 
                           name="about_description[en]" 
@@ -60,7 +60,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                 <div>
                     <label for="about_bullet_1_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                        Key Point 1 (English)
+                        {{ __('admin.content.about_bullet_1_label') }} ({{ __('admin.content.bilingual_tab_en') }})
                     </label>
                     <input type="text" 
                            id="about_bullet_1_en" 
@@ -71,7 +71,7 @@
                 </div>
                 <div>
                     <label for="about_bullet_2_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                        Key Point 2 (English)
+                        {{ __('admin.content.about_bullet_2_label') }} ({{ __('admin.content.bilingual_tab_en') }})
                     </label>
                     <input type="text" 
                            id="about_bullet_2_en" 
@@ -82,7 +82,7 @@
                 </div>
                 <div>
                     <label for="about_bullet_3_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                        Key Point 3 (English)
+                        {{ __('admin.content.about_bullet_3_label') }} ({{ __('admin.content.bilingual_tab_en') }})
                     </label>
                     <input type="text" 
                            id="about_bullet_3_en" 
@@ -102,7 +102,7 @@
 
             <div>
                 <label for="about_title_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    عنوان القسم (العربية) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.about_heading_label') }} ({{ __('admin.content.bilingual_tab_ar') }}) <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" 
                        id="about_title_ar" 
@@ -115,7 +115,7 @@
 
             <div>
                 <label for="about_description_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    القصة والرؤية المؤسسية (العربية) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.about_desc_label') }} ({{ __('admin.content.bilingual_tab_ar') }}) <span class="text-rose-500">*</span>
                 </label>
                 <textarea id="about_description_ar" 
                           name="about_description[ar]" 
@@ -128,7 +128,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                 <div>
                     <label for="about_bullet_1_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                        النقطة المميزة 1 (العربية)
+                        {{ __('admin.content.about_bullet_1_label') }} ({{ __('admin.content.bilingual_tab_ar') }})
                     </label>
                     <input type="text" 
                            id="about_bullet_1_ar" 
@@ -139,7 +139,7 @@
                 </div>
                 <div>
                     <label for="about_bullet_2_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                        النقطة المميزة 2 (العربية)
+                        {{ __('admin.content.about_bullet_2_label') }} ({{ __('admin.content.bilingual_tab_ar') }})
                     </label>
                     <input type="text" 
                            id="about_bullet_2_ar" 
@@ -150,7 +150,7 @@
                 </div>
                 <div>
                     <label for="about_bullet_3_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                        النقطة المميزة 3 (العربية)
+                        {{ __('admin.content.about_bullet_3_label') }} ({{ __('admin.content.bilingual_tab_ar') }})
                     </label>
                     <input type="text" 
                            id="about_bullet_3_ar" 

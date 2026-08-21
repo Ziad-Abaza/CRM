@@ -34,7 +34,7 @@
 
             <div>
                 <label for="seo_meta_title_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Meta Title Tag (English) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.seo_meta_title_label') }} ({{ __('admin.content.bilingual_tab_en') }}) <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" 
                        id="seo_meta_title_en" 
@@ -47,7 +47,7 @@
 
             <div>
                 <label for="seo_meta_description_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Meta Description (English) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.seo_meta_desc_label') }} ({{ __('admin.content.bilingual_tab_en') }}) <span class="text-rose-500">*</span>
                 </label>
                 <textarea id="seo_meta_description_en" 
                           name="seo_meta_description[en]" 
@@ -59,7 +59,7 @@
 
             <div>
                 <label for="seo_meta_keywords_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Meta Keywords (English)
+                    {{ __('admin.content.seo_keywords_label') }} ({{ __('admin.content.bilingual_tab_en') }})
                 </label>
                 <input type="text" 
                        id="seo_meta_keywords_en" 
@@ -78,7 +78,7 @@
 
             <div>
                 <label for="seo_meta_title_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    عنوان الميتا (العربية) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.seo_meta_title_label') }} ({{ __('admin.content.bilingual_tab_ar') }}) <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" 
                        id="seo_meta_title_ar" 
@@ -91,7 +91,7 @@
 
             <div>
                 <label for="seo_meta_description_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    وصف الميتا لمحركات البحث (العربية) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.seo_meta_desc_label') }} ({{ __('admin.content.bilingual_tab_ar') }}) <span class="text-rose-500">*</span>
                 </label>
                 <textarea id="seo_meta_description_ar" 
                           name="seo_meta_description[ar]" 
@@ -103,7 +103,7 @@
 
             <div>
                 <label for="seo_meta_keywords_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    الكلمات المفتاحية (العربية)
+                    {{ __('admin.content.seo_keywords_label') }} ({{ __('admin.content.bilingual_tab_ar') }})
                 </label>
                 <input type="text" 
                        id="seo_meta_keywords_ar" 

@@ -27,12 +27,12 @@
         @method('PUT')
 
         <div class="space-y-4">
-            <h2 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">Corporate Channels</h2>
+            <h2 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">{{ __('admin.content.contact_title') }}</h2>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label for="contact_email" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                        {{ __('admin.team.email_label') }} <span class="text-rose-500">*</span>
+                        {{ __('admin.content.contact_email_label') }} <span class="text-rose-500">*</span>
                     </label>
                     <input type="email" 
                            id="contact_email" 
@@ -60,7 +60,7 @@
             <!-- English Address -->
             <div x-show="langTab === 'en'">
                 <label for="contact_address_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Physical Headquarters / Address (English) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.footer_about_label') }} ({{ __('admin.content.bilingual_tab_en') }}) <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" 
                        id="contact_address_en" 
@@ -74,7 +74,7 @@
             <!-- Arabic Address -->
             <div x-show="langTab === 'ar'" x-cloak>
                 <label for="contact_address_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    العنوان والمقر الرئيسي (العربية) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.footer_about_label') }} ({{ __('admin.content.bilingual_tab_ar') }}) <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" 
                        id="contact_address_ar" 
@@ -87,11 +87,11 @@
         </div>
 
         <div class="border-t border-slate-200 dark:border-slate-800 pt-6 space-y-4">
-            <h2 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">{{ __('admin.nav.contact_section') }}</h2>
+            <h2 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">{{ __('admin.content.contact_whatsapp_label') }}</h2>
 
             <div>
                 <label for="whatsapp_number" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    WhatsApp Phone Number (E.164 with +, e.g. +12345678901) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.contact_whatsapp_label') }} (E.164) <span class="text-rose-500">*</span>
                 </label>
                 <input type="text" 
                        id="whatsapp_number" 
@@ -105,7 +105,7 @@
             <!-- English WhatsApp Default Message -->
             <div x-show="langTab === 'en'">
                 <label for="whatsapp_default_message_en" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    Global Fallback WhatsApp Message (English) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.hero_whatsapp_label') }} ({{ __('admin.content.bilingual_tab_en') }}) <span class="text-rose-500">*</span>
                 </label>
                 <textarea id="whatsapp_default_message_en" 
                           name="whatsapp_default_message[en]" 
@@ -118,7 +118,7 @@
             <!-- Arabic WhatsApp Default Message -->
             <div x-show="langTab === 'ar'" x-cloak>
                 <label for="whatsapp_default_message_ar" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                    رسالة واتساب الافتراضية (العربية) <span class="text-rose-500">*</span>
+                    {{ __('admin.content.hero_whatsapp_label') }} ({{ __('admin.content.bilingual_tab_ar') }}) <span class="text-rose-500">*</span>
                 </label>
                 <textarea id="whatsapp_default_message_ar" 
                           name="whatsapp_default_message[ar]" 

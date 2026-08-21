@@ -24,6 +24,8 @@ class BrandingController extends Controller
             'company_tagline' => $this->settingService->get('company_tagline', 'Enterprise Growth Architecture'),
             'company_logo' => $this->settingService->get('company_logo'),
             'company_favicon' => $this->settingService->get('company_favicon'),
+            'default_currency' => $this->settingService->get('default_currency', config('crm.currency', config('app.currency', 'USD'))),
+            'default_locale' => $this->settingService->get('default_locale', config('locales.default', 'en')),
 
             // Theme Mode & Geometry
             'theme_mode' => $this->settingService->get('theme_mode', 'toggle_allowed'),
@@ -76,6 +78,8 @@ class BrandingController extends Controller
         $validated = $request->validate([
             'site_name' => ['required', 'string', 'max:100'],
             'company_tagline' => ['nullable', 'string', 'max:255'],
+            'default_currency' => ['nullable', 'string', 'max:10'],
+            'default_locale' => ['nullable', 'string', 'in:en,ar'],
             'theme_mode' => ['nullable', 'string', 'in:toggle_allowed,dark_only,light_only,system'],
             'active_theme_default' => ['nullable', 'string', 'in:dark,light'],
             'typography_font' => ['nullable', 'string', 'max:50'],
@@ -122,10 +126,16 @@ class BrandingController extends Controller
             'company_favicon' => ['nullable', 'file', 'max:2048', 'extensions:ico,png,svg,webp,jpg,jpeg,gif'],
         ]);
 
-        // Identity
+        // Identity & Global Config
         $this->settingService->set('site_name', $validated['site_name'], 'branding');
         if (isset($validated['company_tagline'])) {
             $this->settingService->set('company_tagline', $validated['company_tagline'], 'branding');
+        }
+        if (!empty($validated['default_currency'])) {
+            $this->settingService->set('default_currency', $validated['default_currency'], 'branding');
+        }
+        if (!empty($validated['default_locale'])) {
+            $this->settingService->set('default_locale', $validated['default_locale'], 'branding');
         }
 
         // Theme Engine Tokens

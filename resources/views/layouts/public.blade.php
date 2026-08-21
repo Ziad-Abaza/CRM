@@ -337,7 +337,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-18">
                 <!-- Brand Logo & Name -->
-                <div class="flex items-center gap-2.5 sm:gap-3">
+                <div class="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
                     <a href="{{ localized_route('home') }}" class="flex items-center gap-2.5 sm:gap-3 group">
                         @php
                             $logoPath = $logo ? ltrim(parse_url($logo, PHP_URL_PATH) ?? $logo, '/') : null;
@@ -358,18 +358,18 @@
                                      height="35" 
                                      fetchpriority="high"
                                      decoding="async"
-                                     class="h-7 sm:h-8 w-auto object-contain transition group-hover:opacity-90">
+                                     class="h-7 sm:h-8 w-auto object-contain transition group-hover:opacity-90 flex-shrink-0">
                             </picture>
                         @else
-                            <div class="h-8 w-8 sm:h-9 sm:w-9 rounded-lg sm:rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shadow-md shadow-blue-600/30 text-white font-bold text-xs sm:text-sm tracking-wider border border-blue-400/30 group-hover:scale-105 transition transform">
-                                {{ substr($siteName, 0, 2) }}
+                            <div class="h-8 w-8 sm:h-9 sm:w-9 rounded-lg sm:rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shadow-md shadow-blue-600/30 text-white font-bold text-xs sm:text-sm tracking-wider border border-blue-400/30 group-hover:scale-105 transition transform flex-shrink-0">
+                                {{ mb_substr($siteName, 0, 2) }}
                             </div>
                         @endif
-                        <div class="flex flex-col">
-                            <span class="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white tracking-tight leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition truncate max-w-[180px] sm:max-w-none">
+                        <div class="flex flex-col min-w-0">
+                            <span class="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white tracking-tight leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition truncate max-w-[140px] sm:max-w-[200px] xl:max-w-none">
                                 {{ $siteName }}
                             </span>
-                            <span class="text-[9px] text-slate-500 dark:text-slate-400 font-semibold tracking-wider uppercase hidden sm:block">
+                            <span class="text-[9px] text-slate-500 dark:text-slate-400 font-semibold tracking-wider uppercase hidden sm:block truncate max-w-[180px] xl:max-w-none">
                                 {{ $tagline }}
                             </span>
                         </div>
@@ -377,7 +377,7 @@
                 </div>
 
                 <!-- Desktop Navigation Links -->
-                <nav class="hidden md:flex items-center gap-5 lg:gap-7 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                <nav class="hidden lg:flex items-center gap-3.5 xl:gap-6 text-xs xl:text-sm font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">
                     <a href="{{ localized_route('home') }}#services" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">{{ __('ui.nav.services') }}</a>
                     <a href="{{ localized_route('home') }}#portfolio" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">{{ __('ui.nav.case_studies') }}</a>
                     <a href="{{ localized_route('home') }}#pricing" class="hover:text-blue-600 dark:hover:text-blue-400 transition duration-150 py-1">{{ __('ui.nav.pricing') }}</a>
@@ -387,16 +387,17 @@
                 </nav>
 
                 <!-- Desktop Actions: Language Switcher, Theme Toggle & WhatsApp CTA -->
-                <div class="hidden lg:flex items-center gap-2.5">
+                <div class="hidden lg:flex items-center gap-2 xl:gap-3 flex-shrink-0">
                     <!-- Language Switcher Dropdown -->
                     <div class="relative" x-data="{ langMenuOpen: false }" @click.outside="langMenuOpen = false">
                         <button type="button" 
                                 @click="langMenuOpen = !langMenuOpen" 
-                                class="flex items-center gap-1.5 px-2.5 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                class="flex items-center gap-1.5 px-2.5 py-1.5 xl:py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 transition focus:outline-none focus:ring-2 focus:ring-blue-500 whitespace-nowrap"
                                 aria-label="{{ __('ui.toggles.language') }}"
                                 :aria-expanded="langMenuOpen">
                             <span>{{ config("locales.supported.{$currentLocale}.flag", '🌐') }}</span>
-                            <span>{{ config("locales.supported.{$currentLocale}.native", strtoupper($currentLocale)) }}</span>
+                            <span class="hidden xl:inline">{{ config("locales.supported.{$currentLocale}.native", strtoupper($currentLocale)) }}</span>
+                            <span class="inline xl:hidden uppercase font-bold">{{ $currentLocale }}</span>
                             <svg class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" :class="{ 'rotate-180': langMenuOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
@@ -410,7 +411,7 @@
                              x-transition:leave="transition ease-in duration-100"
                              x-transition:leave-start="opacity-100 scale-100"
                              x-transition:leave-end="opacity-0 scale-95"
-                             class="absolute {{ $isRtl ? 'left-0' : 'right-0' }} mt-2 w-36 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-1 z-50">
+                             class="absolute end-0 mt-2 w-36 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-1 z-50">
                             @foreach(supported_locales() as $code => $localeData)
                                 <a href="{{ switch_locale_url($code) }}" 
                                    class="flex items-center justify-between px-3 py-2 text-xs font-medium {{ $currentLocale === $code ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 font-bold' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' }} transition">
@@ -453,7 +454,7 @@
                 </div>
 
                 <!-- Mobile Menu Button, Mobile Language Switcher & Mobile Theme Toggle -->
-                <div class="flex md:hidden items-center gap-1.5">
+                <div class="flex lg:hidden items-center gap-1.5 sm:gap-2">
                     <!-- Mobile Direct Language Switch -->
                     @php
                         $alternateLocale = $currentLocale === 'ar' ? 'en' : 'ar';
@@ -504,7 +505,7 @@
              x-transition:leave="transition ease-in duration-150"
              x-transition:leave-start="opacity-100 translate-y-0"
              x-transition:leave-end="opacity-0 -translate-y-2"
-             class="md:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-3">
+             class="lg:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl px-4 pt-3 pb-6 space-y-3">
             <div class="flex flex-col space-y-1 font-semibold text-slate-700 dark:text-slate-200">
                 <a href="{{ localized_route('home') }}#services" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">{{ __('ui.nav.services') }}</a>
                 <a href="{{ localized_route('home') }}#portfolio" @click="mobileMenuOpen = false" class="px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-blue-600 dark:hover:text-blue-400 transition text-xs sm:text-sm">{{ __('ui.nav.case_studies') }}</a>

@@ -529,6 +529,34 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-200 dark:border-slate-800">
                         <div>
+                            <label for="default_currency" class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
+                                {{ __('admin.pricing.currency_label') }}
+                            </label>
+                            <select id="default_currency" name="default_currency" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
+                                @foreach(config('crm.supported_currencies', ['USD' => ['name' => 'US Dollar']]) as $currCode => $currInfo)
+                                    <option value="{{ $currCode }}" {{ ($settings['default_currency'] ?? 'USD') === $currCode ? 'selected' : '' }}>
+                                        {{ $currCode }} ({{ $currInfo['symbol'] ?? '' }} - {{ current_locale() === 'ar' ? ($currInfo['native_ar'] ?? $currInfo['name']) : $currInfo['name'] }})
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="default_locale" class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
+                                {{ __('ui.toggles.language') }}
+                            </label>
+                            <select id="default_locale" name="default_locale" class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-lg text-slate-900 dark:text-white text-xs">
+                                @foreach(supported_locales() as $code => $localeData)
+                                    <option value="{{ $code }}" {{ ($settings['default_locale'] ?? 'en') === $code ? 'selected' : '' }}>
+                                        {{ $localeData['flag'] ?? '' }} {{ $localeData['native'] ?? $localeData['name'] }} ({{ strtoupper($code) }})
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-200 dark:border-slate-800">
+                        <div>
                             <label class="block font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">{{ __('admin.branding.logo') }}</label>
                             <input type="file" name="company_logo" accept=".svg,.png,.jpg,.jpeg,.webp,image/*" @change="updateLogoPreview" class="w-full text-[11px] text-slate-500 dark:text-slate-400 file:me-2 file:py-1.5 file:px-2.5 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-slate-100 dark:bg-slate-800 file:text-indigo-300 hover:file:bg-slate-700 cursor-pointer">
                         </div>

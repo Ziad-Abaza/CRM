@@ -209,6 +209,57 @@ if (!function_exists('app_email')) {
     }
 }
 
+if (!function_exists('app_currency')) {
+    /**
+     * Get the default site currency code (e.g. USD, SAR).
+     *
+     * @return string
+     */
+    function app_currency(): string
+    {
+        $default = config('crm.currency', config('app.currency', 'USD'));
+        try {
+            $val = setting('default_currency', $default);
+            return (!empty($val)) ? (string) $val : (string) $default;
+        } catch (\Throwable $e) {
+            return (string) $default;
+        }
+    }
+}
+
+if (!function_exists('format_currency')) {
+    /**
+     * Format a numerical amount with currency symbol or code.
+     *
+     * @param float|int $amount
+     * @param string|null $currency
+     * @param string|null $locale
+     * @return string
+     */
+    function format_currency(float|int $amount, ?string $currency = null, ?string $locale = null): string
+    {
+        $currency = $currency ?: app_currency();
+        $locale = $locale ?: current_locale();
+        $formatted = number_format($amount, 0);
+
+        if ($locale === 'ar') {
+            return $formatted . ' ' . $currency;
+        }
+
+        $symbols = [
+            'USD' => '$',
+            'EUR' => '€',
+            'GBP' => '£',
+        ];
+
+        if (isset($symbols[$currency])) {
+            return $symbols[$currency] . $formatted;
+        }
+
+        return $currency . ' ' . $formatted;
+    }
+}
+
 if (!function_exists('t')) {
     /**
      * Translate the given message or return translation with dynamic brand tokens.
@@ -225,6 +276,7 @@ if (!function_exists('t')) {
             'app' => app_name($locale),
             'appName' => app_name($locale),
             'tagline' => app_tagline($locale),
+            'currency' => app_currency(),
         ];
 
         return (string) __($key, array_merge($brandDefaults, $replace), $locale);

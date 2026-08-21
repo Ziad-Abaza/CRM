@@ -143,7 +143,7 @@
                        id="client" 
                        name="client" 
                        value="{{ old('client') }}" 
-                       placeholder="e.g. Standard Chartered / Apex Global" 
+                       placeholder="e.g. Standard Chartered / Enterprise Capital" 
                        class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500">
             </div>
 

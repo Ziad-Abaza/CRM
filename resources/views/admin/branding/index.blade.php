@@ -598,11 +598,11 @@
                             <template x-if="!logoPreview">
                                 <div class="h-6 w-6 rounded-md flex items-center justify-center text-white text-[10px] font-bold"
                                      :style="`background-color: ${previewMode === 'dark' ? darkPrimaryColor : lightPrimaryColor};`"
-                                     x-text="siteName ? siteName.substring(0,2).toUpperCase() : 'AP'"></div>
+                                     x-text="siteName ? siteName.substring(0,2).toUpperCase() : '{{ strtoupper(mb_substr(app_name(), 0, 2)) }}'"></div>
                             </template>
                             <span class="font-bold text-xs"
                                   :style="`color: ${previewMode === 'dark' ? darkTextPrimary : lightTextPrimary};`"
-                                  x-text="siteName || 'Apex Corporate'"></span>
+                                  x-text="siteName || '{{ app_name() }}'"></span>
                         </div>
                         <span class="text-[9px] px-2 py-0.5 rounded border"
                               :style="`background-color: ${previewMode === 'dark' ? darkBgInput : lightBgInput}; border-color: ${previewMode === 'dark' ? darkBorderSubtle : lightBorderSubtle}; color: ${previewMode === 'dark' ? darkTextMuted : lightTextMuted};`">

@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', $portfolio->title . ' | ' . __('frontend.portfolio.section_badge') . ' | ' . setting('site_name', 'Apex Corporate Solutions'))
+@section('title', $portfolio->title . ' | ' . __('frontend.portfolio.section_badge') . ' | ' . app_name())
 @section('meta_description', $portfolio->summary)
 
 @section('content')
@@ -35,7 +35,7 @@
                 <div class="pt-1 flex flex-wrap items-center gap-3 sm:gap-4">
                     <x-whatsapp-cta-button 
                         :text="__('frontend.portfolio.inquire_architecture')" 
-                        :message="'Hi Apex team, I am interested in building a solution similar to your case study with ' . $portfolio->client . '.'"
+                        :message="'Hi ' . app_name() . ' team, I am interested in building a solution similar to your case study with ' . $portfolio->client . '.'"
                         buttonLocation="portfolio_detail_hero" 
                         variant="emerald" 
                         size="md" />

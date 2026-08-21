@@ -8,15 +8,15 @@
 @php
     $currentLocale = current_locale();
     $isRtl = is_rtl();
-    $companyName = $companyName ?? setting('site_name', 'Apex Corporate Solutions');
+    $companyName = $companyName ?? app_name();
     $avatar = $avatar ?? setting('company_logo');
-    $defaultMessage = $defaultMessage ?? setting('whatsapp_default_message', __('frontend.whatsapp.default_message'));
+    $defaultMessage = $defaultMessage ?? setting('whatsapp_default_message', t('frontend.whatsapp.default_message', ['app' => $companyName]));
     
     $promptOptions = $promptOptions ?? [
         [
             'icon' => '💼',
             'title' => $isRtl ? 'جلسة استراتيجية تنفيذية' : 'Executive Strategy Session',
-            'text' => $isRtl ? 'مرحباً فريق أبيكس، أود طلب استشارة تنفيذية حول استراتيجية التحول المؤسسي.' : 'Hello Apex team, I would like to request an executive corporate strategy consultation.'
+            'text' => $isRtl ? "مرحباً فريق {$companyName}، أود طلب استشارة تنفيذية حول استراتيجية التحول المؤسسي." : "Hello {$companyName} team, I would like to request an executive corporate strategy consultation."
         ],
         [
             'icon' => '📊',
@@ -31,7 +31,7 @@
         [
             'icon' => '⚡',
             'title' => $isRtl ? 'أتمتة العمليات والذكاء الاصطناعي' : 'Workflow & AI Automation',
-            'text' => $isRtl ? 'مرحباً فريق أبيكس، أود استكشاف حلول أتمتة العمليات التنفيذية والتحول الرقمي.' : 'Hi Apex team, I want to explore automated executive RPA and workflow transformation.'
+            'text' => $isRtl ? "مرحباً فريق {$companyName}، أود استكشاف حلول أتمتة العمليات التنفيذية والتحول الرقمي." : "Hi {$companyName} team, I want to explore automated executive RPA and workflow transformation."
         ],
     ];
 @endphp

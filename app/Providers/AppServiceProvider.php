@@ -21,5 +21,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         URL::defaults(['locale' => config('locales.default', 'en')]);
+
+        \Illuminate\Support\Facades\View::composer('*', function ($view) {
+            $view->with([
+                'appName' => app_name(),
+                'appTagline' => app_tagline(),
+                'appEmail' => app_email(),
+            ]);
+        });
     }
 }

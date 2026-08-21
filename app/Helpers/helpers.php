@@ -152,9 +152,66 @@ if (!function_exists('switch_locale_url')) {
     }
 }
 
+if (!function_exists('app_name')) {
+    /**
+     * Get the centralized application/brand name for the active or given locale.
+     *
+     * @param string|null $locale
+     * @return string
+     */
+    function app_name(?string $locale = null): string
+    {
+        $default = config('app.name', 'Aegis');
+        try {
+            $val = setting('site_name', $default, $locale);
+            return (!empty($val)) ? (string) $val : (string) $default;
+        } catch (\Throwable $e) {
+            return (string) $default;
+        }
+    }
+}
+
+if (!function_exists('app_tagline')) {
+    /**
+     * Get the centralized corporate tagline for the active or given locale.
+     *
+     * @param string|null $locale
+     * @return string
+     */
+    function app_tagline(?string $locale = null): string
+    {
+        $locale = $locale ?: current_locale();
+        $default = $locale === 'ar' 
+            ? 'معمارية النمو المؤسسي والاستشارات الاستراتيجية المتقدمة'
+            : 'Enterprise Growth Architecture & Scalable Advisory';
+        try {
+            return (string) setting('company_tagline', $default, $locale);
+        } catch (\Throwable $e) {
+            return (string) $default;
+        }
+    }
+}
+
+if (!function_exists('app_email')) {
+    /**
+     * Get the primary contact email address.
+     *
+     * @return string
+     */
+    function app_email(): string
+    {
+        $default = config('mail.from.address', 'contact@example.com');
+        try {
+            return (string) setting('contact_email', setting('company_email', $default));
+        } catch (\Throwable $e) {
+            return (string) $default;
+        }
+    }
+}
+
 if (!function_exists('t')) {
     /**
-     * Translate the given message or return translation.
+     * Translate the given message or return translation with dynamic brand tokens.
      *
      * @param string $key
      * @param array<string, mixed> $replace
@@ -163,6 +220,13 @@ if (!function_exists('t')) {
      */
     function t(string $key, array $replace = [], ?string $locale = null): string
     {
-        return (string) __($key, $replace, $locale);
+        $locale = $locale ?: current_locale();
+        $brandDefaults = [
+            'app' => app_name($locale),
+            'appName' => app_name($locale),
+            'tagline' => app_tagline($locale),
+        ];
+
+        return (string) __($key, array_merge($brandDefaults, $replace), $locale);
     }
 }

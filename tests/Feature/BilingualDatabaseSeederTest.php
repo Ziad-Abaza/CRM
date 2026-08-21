@@ -37,13 +37,17 @@ class BilingualDatabaseSeederTest extends TestCase
 
     public function test_settings_are_seeded_with_bilingual_translations(): void
     {
+        $appName = config('app.name', 'Aegis');
+        $appNameEn = $appName;
+        $appNameAr = $appName;
+
         // English
         app()->setLocale('en');
-        $this->assertSame('Apex Corporate Solutions', setting('site_name'));
+        $this->assertSame($appNameEn, setting('site_name'));
         $this->assertSame('Enterprise Growth Architecture & Scalable Advisory', setting('company_tagline'));
         $this->assertSame('Enterprise Strategic Advisory', setting('hero_badge'));
         $this->assertSame('Accelerate Enterprise Scale with Predictable Precision', setting('hero_title'));
-        $this->assertStringContainsString('Apex Corporate Solutions partners with institutional leaders', setting('hero_subtitle'));
+        $this->assertStringContainsString('partners with institutional leaders', setting('hero_subtitle'));
         $this->assertSame('Consult via WhatsApp', setting('hero_cta_text'));
         $this->assertStringContainsString('250+ Fortune 1000', setting('hero_rating_count'));
         $this->assertSame('Decades of Institutional Rigor in Modern Markets', setting('about_title'));
@@ -51,27 +55,27 @@ class BilingualDatabaseSeederTest extends TestCase
         $this->assertStringContainsString('Direct partner-level engagement', setting('about_bullet_1'));
         $this->assertStringContainsString('Proprietary digital workflow frameworks', setting('about_bullet_2'));
         $this->assertStringContainsString('Uncompromising compliance protocols', setting('about_bullet_3'));
-        $this->assertStringContainsString('Apex Corporate Solutions | Strategic Enterprise Advisory', setting('seo_meta_title'));
+        $this->assertStringContainsString('Strategic Enterprise Advisory', setting('seo_meta_title'));
         $this->assertStringContainsString('Leading corporate advisory', setting('seo_meta_description'));
-        $this->assertStringContainsString('Apex Corporate Solutions delivers high-impact management consulting', setting('footer_about'));
+        $this->assertStringContainsString('delivers high-impact management consulting', setting('footer_about'));
 
         // Arabic
         app()->setLocale('ar');
-        $this->assertSame('أبيكس للحلول المؤسسية', setting('site_name'));
+        $this->assertSame($appNameAr, setting('site_name'));
         $this->assertSame('معمارية النمو المؤسسي والاستشارات الاستراتيجية المتقدمة', setting('company_tagline'));
         $this->assertSame('الاستشارات الاستراتيجية للمؤسسات', setting('hero_badge'));
         $this->assertSame('تسريع التوسع المؤسسي بدقة وكفاءة قابلة للتنبؤ', setting('hero_title'));
-        $this->assertStringContainsString('تتعاون أبيكس للحلول المؤسسية مع القادة التنفيذيين', setting('hero_subtitle'));
+        $this->assertStringContainsString('مع القادة التنفيذيين', setting('hero_subtitle'));
         $this->assertSame('استشر خبرائنا عبر واتساب', setting('hero_cta_text'));
         $this->assertStringContainsString('أكثر من 250 عميلاً', setting('hero_rating_count'));
         $this->assertSame('عقود من الصرامة والخبرة المؤسسية في الأسواق الحديثة', setting('about_title'));
-        $this->assertStringContainsString('تأسست أبيكس على يد نخبة من مهندسي العمليات', setting('about_description'));
-        $this->assertStringContainsString('مشاركة مباشرة على مستوى الشركاء التنفيذيين', setting('about_bullet_1'));
+        $this->assertStringContainsString('على يد نخبة من مهندسي العمليات', setting('about_description'));
+        $this->assertStringContainsString('مشاركة مباشرة على مستوى الشركاء', setting('about_bullet_1'));
         $this->assertStringContainsString('منهجيات سير عمل رقمية مبتكرة', setting('about_bullet_2'));
         $this->assertStringContainsString('بروتوكولات امتثال صارمة', setting('about_bullet_3'));
-        $this->assertStringContainsString('أبيكس للحلول المؤسسية | الاستشارات الاستراتيجية', setting('seo_meta_title'));
+        $this->assertStringContainsString('الاستشارات الاستراتيجية ونمو المؤسسات', setting('seo_meta_title'));
         $this->assertStringContainsString('الريادة في الاستشارات المؤسسية', setting('seo_meta_description'));
-        $this->assertStringContainsString('تقدم أبيكس للحلول المؤسسية استشارات إدارية', setting('footer_about'));
+        $this->assertStringContainsString('استشارات إدارية عالية التأثير', setting('footer_about'));
     }
 
     public function test_services_are_seeded_with_bilingual_data(): void
@@ -270,12 +274,16 @@ class BilingualDatabaseSeederTest extends TestCase
         $firstFaq = $faqs->firstWhere('order', 1);
         $this->assertNotNull($firstFaq);
 
+        $appName = config('app.name', 'Aegis');
+        $appNameEn = $appName;
+        $appNameAr = $appName;
+
         app()->setLocale('en');
-        $this->assertSame('How does Apex initiate an advisory or transformation engagement?', $firstFaq->question);
+        $this->assertSame("How does {$appNameEn} initiate an advisory or transformation engagement?", $firstFaq->question);
         $this->assertStringContainsString('2-week structured diagnostic sprint', $firstFaq->answer);
 
         app()->setLocale('ar');
-        $this->assertSame('كيف تبدأ أبيكس مهمة استشارية أو برنامج تحول مؤسسي؟', $firstFaq->question);
+        $this->assertSame("كيف تبدأ {$appNameAr} مهمة استشارية أو برنامج تحول مؤسسي؟", $firstFaq->question);
         $this->assertStringContainsString('مرحلة تشخيصية منظمة لمدة أسبوعين', $firstFaq->answer);
 
         foreach ($faqs as $faq) {

@@ -20,7 +20,7 @@ class BrandingController extends Controller
     {
         $settings = [
             // General Identity
-            'site_name' => $this->settingService->get('site_name', 'Apex Corporate Solutions'),
+            'site_name' => $this->settingService->get('site_name', config('app.name', 'Aegis')),
             'company_tagline' => $this->settingService->get('company_tagline', 'Enterprise Growth Architecture'),
             'company_logo' => $this->settingService->get('company_logo'),
             'company_favicon' => $this->settingService->get('company_favicon'),

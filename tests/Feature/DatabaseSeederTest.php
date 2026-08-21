@@ -26,15 +26,17 @@ class DatabaseSeederTest extends TestCase
         $this->seed(DatabaseSeeder::class);
 
         // 1. Verify Admin User
-        $admin = User::where('email', 'admin@apexcorporate.com')->first();
+        $appName = config('app.name', 'Aegis');
+        $adminEmail = 'admin@' . strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $appName)) . '.com';
+        $admin = User::where('email', $adminEmail)->first();
         $this->assertNotNull($admin);
-        $this->assertSame('Apex Admin', $admin->name);
+        $this->assertSame($appName . ' Admin', $admin->name);
         $this->assertSame('admin', $admin->role);
         $this->assertTrue($admin->is_active);
         $this->assertTrue(Hash::check('Admin@Secure2026!', $admin->password));
 
         // 2. Verify Dynamic Settings
-        $this->assertSame('Apex Corporate Solutions', setting('site_name'));
+        $this->assertSame($appName, setting('site_name'));
         $this->assertSame('+15550192834', setting('whatsapp_number'));
         $this->assertCount(6, setting()->getGroup('branding'));
 

@@ -10,9 +10,9 @@
         $isRtl = is_rtl();
         $localeConfig = config("locales.supported.{$currentLocale}", []);
         
-        $siteName = setting('site_name', 'Apex Corporate Solutions');
-        $tagline = setting('company_tagline', $currentLocale === 'ar' ? 'الاستشارات الاستراتيجية للمؤسسات والتحديث الرقمي' : 'Enterprise Strategic Advisory & Digital Modernization');
-        $metaTitle = setting('seo_meta_title', $siteName . ' | ' . $tagline);
+        $siteName = app_name();
+        $tagline = app_tagline();
+        $metaTitle = setting('seo_meta_title', t('seo.default_title', ['app' => $siteName, 'tagline' => $tagline]));
         $metaDesc = setting('seo_meta_description', __('seo.default_description'));
         $metaKeywords = setting('seo_meta_keywords', __('seo.default_keywords'));
         
@@ -136,7 +136,7 @@
                             '@type' => 'ContactPoint',
                             'contactType' => 'Customer Support',
                             'telephone' => setting('company_phone', '+1 (800) 555-0199'),
-                            'email' => setting('company_email', 'contact@apexcorp.com'),
+                            'email' => app_email(),
                             'availableLanguage' => ['English', 'Arabic']
                         ]
                     ],
@@ -293,7 +293,7 @@
             } else if (configuredMode === 'light_only') {
                 targetTheme = 'light';
             } else {
-                const stored = localStorage.getItem('apex_theme');
+                const stored = localStorage.getItem('app_theme') || localStorage.getItem('apex_theme');
                 if (stored === 'light' || stored === 'dark') {
                     targetTheme = stored;
                 } else if (configuredMode === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
@@ -328,7 +328,7 @@
                   document.documentElement.classList.add('light');
                   document.documentElement.classList.remove('dark');
               }
-              localStorage.setItem('apex_theme', this.theme);
+              localStorage.setItem('app_theme', this.theme);
           }
       }">
 

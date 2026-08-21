@@ -102,7 +102,7 @@
                            id="social_linkedin" 
                            name="social_linkedin" 
                            value="{{ old('social_linkedin', $settings['social_linkedin']) }}" 
-                           placeholder="https://linkedin.com/company/apex"
+                           placeholder="https://linkedin.com/company/yourcompany"
                            class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500 @error('social_linkedin') border-rose-500 @enderror">
                     @error('social_linkedin') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
                 </div>
@@ -115,7 +115,7 @@
                            id="social_twitter" 
                            name="social_twitter" 
                            value="{{ old('social_twitter', $settings['social_twitter']) }}" 
-                           placeholder="https://x.com/apexcorp"
+                           placeholder="https://x.com/yourcompany"
                            class="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-950/60 border border-slate-300 dark:border-slate-800 rounded-xl text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-indigo-500 @error('social_twitter') border-rose-500 @enderror">
                     @error('social_twitter') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
                 </div>

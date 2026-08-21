@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="robots" content="noindex, nofollow">
-    <title>@yield('title', __('admin.nav.dashboard')) - {{ setting('site_name', 'Apex Corporate Solutions') }}</title>
+    <title>@yield('title', __('admin.nav.dashboard')) - {{ app_name() }}</title>
 
     <!-- Vite Assets (Tailwind CSS v4 & Alpine.js) -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -36,7 +36,7 @@
     <!-- Early Theme Initializer -->
     <script>
         (function() {
-            const stored = localStorage.getItem('apex_theme') || '{{ setting('active_theme_default', 'dark') }}';
+            const stored = localStorage.getItem('app_theme') || localStorage.getItem('apex_theme') || '{{ setting('active_theme_default', 'dark') }}';
             document.documentElement.setAttribute('data-theme', stored);
             if (stored === 'dark') {
                 document.documentElement.classList.add('dark');
@@ -64,7 +64,7 @@
                   document.documentElement.classList.add('light');
                   document.documentElement.classList.remove('dark');
               }
-              localStorage.setItem('apex_theme', this.theme);
+              localStorage.setItem('app_theme', this.theme);
           }
       }">
 
@@ -89,15 +89,15 @@
                         $hasLogo = $logoPath && (file_exists(public_path($logoPath)) || str_starts_with($companyLogo, 'http'));
                     @endphp
                     @if($hasLogo)
-                        <img src="{{ str_starts_with($companyLogo, 'http') ? $companyLogo : asset($logoPath) }}" alt="{{ setting('site_name', 'Apex') }}" class="h-8 w-auto object-contain">
+                        <img src="{{ str_starts_with($companyLogo, 'http') ? $companyLogo : asset($logoPath) }}" alt="{{ app_name() }}" class="h-8 w-auto object-contain">
                     @else
                         <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-md shadow-indigo-600/30 text-white font-bold text-sm">
-                            {{ mb_substr(setting('site_name', 'Apex'), 0, 2) }}
+                            {{ mb_substr(app_name(), 0, 2) }}
                         </div>
                     @endif
                     <div class="flex flex-col">
                         <span class="font-bold text-sm text-slate-900 dark:text-white tracking-tight leading-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">
-                            {{ setting('site_name', 'Apex Corporate') }}
+                            {{ app_name() }}
                         </span>
                         <span class="text-[11px] text-slate-500 dark:text-slate-400 font-medium tracking-wide uppercase">{{ __('admin.nav.portal_name') }}</span>
                     </div>

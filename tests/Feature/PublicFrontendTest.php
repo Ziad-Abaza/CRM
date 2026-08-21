@@ -34,7 +34,7 @@ class PublicFrontendTest extends TestCase
 
         $response->assertOk()
             ->assertViewIs('public.home')
-            ->assertSee('Apex Corporate Solutions')
+            ->assertSee(app_name())
             ->assertSee('Accelerate Enterprise Scale with Predictable Precision')
             ->assertSee('Enterprise Digital Modernization')
             ->assertSee('Strategic Advisory')

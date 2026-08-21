@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', setting('seo_meta_title', setting('site_name', 'Apex Corporate Solutions') . ' | ' . (current_locale() === 'ar' ? 'الاستشارات الاستراتيجية للمؤسسات والتحديث الرقمي' : 'Enterprise Strategic Advisory & Digital Modernization')))
+@section('title', setting('seo_meta_title', t('seo.default_title', ['app' => app_name(), 'tagline' => app_tagline()])))
 @section('meta_description', setting('seo_meta_description', __('seo.default_description')))
 @section('meta_keywords', setting('seo_meta_keywords', __('seo.default_keywords')))
 

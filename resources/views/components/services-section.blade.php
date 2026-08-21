@@ -76,7 +76,7 @@
 
                         <x-whatsapp-cta-button 
                             :text="__('ui.buttons.contact_us')" 
-                            :message="'Hello Apex Team, I would like to inquire about ' . $service->title . '.'"
+                            :message="'Hello ' . app_name() . ' Team, I would like to inquire about ' . $service->title . '.'"
                             buttonLocation="services_card" 
                             variant="dark" 
                             size="sm" 

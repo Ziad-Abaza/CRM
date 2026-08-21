@@ -59,7 +59,7 @@
                     <div class="pt-5 mt-5 border-t border-slate-100 dark:border-slate-800">
                         <x-whatsapp-cta-button 
                             :text="__('frontend.pricing.get_started') . ' - ' . $plan->name" 
-                            :message="$plan->whatsapp_message ?? 'Hello Apex team, I want to initiate the ' . $plan->name . ' tier.'"
+                            :message="$plan->whatsapp_message ?? 'Hello ' . app_name() . ' team, I want to initiate the ' . $plan->name . ' tier.'"
                             buttonLocation="pricing_tier" 
                             :variant="$plan->is_featured ? 'emerald' : 'dark'" 
                             size="md" 

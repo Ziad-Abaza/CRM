@@ -88,7 +88,7 @@ class SettingService
                 if ($resolved !== null && $resolved !== '') {
                     return $resolved;
                 }
-            } elseif ($cast !== null) {
+            } elseif ($cast !== null && $cast !== '') {
                 return $cast;
             }
         }

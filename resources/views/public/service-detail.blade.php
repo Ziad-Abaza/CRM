@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', $service->title . ' | ' . setting('site_name', 'Apex Corporate Solutions'))
+@section('title', $service->title . ' | ' . app_name())
 @section('meta_description', $service->short_description)
 
 @section('content')
@@ -32,7 +32,7 @@
                 <div class="pt-1 flex flex-wrap items-center gap-3 sm:gap-4">
                     <x-whatsapp-cta-button 
                         :text="__('frontend.services.request_quote')" 
-                        :message="'Hello Apex team, I would like to request a detailed scope and quotation for ' . $service->title . '.'"
+                        :message="'Hello ' . app_name() . ' team, I would like to request a detailed scope and quotation for ' . $service->title . '.'"
                         buttonLocation="service_detail_hero" 
                         variant="emerald" 
                         size="md" />
@@ -111,7 +111,7 @@
                         <div class="pt-1">
                             <x-whatsapp-cta-button 
                                 :text="__('frontend.hero.consult_cta')" 
-                                :message="'Hi Apex team, I am reviewing ' . $service->title . ' and want to schedule a brief consultation.'"
+                                :message="'Hi ' . app_name() . ' team, I am reviewing ' . $service->title . ' and want to schedule a brief consultation.'"
                                 buttonLocation="service_detail_sidebar" 
                                 variant="emerald" 
                                 size="md" 

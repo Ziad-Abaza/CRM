@@ -114,7 +114,7 @@
 
                         <x-whatsapp-cta-button 
                             :text="__('ui.buttons.contact_us')" 
-                            :message="'Hello Apex Team, I am inquiring about your case study: ' . $portfolio->title . '.'"
+                            :message="'Hello ' . app_name() . ' Team, I am inquiring about your case study: ' . $portfolio->title . '.'"
                             buttonLocation="portfolio_card" 
                             variant="dark" 
                             size="sm" 

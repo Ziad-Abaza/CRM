@@ -1,10 +1,10 @@
 @php
-    $siteName = setting('site_name', 'Apex Corporate Solutions');
-    $tagline = setting('company_tagline', current_locale() === 'ar' ? 'الاستشارات الاستراتيجية للمؤسسات والتحديث الرقمي' : 'Enterprise Growth Architecture');
+    $siteName = app_name();
+    $tagline = app_tagline();
     $logo = setting('company_logo');
-    $footerAbout = setting('footer_about', __('frontend.footer.about_text'));
-    $footerCopyright = setting('footer_copyright', '© ' . date('Y') . ' ' . $siteName . '. ' . __('frontend.footer.rights_reserved'));
-    $email = setting('contact_email', 'contact@apexcorporate.com');
+    $footerAbout = setting('footer_about', t('frontend.footer.about_text', ['app' => $siteName]));
+    $footerCopyright = setting('footer_copyright', t('frontend.footer.copyright', ['app' => $siteName, 'year' => date('Y')]));
+    $email = app_email();
     $phone = setting('contact_phone', '+1 (555) 019-2834');
     $address = setting('contact_address', __('frontend.footer.address'));
     $linkedin = setting('social_linkedin');

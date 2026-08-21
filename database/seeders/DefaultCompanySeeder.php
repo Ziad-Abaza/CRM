@@ -23,11 +23,18 @@ class DefaultCompanySeeder extends Seeder
      */
     public function run(): void
     {
+        $appName = config('app.name', 'Aegis');
+        if ($appName === 'Laravel' || empty($appName)) {
+            $appName = 'Aegis';
+        }
+        $appNameEn = $appName;
+        $appNameAr = $appName;
+
         // 1. Admin User
         User::updateOrCreate(
-            ['email' => 'admin@apexcorporate.com'],
+            ['email' => 'admin@' . strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $appName)) . '.com'],
             [
-                'name' => 'Apex Admin',
+                'name' => $appName . ' Admin',
                 'password' => Hash::make('Admin@Secure2026!'),
                 'email_verified_at' => now(),
                 'role' => 'admin',
@@ -41,8 +48,8 @@ class DefaultCompanySeeder extends Seeder
             [
                 'key' => 'site_name',
                 'value' => [
-                    'en' => 'Apex Corporate Solutions',
-                    'ar' => 'أبيكس للحلول المؤسسية',
+                    'en' => $appNameEn,
+                    'ar' => $appNameAr,
                 ],
                 'group' => 'branding',
                 'type' => 'json',
@@ -99,7 +106,7 @@ class DefaultCompanySeeder extends Seeder
             ['key' => 'accent_color', 'value' => '#2563EB', 'group' => 'branding', 'type' => 'string', 'is_public' => true],
 
             // Contact & WhatsApp
-            ['key' => 'contact_email', 'value' => 'contact@apexcorporate.com', 'group' => 'contact', 'type' => 'string', 'is_public' => true],
+            ['key' => 'contact_email', 'value' => 'contact@' . strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $appName)) . '.com', 'group' => 'contact', 'type' => 'string', 'is_public' => true],
             ['key' => 'contact_phone', 'value' => '+1 (555) 019-2834', 'group' => 'contact', 'type' => 'string', 'is_public' => true],
             [
                 'key' => 'contact_address',
@@ -115,8 +122,8 @@ class DefaultCompanySeeder extends Seeder
             [
                 'key' => 'whatsapp_default_message',
                 'value' => [
-                    'en' => 'Hello Apex Corporate Solutions, I would like to schedule an executive strategy session regarding our corporate initiatives.',
-                    'ar' => 'مرحباً بفريق أبيكس للحلول المؤسسية، أود حجز جلسة استراتيجية تنفيذية لمناقشة مبادراتنا المؤسسية.',
+                    'en' => "Hello {$appNameEn}, I would like to schedule an executive strategy session regarding our corporate initiatives.",
+                    'ar' => "مرحباً بفريق {$appNameAr}، أود حجز جلسة استراتيجية تنفيذية لمناقشة مبادراتنا المؤسسية.",
                 ],
                 'group' => 'contact',
                 'type' => 'json',
@@ -147,8 +154,8 @@ class DefaultCompanySeeder extends Seeder
             [
                 'key' => 'hero_subtitle',
                 'value' => [
-                    'en' => 'Apex Corporate Solutions partners with institutional leaders to modernize legacy operations, implement high-yield automation, and safeguard governance at scale.',
-                    'ar' => 'تتعاون أبيكس للحلول المؤسسية مع القادة التنفيذيين لتحديث الأنظمة الموروثة، وتطبيق حلول الأتمتة عالية العائد، وترسيخ الحوكمة على نطاق واسع.',
+                    'en' => "{$appNameEn} partners with institutional leaders to modernize legacy operations, implement high-yield automation, and safeguard governance at scale.",
+                    'ar' => "تتعاون {$appNameAr} مع القادة التنفيذيين لتحديث الأنظمة الموروثة، وتطبيق حلول الأتمتة عالية العائد، وترسيخ الحوكمة على نطاق واسع.",
                 ],
                 'group' => 'hero',
                 'type' => 'json',
@@ -167,8 +174,8 @@ class DefaultCompanySeeder extends Seeder
             [
                 'key' => 'hero_cta_whatsapp_message',
                 'value' => [
-                    'en' => 'Hello Apex team, I would like to schedule an executive strategy session regarding our enterprise initiatives.',
-                    'ar' => 'مرحباً بفريق أبيكس، أود حجز جلسة استراتيجية تنفيذية لمناقشة مبادراتنا المؤسسية.',
+                    'en' => "Hello {$appNameEn} team, I would like to schedule an executive strategy session regarding our enterprise initiatives.",
+                    'ar' => "مرحباً بفريق {$appNameAr}، أود حجز جلسة استراتيجية تنفيذية لمناقشة مبادراتنا المؤسسية.",
                 ],
                 'group' => 'hero',
                 'type' => 'json',
@@ -200,8 +207,8 @@ class DefaultCompanySeeder extends Seeder
             [
                 'key' => 'about_description',
                 'value' => [
-                    'en' => 'Founded by veteran operational architects and compliance directors, Apex bridges the gap between ambitious corporate milestones and bulletproof day-to-day execution.',
-                    'ar' => 'تأسست أبيكس على يد نخبة من مهندسي العمليات ومديري الامتثال المخضرمين، لسد الفجوة بين الأهداف المؤسسية الطموحة والتنفيذ اليومي المحكم.',
+                    'en' => "Founded by veteran operational architects and compliance directors, {$appNameEn} bridges the gap between ambitious corporate milestones and bulletproof day-to-day execution.",
+                    'ar' => "تأسست {$appNameAr} على يد نخبة من مهندسي العمليات ومديري الامتثال المخضرمين، لسد الفجوة بين الأهداف المؤسسية الطموحة والتنفيذ اليومي المحكم.",
                 ],
                 'group' => 'about',
                 'type' => 'json',
@@ -242,8 +249,8 @@ class DefaultCompanySeeder extends Seeder
             [
                 'key' => 'seo_meta_title',
                 'value' => [
-                    'en' => 'Apex Corporate Solutions | Strategic Enterprise Advisory & Growth',
-                    'ar' => 'أبيكس للحلول المؤسسية | الاستشارات الاستراتيجية ونمو المؤسسات',
+                    'en' => "{$appNameEn} | Strategic Enterprise Advisory & Growth",
+                    'ar' => "{$appNameAr} | الاستشارات الاستراتيجية ونمو المؤسسات",
                 ],
                 'group' => 'seo',
                 'type' => 'json',
@@ -269,15 +276,15 @@ class DefaultCompanySeeder extends Seeder
                 'type' => 'json',
                 'is_public' => true,
             ],
-            ['key' => 'social_linkedin', 'value' => 'https://linkedin.com/company/apex-corporate-solutions', 'group' => 'social', 'type' => 'string', 'is_public' => true],
-            ['key' => 'social_twitter', 'value' => 'https://x.com/apex_corporate', 'group' => 'social', 'type' => 'string', 'is_public' => true],
+            ['key' => 'social_linkedin', 'value' => 'https://linkedin.com/company/' . strtolower(preg_replace('/[^a-zA-Z0-9]/', '-', $appName)), 'group' => 'social', 'type' => 'string', 'is_public' => true],
+            ['key' => 'social_twitter', 'value' => 'https://x.com/' . strtolower(preg_replace('/[^a-zA-Z0-9]/', '_', $appName)), 'group' => 'social', 'type' => 'string', 'is_public' => true],
 
             // Footer
             [
                 'key' => 'footer_about',
                 'value' => [
-                    'en' => 'Apex Corporate Solutions delivers high-impact management consulting, digital transformation, and operational resilience to modern enterprises globally.',
-                    'ar' => 'تقدم أبيكس للحلول المؤسسية استشارات إدارية عالية التأثير، والتحول الرقمي، والمرونة التشغيلية للمؤسسات الحديثة حول العالم.',
+                    'en' => "{$appNameEn} delivers high-impact management consulting, digital transformation, and operational resilience to modern enterprises globally.",
+                    'ar' => "تقدم {$appNameAr} استشارات إدارية عالية التأثير، والتحول الرقمي، والمرونة التشغيلية للمؤسسات الحديثة حول العالم.",
                 ],
                 'group' => 'footer',
                 'type' => 'json',
@@ -286,8 +293,8 @@ class DefaultCompanySeeder extends Seeder
             [
                 'key' => 'footer_copyright',
                 'value' => [
-                    'en' => '© ' . date('Y') . ' Apex Corporate Solutions LLC. All rights reserved.',
-                    'ar' => '© ' . date('Y') . ' شركة أبيكس للحلول المؤسسية ذ.م.م. جميع الحقوق محفوظة.',
+                    'en' => '© ' . date('Y') . " {$appNameEn}. All rights reserved.",
+                    'ar' => '© ' . date('Y') . " شركة {$appNameAr}. جميع الحقوق محفوظة.",
                 ],
                 'group' => 'footer',
                 'type' => 'json',
@@ -551,7 +558,7 @@ class DefaultCompanySeeder extends Seeder
                     ],
                 ],
                 'is_featured' => false,
-                'whatsapp_message' => 'Hello Apex team, I would like to engage on the Strategic Advisory monthly retainer plan ($3,500/mo).',
+                'whatsapp_message' => "Hello {$appNameEn} team, I would like to engage on the Strategic Advisory monthly retainer plan ($3,500/mo).",
                 'order' => 1,
                 'is_active' => true,
             ],
@@ -590,7 +597,7 @@ class DefaultCompanySeeder extends Seeder
                     ],
                 ],
                 'is_featured' => true,
-                'whatsapp_message' => 'Hello Apex team, I want to initiate the Operational Growth transformation plan ($7,500/mo).',
+                'whatsapp_message' => "Hello {$appNameEn} team, I want to initiate the Operational Growth transformation plan ($7,500/mo).",
                 'order' => 2,
                 'is_active' => true,
             ],
@@ -629,7 +636,7 @@ class DefaultCompanySeeder extends Seeder
                     ],
                 ],
                 'is_featured' => false,
-                'whatsapp_message' => 'Hello Apex team, I would like to schedule an Enterprise Architecture executive consultation ($15,000/mo).',
+                'whatsapp_message' => "Hello {$appNameEn} team, I would like to schedule an Enterprise Architecture executive consultation ($15,000/mo).",
                 'order' => 3,
                 'is_active' => true,
             ],
@@ -705,8 +712,8 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => 'ترحيل دفتر معاملات بقيمة 1.2 مليار دولار إلى خدمات مصغرة حديثة دون أي توقف عن العمل.',
                 ],
                 'content' => [
-                    'en' => 'Vantage Capital operated a monolithic ledger system plagued by peak-hour latency spikes and high infrastructure costs. Apex designed and executed an event-driven ledger architecture with automated dual-write reconciliation, migrating 40M+ historical records with zero transaction loss, achieving -78% latency reduction and $420K/yr savings.',
-                    'ar' => 'كانت فانتاج كابيتال تعاني من نظام دفتر الأستاذ الأحادي القديم مع بطء حاد في ساعات الذروة وتكاليف بنية تحتية مرتفعة. صممت أبيكس ونفذت بنية معمارية تعتمد على الأحداث مع مطابقة آلية للكتابة المزدوجة، وترحيل أكثر من 40 مليون سجل تاريخي دون أي فقدان في المعاملات، محققة انخفاضاً بنسبة 78% في زمن الاستجابة ووفورات بقيمة 420 ألف دولار سنوياً.',
+                    'en' => "Vantage Capital operated a monolithic ledger system plagued by peak-hour latency spikes and high infrastructure costs. {$appNameEn} designed and executed an event-driven ledger architecture with automated dual-write reconciliation, migrating 40M+ historical records with zero transaction loss, achieving -78% latency reduction and $420K/yr savings.",
+                    'ar' => "كانت فانتاج كابيتال تعاني من نظام دفتر الأستاذ الأحادي القديم مع بطء حاد في ساعات الذروة وتكاليف بنية تحتية مرتفعة. صممت {$appNameAr} ونفذت بنية معمارية تعتمد على الأحداث مع مطابقة آلية للكتابة المزدوجة، وترحيل أكثر من 40 مليون سجل تاريخي دون أي فقدان في المعاملات، محققة انخفاضاً بنسبة 78% في زمن الاستجابة ووفورات بقيمة 420 ألف دولار سنوياً.",
                 ],
                 'technologies' => ['PHP 8.3', 'PostgreSQL', 'Redis Cluster', 'Kafka', 'Docker', 'Kubernetes'],
                 'image' => '/images/portfolio/vantage-case-study.jpg',
@@ -731,8 +738,8 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => 'الجاهزية الشاملة لتدقيق HIPAA وSOC 2 Type II لتوسيع حلول الرعاية الصحية المؤسسية.',
                 ],
                 'content' => [
-                    'en' => 'HealthSync needed to unlock enterprise hospital contracts requiring audited SOC 2 Type II compliance within one quarter. Apex implemented an automated compliance evidence collection suite, overhauled employee access control matrices, and attained clean certification in 84 days unlocking a $14.2M pipeline.',
-                    'ar' => 'احتاجت شركة هيلث سينك لتوقيع عقود مستشفيات كبرى تشترط الامتثال المعتمد لمعيار SOC 2 Type II خلال ربع سنوي واحد. طبقت أبيكس حزمة آلية لجمع أدلة الامتثال، وأعادت هيكلة مصفوفات صلاحيات الموظفين، وحصلت على الشهادة دون ملاحظات خلال 84 يوماً مما فتح صفقات بقيمة 14.2 مليون دولار.',
+                    'en' => "HealthSync needed to unlock enterprise hospital contracts requiring audited SOC 2 Type II compliance within one quarter. {$appNameEn} implemented an automated compliance evidence collection suite, overhauled employee access control matrices, and attained clean certification in 84 days unlocking a $14.2M pipeline.",
+                    'ar' => "احتاجت شركة هيلث سينك لتوقيع عقود مستشفيات كبرى تشترط الامتثال المعتمد لمعيار SOC 2 Type II خلال ربع سنوي واحد. طبقت {$appNameAr} حزمة آلية لجمع أدلة الامتثال، وأعادت هيكلة مصفوفات صلاحيات الموظفين، وحصلت على الشهادة دون ملاحظات خلال 84 يوماً مما فتح صفقات بقيمة 14.2 مليون دولار.",
                 ],
                 'technologies' => ['Terraform', 'AWS GuardDuty', 'HashiCorp Vault', 'Vanta Integration'],
                 'image' => '/images/portfolio/healthsync-case-study.jpg',
@@ -753,14 +760,14 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => 'نكسس للخدمات اللوجستية العالمية',
                 ],
                 'summary' => [
-                    'en' => 'Automating cross-border customs billing across 14 European and North American hubs.',
-                    'ar' => 'أتمتة الفوترة الجمركية عبر الحدود في 14 مركزاً لوجستياً في أوروبا وأمريكا الشمالية.',
+                    'en' => 'Automated multinational freight billing, carrier reconciliation, and contract workflows.',
+                    'ar' => 'أتمتة الفوترة الدولية للشحن، ومطابقة حسابات الناقلين، ومسارات تدقيق العقود.',
                 ],
                 'content' => [
-                    'en' => 'Manual customs reconciliation across 14 international fulfillment nodes led to an average 18-day delay. We engineered a centralized event-driven billing hub connecting local ERP nodes to a unified reconciliation ledger, compressing invoicing to 4 minutes and recovering $1.8M in working capital.',
-                    'ar' => 'كانت المطابقة الجمركية اليدوية عبر 14 مركز شحن دولياً تتسبب في تأخير يصل إلى 18 يوماً. قمنا بهندسة مركز فوترة موحد مدفوع بالأحداث يربط أنظمة تخطيط الموارد المحلية بسجل مطابقة مركزي، مما قلص إصدار الفواتير إلى 4 دقائق فقط واستعاد 1.8 مليون دولار من رأس المال العامل.']
-                ,
-                'technologies' => ['Laravel', 'Vue.js', 'MySQL', 'Stripe Invoicing', 'SAP Connector'],
+                    'en' => "Nexus suffered from recurring invoicing disputes and delayed settlements across 40+ maritime carriers. {$appNameEn} engineered an automated settlement portal integrating OCR rate cards and real-time shipment milestones, compressing dispute resolution times from 21 days down to 4 hours.",
+                    'ar' => "عانت نكسس من نزاعات متكررة في الفواتير وتأخر التسويات عبر أكثر من 40 ناقلاً بحرياً. قمنا بهندسة منصة تسوية مؤتمتة تقرأ بطاقات الأسعار آلياً وترتبط ببيانات الشحن الفورية، مما قلص فترات حل النزاعات من 21 يوماً إلى 4 ساعات.",
+                ],
+                'technologies' => ['Laravel 11', 'PostgreSQL', 'Redis', 'Python OCR', 'AWS Textract'],
                 'image' => '/images/portfolio/nexus-case-study.jpg',
                 'website_url' => 'https://nexuslogistics.example.com',
                 'is_featured' => true,
@@ -783,8 +790,8 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => 'تحديث مسارات طلبات عروض الأسعار ومناقصات الموردين لأكثر من 300 مورد.',
                 ],
                 'content' => [
-                    'en' => 'Legacy paper and spreadsheet RFQ processes caused procurement friction and duplicate orders across 8 assembly plants. Apex architected a high-security supplier portal featuring real-time quote comparison and automated ERP sync, shortening cycles by 65% across $85M in spend.',
-                    'ar' => 'تسببت عمليات طلب العروض الورقية وجداول البيانات القديمة في بطء المشتريات وتكرار الطلبات عبر 8 مصانع تجميع. صممت أبيكس بوابة موردين عالية الأمان مع مقارنة فورية للعروض ومزامنة تلقائية مع ERP، مما قلص فترات الدورات بنسبة 65% عبر مشتريات بقيمة 85 مليون دولار.',
+                    'en' => "Legacy paper and spreadsheet RFQ processes caused procurement friction and duplicate orders across 8 assembly plants. {$appNameEn} architected a high-security supplier portal featuring real-time quote comparison and automated ERP sync, shortening cycles by 65% across $85M in spend.",
+                    'ar' => "تسببت عمليات طلب العروض الورقية وجداول البيانات القديمة في بطء المشتريات وتكرار الطلبات عبر 8 مصانع تجميع. صممت {$appNameAr} بوابة موردين عالية الأمان مع مقارنة فورية للعروض ومزامنة تلقائية مع ERP، مما قلص فترات الدورات بنسبة 65% عبر مشتريات بقيمة 85 مليون دولار.",
                 ],
                 'technologies' => ['PHP 8.3', 'Livewire', 'PostgreSQL', 'Tailwind CSS', 'Amazon S3'],
                 'image' => '/images/portfolio/altair-case-study.jpg',
@@ -809,8 +816,8 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => 'محرك آلي لإدارة سيادة البيانات ومخاطر الامتثال للائحة GDPR وقانون CCPA عبر الحدود.',
                 ],
                 'content' => [
-                    'en' => 'Zenith Financial needed a synchronized governance platform to manage privacy consents and data residency across US, EU, and Middle Eastern jurisdictions. Apex implemented real-time automated data lineage tracking and dynamic pseudonymization, reducing compliance audit overhead by 70%.',
-                    'ar' => 'احتاج صندوق زينيث المالي إلى منصة حوكمة متزامنة لإدارة موافقات الخصوصية وإقامة البيانات عبر الولايات المتحدة والاتحاد الأوروبي والشرق الأوسط. نفذت أبيكس نظام تتبع فوري لمسار البيانات وإخفاء الهوية الديناميكي، مما خفض أعباء تدقيق الامتثال بنسبة 70%.',
+                    'en' => "Zenith Financial needed a synchronized governance platform to manage privacy consents and data residency across US, EU, and Middle Eastern jurisdictions. {$appNameEn} implemented real-time automated data lineage tracking and dynamic pseudonymization, reducing compliance audit overhead by 70%.",
+                    'ar' => "احتاج صندوق زينيث المالي إلى منصة حوكمة متزامنة لإدارة موافقات الخصوصية وإقامة البيانات عبر الولايات المتحدة والاتحاد الأوروبي والشرق الأوسط. نفذت {$appNameAr} نظام تتبع فوري لمسار البيانات وإخفاء الهوية الديناميكي، مما خفض أعباء تدقيق الامتثال بنسبة 70%.",
                 ],
                 'technologies' => ['Python', 'FastAPI', 'Snowflake', 'Apache Atlas', 'AWS KMS'],
                 'image' => '/images/portfolio/zenith-case-study.jpg',
@@ -835,8 +842,8 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => 'معالجة المطالبات الطبية بالذكاء الاصطناعي مقلصة مدة التسوية من 14 يوماً إلى 3 ساعات.',
                 ],
                 'content' => [
-                    'en' => 'OmniCare faced heavy backlogs in claims processing with high human error rates during fraud screening. Apex deployed an audited NLP extraction model paired with automated decision trees that pre-screened 85% of standard claims, lowering processing operational cost by 54%.',
-                    'ar' => 'واجهت أومني كير تراكمات كبيرة في معالجة المطالبات مع معدلات خطأ بشري أثناء فحص الاحتيال. نشرت أبيكس نموذج استخراج لغوي مدققاً مقترناً بأشجار قرار مؤتمتة فحصت مسبقاً 85% من المطالبات القياسية، مما خفض التكلفة التشغيلية للمعالجة بنسبة 54%.',
+                    'en' => "OmniCare faced heavy backlogs in claims processing with high human error rates during fraud screening. {$appNameEn} deployed an audited NLP extraction model paired with automated decision trees that pre-screened 85% of standard claims, lowering processing operational cost by 54%.",
+                    'ar' => "واجهت أومني كير تراكمات كبيرة في معالجة المطالبات مع معدلات خطأ بشري أثناء فحص الاحتيال. نشرت {$appNameAr} نموذج استخراج لغوي مدققاً مقترناً بأشجار قرار مؤتمتة فحصت مسبقاً 85% من المطالبات القياسية، مما خفض التكلفة التشغيلية للمعالجة بنسبة 54%.",
                 ],
                 'technologies' => ['Python', 'PyTorch', 'Laravel', 'PostgreSQL', 'Docker'],
                 'image' => '/images/portfolio/omnicare-case-study.jpg',
@@ -868,8 +875,8 @@ class DefaultCompanySeeder extends Seeder
                 ],
                 'avatar' => '/images/testimonials/eleanor-vance.jpg',
                 'content' => [
-                    'en' => 'Apex did what two global consultancies claimed was impossible: migrated our core transactional ledger without a single second of client-facing downtime. Their technical rigor is truly unmatched in the advisory landscape.',
-                    'ar' => 'حققت أبيكس ما اعتبرته شركتان استشاريتان عالميتان مستحيلاً: ترحيل نظام دفتر الأستاذ الأساسي لدينا دون انقطاع لثانية واحدة عن عملائنا. إن صرامتهم التقنية لا مثيل لها في قطاع الاستشارات.',
+                    'en' => "{$appNameEn} did what two global consultancies claimed was impossible: migrated our core transactional ledger without a single second of client-facing downtime. Their technical rigor is truly unmatched in the advisory landscape.",
+                    'ar' => "حققت {$appNameAr} ما اعتبرته شركتان استشاريتان عالميتان مستحيلاً: ترحيل نظام دفتر الأستاذ الأساسي لدينا دون انقطاع لثانية واحدة عن عملائنا. إن صرامتهم التقنية لا مثيل لها في قطاع الاستشارات.",
                 ],
                 'rating' => 5,
                 'is_featured' => true,
@@ -890,8 +897,8 @@ class DefaultCompanySeeder extends Seeder
                 ],
                 'avatar' => '/images/testimonials/marcus-sterling.jpg',
                 'content' => [
-                    'en' => 'When enterprise hospital networks demanded SOC 2 Type II accreditation on an aggressive 90-day timeline, Apex took total operational ownership. We achieved certification with zero auditor findings ahead of schedule.',
-                    'ar' => 'عندما اشترطت شبكات المستشفيات الكبرى اعتماد SOC 2 Type II في جدول زمني صارم خلال 90 يوماً، تولت أبيكس المسؤولية التشغيلية الكاملة وحصلنا على الشهادة دون أي ملاحظات وقبل الموعد المحدد.',
+                    'en' => "When enterprise hospital networks demanded SOC 2 Type II accreditation on an aggressive 90-day timeline, {$appNameEn} took total operational ownership. We achieved certification with zero auditor findings ahead of schedule.",
+                    'ar' => "عندما اشترطت شبكات المستشفيات الكبرى اعتماد SOC 2 Type II في جدول زمني صارم خلال 90 يوماً، تولت {$appNameAr} المسؤولية التشغيلية الكاملة وحصلنا على الشهادة دون أي ملاحظات وقبل الموعد المحدد.",
                 ],
                 'rating' => 5,
                 'is_featured' => true,
@@ -912,8 +919,8 @@ class DefaultCompanySeeder extends Seeder
                 ],
                 'avatar' => '/images/testimonials/aris-thorne.jpg',
                 'content' => [
-                    'en' => 'The automated reconciliation platform built by Apex unlocked nearly $2M in working capital that had been trapped in billing delays. They think like business owners, not billable-hour contractors.',
-                    'ar' => 'منصة المطابقة المؤتمتة التي بنتها أبيكس حررت ما يقرب من 2 مليون دولار من رأس المال العامل المحتجز في تأخيرات الفوترة. إنهم يفكرون كشركاء أعمال وليس كمقاولين يحسبون الساعات.',
+                    'en' => "The automated reconciliation platform built by {$appNameEn} unlocked nearly $2M in working capital that had been trapped in billing delays. They think like business owners, not billable-hour contractors.",
+                    'ar' => "منصة المطابقة المؤتمتة التي بنتها {$appNameAr} حررت ما يقرب من 2 مليون دولار من رأس المال العامل المحتجز في تأخيرات الفوترة. إنهم يفكرون كشركاء أعمال وليس كمقاولين يحسبون الساعات.",
                 ],
                 'rating' => 5,
                 'is_featured' => true,
@@ -934,8 +941,8 @@ class DefaultCompanySeeder extends Seeder
                 ],
                 'avatar' => '/images/testimonials/claire-chen.jpg',
                 'content' => [
-                    'en' => 'Deploying Apex across our eight manufacturing plants transformed supplier collaboration. Our RFQ cycle times dropped by more than half within the first sixty days of deployment.',
-                    'ar' => 'أحدث التعاون مع أبيكس عبر مصانعنا الثمانية تحولاً جذرياً في التنسيق مع الموردين. انخفضت فترات دورة عروض الأسعار بأكثر من النصف خلال أول ستين يوماً من التطبيق.',
+                    'en' => "Deploying {$appNameEn} across our eight manufacturing plants transformed supplier collaboration. Our RFQ cycle times dropped by more than half within the first sixty days of deployment.",
+                    'ar' => "أحدث التعاون مع {$appNameAr} عبر مصانعنا الثمانية تحولاً جذرياً في التنسيق مع الموردين. انخفضت فترات دورة عروض الأسعار بأكثر من النصف خلال أول ستين يوماً من التطبيق.",
                 ],
                 'rating' => 5,
                 'is_featured' => false,
@@ -1110,8 +1117,8 @@ class DefaultCompanySeeder extends Seeder
             [
                 'category' => 'Engagement & Strategy',
                 'question' => [
-                    'en' => 'How does Apex initiate an advisory or transformation engagement?',
-                    'ar' => 'كيف تبدأ أبيكس مهمة استشارية أو برنامج تحول مؤسسي؟',
+                    'en' => "How does {$appNameEn} initiate an advisory or transformation engagement?",
+                    'ar' => "كيف تبدأ {$appNameAr} مهمة استشارية أو برنامج تحول مؤسسي؟",
                 ],
                 'answer' => [
                     'en' => 'Every engagement begins with a 2-week structured diagnostic sprint where we audit your existing workflows, codebases, compliance posture, and cost centers. We then deliver a clear roadmap with fixed milestones and measurable ROI metrics.',
@@ -1162,8 +1169,8 @@ class DefaultCompanySeeder extends Seeder
             [
                 'category' => 'Pricing & Communication',
                 'question' => [
-                    'en' => 'Why does Apex prioritize direct WhatsApp executive communication?',
-                    'ar' => 'لماذا تمنح أبيكس الأولوية للتواصل التنفيذي المباشر عبر واتساب؟',
+                    'en' => "Why does {$appNameEn} prioritize direct WhatsApp executive communication?",
+                    'ar' => "لماذا تمنح {$appNameAr} الأولوية للتواصل التنفيذي المباشر عبر واتساب؟",
                 ],
                 'answer' => [
                     'en' => 'Enterprise initiatives require high-speed alignment without the bureaucratic delay of ticketing queues. Our WhatsApp channels connect leadership directly with managing partners for urgent consultations and real-time sprint updates.',

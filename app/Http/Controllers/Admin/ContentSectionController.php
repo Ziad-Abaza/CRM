@@ -174,10 +174,11 @@ class ContentSectionController extends Controller
 
     public function seo(): View
     {
+        $appName = config('app.name', 'Aegis');
         $settings = [
             'seo_meta_title' => [
-                'en' => $this->settingService->get('seo_meta_title', 'Apex Corporate Solutions | Enterprise Transformation', 'en'),
-                'ar' => $this->settingService->get('seo_meta_title', 'حلول أبيكس المؤسسية | التحول الرقمي والاستشارات', 'ar'),
+                'en' => $this->settingService->get('seo_meta_title', $appName . ' | Enterprise Transformation', 'en'),
+                'ar' => $this->settingService->get('seo_meta_title', $appName . ' | التحول الرقمي والاستشارات', 'ar'),
             ],
             'seo_meta_description' => [
                 'en' => $this->settingService->get('seo_meta_description', 'High-impact enterprise digital consulting, high throughput architecture, and corporate acceleration solutions.', 'en'),
@@ -217,17 +218,18 @@ class ContentSectionController extends Controller
 
     public function footer(): View
     {
+        $appName = config('app.name', 'Aegis');
         $settings = [
             'footer_about' => [
                 'en' => $this->settingService->get('footer_about', 'Delivering tier-one corporate digital transformation and revenue acceleration engines globally.', 'en'),
                 'ar' => $this->settingService->get('footer_about', 'تقديم حلول التحول الرقمي المؤسسي من الفئة الأولى ومحركات تسريع الإيرادات عالمياً.', 'ar'),
             ],
             'footer_copyright' => [
-                'en' => $this->settingService->get('footer_copyright', '© 2026 Apex Corporate Solutions. All rights reserved.', 'en'),
-                'ar' => $this->settingService->get('footer_copyright', '© 2026 حلول أبيكس المؤسسية. جميع الحقوق محفوظة.', 'ar'),
+                'en' => $this->settingService->get('footer_copyright', '© ' . date('Y') . ' ' . $appName . '. All rights reserved.', 'en'),
+                'ar' => $this->settingService->get('footer_copyright', '© ' . date('Y') . ' ' . $appName . '. جميع الحقوق محفوظة.', 'ar'),
             ],
-            'social_linkedin' => $this->settingService->get('social_linkedin', 'https://linkedin.com/company/apex-corporate'),
-            'social_twitter' => $this->settingService->get('social_twitter', 'https://twitter.com/apex_corporate'),
+            'social_linkedin' => $this->settingService->get('social_linkedin', 'https://linkedin.com/company/enterprise'),
+            'social_twitter' => $this->settingService->get('social_twitter', 'https://twitter.com/enterprise'),
         ];
 
         return view('admin.content.footer', compact('settings'));

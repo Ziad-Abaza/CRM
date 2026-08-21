@@ -87,7 +87,8 @@
             window.open(redirectUrl, '_blank', 'noopener,noreferrer');
         }
     }" 
-    class="fixed bottom-4 right-4 rtl:right-auto rtl:left-4 sm:bottom-6 sm:right-6 rtl:sm:right-auto rtl:sm:left-6 z-50 flex flex-col {{ $isRtl ? 'items-start' : 'items-end' }}"
+    style="position: fixed; inset-block-end: 1.5rem; inset-inline-end: 1.5rem; z-index: 9999;"
+    class="fixed bottom-4 sm:bottom-6 end-4 sm:end-6 z-[9999] flex flex-col {{ $isRtl ? 'items-start' : 'items-end' }}"
     @keydown.escape.window="isOpen = false">
 
     <!-- Floating Chat Card (Fluid and responsive with Light/Dark support) -->

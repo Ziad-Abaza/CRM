@@ -31,11 +31,13 @@ class DefaultCompanySeeder extends Seeder
         $appNameAr = $appName;
 
         // 1. Admin User
-        User::updateOrCreate(
-            ['email' => 'admin@' . strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $appName)) . '.com'],
+        $adminPasswordPlain = 'Admin@Secure2026!';
+        $adminEmail = 'admin@' . strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $appName)) . '.com';
+        $adminUser = User::updateOrCreate(
+            ['email' => $adminEmail],
             [
                 'name' => $appName . ' Admin',
-                'password' => Hash::make('Admin@Secure2026!'),
+                'password' => Hash::make($adminPasswordPlain),
                 'email_verified_at' => now(),
                 'role' => 'admin',
                 'is_active' => true,
@@ -334,7 +336,7 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => 'نقوم بتدقيق وإعادة هندسة ونشر البنية التحتية الحيوية مما يقلل الهدر التشغيلي بنسبة تصل إلى 45%. من تحديث أنظمة تخطيط الموارد (ERP) إلى دمج خطوط العمل وفق نموذج انعدام الثقة (Zero-Trust)، يقدم فريقنا نتائج بمعايير مؤسسية دون تعطيل الأعمال.',
                 ],
                 'icon' => 'server-stack',
-                'image' => '/images/services/digital-modernization.jpg',
+                'image' => 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
                 'features' => [
                     'en' => [
                         'Cloud Infrastructure Architecture & Migration',
@@ -367,7 +369,7 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => 'خض غمار صفقات الاستحواذ والاندماج المعقدة بثقة تامة. نوفر تدقيقاً شاملاً للأصول التقنية، ونمذجة التآزر التشغيلي، وتقييم المخاطر لصناديق الملكية الخاصة وقادة التطوير المؤسسي.',
                 ],
                 'icon' => 'chart-bar-square',
-                'image' => '/images/services/due-diligence.jpg',
+                'image' => 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
                 'features' => [
                     'en' => [
                         'Technology Stack & Codebase Quality Audit',
@@ -400,7 +402,7 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => 'حوّل الامتثال التنظيمي من نقطة احتكاك إلى ميزة تنافسية تجارية. نحن نصمم خطوط تدقيق الامتثال المؤتمتة، وسياسات حوكمة البيانات، وتقارير المخاطر الموجهة لمجلس الإدارة.',
                 ],
                 'icon' => 'shield-check',
-                'image' => '/images/services/compliance.jpg',
+                'image' => 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80',
                 'features' => [
                     'en' => [
                         'Continuous SOC 2 & ISO Audit Readiness',
@@ -433,7 +435,7 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => 'تخلص من نقل البيانات اليدوي بين فرق المبيعات والمالية والقانونية. نصمم مسارات أتمتة موثوقة ومدققة تختصر دورات الموافقة على الصفقات من أيام إلى دقائق معدودة.',
                 ],
                 'icon' => 'cpu-chip',
-                'image' => '/images/services/automation.jpg',
+                'image' => 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
                 'features' => [
                     'en' => [
                         'Automated Billing & Revenue Recognition Pipelines',
@@ -466,7 +468,7 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => 'استعن برؤساء تنفيذيين تقنيين وتشغيليين ومديري امتثال بنظام الإعارة الجزئية لسد فجوات القيادة، والاستعداد لجولات التمويل الكبرى، أو قيادة التحولات الجذرية.',
                 ],
                 'icon' => 'user-group',
-                'image' => '/images/services/leadership.jpg',
+                'image' => 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80',
                 'features' => [
                     'en' => [
                         'Interim CTO & COO Leadership Services',
@@ -499,7 +501,7 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => 'بناء بحيرات بيانات حديثة عالية الأداء، ومسارات استخراج وتحويل مؤتمتة (ETL)، ولوحات ذكاء أعمال تنفيذية. نمكّن القادة التنفيذيين من اتخاذ القرارات التنبؤية بالاعتماد على بيانات تشغيلية فورية.',
                 ],
                 'icon' => 'chart-pie',
-                'image' => '/images/services/data-intelligence.jpg',
+                'image' => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
                 'features' => [
                     'en' => [
                         'Enterprise Lakehouse & Modern Data Warehousing',
@@ -716,7 +718,7 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => "كانت فانتاج كابيتال تعاني من نظام دفتر الأستاذ الأحادي القديم مع بطء حاد في ساعات الذروة وتكاليف بنية تحتية مرتفعة. صممت {$appNameAr} ونفذت بنية معمارية تعتمد على الأحداث مع مطابقة آلية للكتابة المزدوجة، وترحيل أكثر من 40 مليون سجل تاريخي دون أي فقدان في المعاملات، محققة انخفاضاً بنسبة 78% في زمن الاستجابة ووفورات بقيمة 420 ألف دولار سنوياً.",
                 ],
                 'technologies' => ['PHP 8.3', 'PostgreSQL', 'Redis Cluster', 'Kafka', 'Docker', 'Kubernetes'],
-                'image' => '/images/portfolio/vantage-case-study.jpg',
+                'image' => 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80',
                 'website_url' => 'https://vantagecapital.example.com',
                 'is_featured' => true,
                 'is_active' => true,
@@ -742,7 +744,7 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => "احتاجت شركة هيلث سينك لتوقيع عقود مستشفيات كبرى تشترط الامتثال المعتمد لمعيار SOC 2 Type II خلال ربع سنوي واحد. طبقت {$appNameAr} حزمة آلية لجمع أدلة الامتثال، وأعادت هيكلة مصفوفات صلاحيات الموظفين، وحصلت على الشهادة دون ملاحظات خلال 84 يوماً مما فتح صفقات بقيمة 14.2 مليون دولار.",
                 ],
                 'technologies' => ['Terraform', 'AWS GuardDuty', 'HashiCorp Vault', 'Vanta Integration'],
-                'image' => '/images/portfolio/healthsync-case-study.jpg',
+                'image' => 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80',
                 'website_url' => 'https://healthsync.example.com',
                 'is_featured' => true,
                 'is_active' => true,
@@ -768,7 +770,7 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => "عانت نكسس من نزاعات متكررة في الفواتير وتأخر التسويات عبر أكثر من 40 ناقلاً بحرياً. قمنا بهندسة منصة تسوية مؤتمتة تقرأ بطاقات الأسعار آلياً وترتبط ببيانات الشحن الفورية، مما قلص فترات حل النزاعات من 21 يوماً إلى 4 ساعات.",
                 ],
                 'technologies' => ['Laravel 11', 'PostgreSQL', 'Redis', 'Python OCR', 'AWS Textract'],
-                'image' => '/images/portfolio/nexus-case-study.jpg',
+                'image' => 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80',
                 'website_url' => 'https://nexuslogistics.example.com',
                 'is_featured' => true,
                 'is_active' => true,
@@ -794,7 +796,7 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => "تسببت عمليات طلب العروض الورقية وجداول البيانات القديمة في بطء المشتريات وتكرار الطلبات عبر 8 مصانع تجميع. صممت {$appNameAr} بوابة موردين عالية الأمان مع مقارنة فورية للعروض ومزامنة تلقائية مع ERP، مما قلص فترات الدورات بنسبة 65% عبر مشتريات بقيمة 85 مليون دولار.",
                 ],
                 'technologies' => ['PHP 8.3', 'Livewire', 'PostgreSQL', 'Tailwind CSS', 'Amazon S3'],
-                'image' => '/images/portfolio/altair-case-study.jpg',
+                'image' => 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80',
                 'website_url' => 'https://altairmanufacturing.example.com',
                 'is_featured' => false,
                 'is_active' => true,
@@ -820,7 +822,7 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => "احتاج صندوق زينيث المالي إلى منصة حوكمة متزامنة لإدارة موافقات الخصوصية وإقامة البيانات عبر الولايات المتحدة والاتحاد الأوروبي والشرق الأوسط. نفذت {$appNameAr} نظام تتبع فوري لمسار البيانات وإخفاء الهوية الديناميكي، مما خفض أعباء تدقيق الامتثال بنسبة 70%.",
                 ],
                 'technologies' => ['Python', 'FastAPI', 'Snowflake', 'Apache Atlas', 'AWS KMS'],
-                'image' => '/images/portfolio/zenith-case-study.jpg',
+                'image' => 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1200&q=80',
                 'website_url' => 'https://zenithfinancial.example.com',
                 'is_featured' => false,
                 'is_active' => true,
@@ -846,7 +848,7 @@ class DefaultCompanySeeder extends Seeder
                     'ar' => "واجهت أومني كير تراكمات كبيرة في معالجة المطالبات مع معدلات خطأ بشري أثناء فحص الاحتيال. نشرت {$appNameAr} نموذج استخراج لغوي مدققاً مقترناً بأشجار قرار مؤتمتة فحصت مسبقاً 85% من المطالبات القياسية، مما خفض التكلفة التشغيلية للمعالجة بنسبة 54%.",
                 ],
                 'technologies' => ['Python', 'PyTorch', 'Laravel', 'PostgreSQL', 'Docker'],
-                'image' => '/images/portfolio/omnicare-case-study.jpg',
+                'image' => 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=1200&q=80',
                 'website_url' => 'https://omnicare.example.com',
                 'is_featured' => true,
                 'is_active' => true,
@@ -873,7 +875,7 @@ class DefaultCompanySeeder extends Seeder
                     'en' => 'Chief Technology Officer',
                     'ar' => 'المدير التنفيذي للتكنولوجيا',
                 ],
-                'avatar' => '/images/testimonials/eleanor-vance.jpg',
+                'avatar' => 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&h=400&q=80',
                 'content' => [
                     'en' => "{$appNameEn} did what two global consultancies claimed was impossible: migrated our core transactional ledger without a single second of client-facing downtime. Their technical rigor is truly unmatched in the advisory landscape.",
                     'ar' => "حققت {$appNameAr} ما اعتبرته شركتان استشاريتان عالميتان مستحيلاً: ترحيل نظام دفتر الأستاذ الأساسي لدينا دون انقطاع لثانية واحدة عن عملائنا. إن صرامتهم التقنية لا مثيل لها في قطاع الاستشارات.",
@@ -895,7 +897,7 @@ class DefaultCompanySeeder extends Seeder
                     'en' => 'Chief Executive Officer',
                     'ar' => 'الرئيس التنفيذي',
                 ],
-                'avatar' => '/images/testimonials/marcus-sterling.jpg',
+                'avatar' => 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&h=400&q=80',
                 'content' => [
                     'en' => "When enterprise hospital networks demanded SOC 2 Type II accreditation on an aggressive 90-day timeline, {$appNameEn} took total operational ownership. We achieved certification with zero auditor findings ahead of schedule.",
                     'ar' => "عندما اشترطت شبكات المستشفيات الكبرى اعتماد SOC 2 Type II في جدول زمني صارم خلال 90 يوماً، تولت {$appNameAr} المسؤولية التشغيلية الكاملة وحصلنا على الشهادة دون أي ملاحظات وقبل الموعد المحدد.",
@@ -917,7 +919,7 @@ class DefaultCompanySeeder extends Seeder
                     'en' => 'Head of Global Operations',
                     'ar' => 'رئيس العمليات الدولية',
                 ],
-                'avatar' => '/images/testimonials/aris-thorne.jpg',
+                'avatar' => 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&h=400&q=80',
                 'content' => [
                     'en' => "The automated reconciliation platform built by {$appNameEn} unlocked nearly $2M in working capital that had been trapped in billing delays. They think like business owners, not billable-hour contractors.",
                     'ar' => "منصة المطابقة المؤتمتة التي بنتها {$appNameAr} حررت ما يقرب من 2 مليون دولار من رأس المال العامل المحتجز في تأخيرات الفوترة. إنهم يفكرون كشركاء أعمال وليس كمقاولين يحسبون الساعات.",
@@ -939,7 +941,7 @@ class DefaultCompanySeeder extends Seeder
                     'en' => 'VP of Supply Chain & Procurement',
                     'ar' => 'نائب الرئيس لسلسلة الإمداد والمشتريات',
                 ],
-                'avatar' => '/images/testimonials/claire-chen.jpg',
+                'avatar' => 'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=400&h=400&q=80',
                 'content' => [
                     'en' => "Deploying {$appNameEn} across our eight manufacturing plants transformed supplier collaboration. Our RFQ cycle times dropped by more than half within the first sixty days of deployment.",
                     'ar' => "أحدث التعاون مع {$appNameAr} عبر مصانعنا الثمانية تحولاً جذرياً في التنسيق مع الموردين. انخفضت فترات دورة عروض الأسعار بأكثر من النصف خلال أول ستين يوماً من التطبيق.",
@@ -952,7 +954,7 @@ class DefaultCompanySeeder extends Seeder
 
         foreach ($testimonials as $t) {
             Testimonial::updateOrCreate(
-                ['avatar' => $t['avatar']],
+                ['order' => $t['order']],
                 $t
             );
         }
@@ -972,7 +974,7 @@ class DefaultCompanySeeder extends Seeder
                     'en' => 'Former McKinsey partner and principal architect with over 18 years leading enterprise restructuring and digital modernization programs across North America and Europe.',
                     'ar' => 'شريك سابق في ماكنزي ومهندس رئيسي بخبرة تتجاوز 18 عاماً في قيادة برامج إعادة الهيكلة المؤسسية والتحول الرقمي في أمريكا الشمالية وأوروبا.',
                 ],
-                'photo' => '/images/team/david-sterling.jpg',
+                'photo' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&h=600&q=80',
                 'social_links' => [
                     'linkedin' => 'https://linkedin.com/in/david-sterling-apex',
                     'twitter' => 'https://x.com/davidsterling_strat',
@@ -993,7 +995,7 @@ class DefaultCompanySeeder extends Seeder
                     'en' => 'Specializes in high-availability distributed systems, fintech transaction ledgers, and zero-trust security postures for tier-1 financial institutions.',
                     'ar' => 'متخصصة في الأنظمة الموزعة عالية التوافر، ودفاتر معاملات التكنولوجيا المالية، ونماذج الأمان بانعدام الثقة للمؤسسات المالية الكبرى.',
                 ],
-                'photo' => '/images/team/elena-rostova.jpg',
+                'photo' => 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&h=600&q=80',
                 'social_links' => [
                     'linkedin' => 'https://linkedin.com/in/elena-rostova-apex',
                     'github' => 'https://github.com/erostova-apex',
@@ -1014,7 +1016,7 @@ class DefaultCompanySeeder extends Seeder
                     'en' => 'Certified CISA and former regulatory compliance director who has steered over 50 enterprise certifications spanning SOC 2, HIPAA, ISO 27001, and GDPR.',
                     'ar' => 'مدقق نظم معلومات معتمد (CISA) ومدير امتثال تنظيمي سابق قاد أكثر من 50 اعتماداً مؤسسياً تشمل SOC 2 وHIPAA وISO 27001 وGDPR.',
                 ],
-                'photo' => '/images/team/julian-vance.jpg',
+                'photo' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&h=600&q=80',
                 'social_links' => [
                     'linkedin' => 'https://linkedin.com/in/julian-vance-apex',
                 ],
@@ -1034,7 +1036,7 @@ class DefaultCompanySeeder extends Seeder
                     'en' => 'Pioneers intelligent RPA and automated revenue operations that compress friction across corporate billing, customer onboarding, and contract analysis.',
                     'ar' => 'رائدة في مجالات أتمتة العمليات الروبوتية وعمليات الإيرادات المؤتمتة التي تقلل الاحتكاك في الفوترة المؤسسية، واستقطاب العملاء، وتحليل العقود.',
                 ],
-                'photo' => '/images/team/sophia-morales.jpg',
+                'photo' => 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=600&h=600&q=80',
                 'social_links' => [
                     'linkedin' => 'https://linkedin.com/in/sophia-morales-apex',
                     'twitter' => 'https://x.com/smorales_automation',
@@ -1045,7 +1047,7 @@ class DefaultCompanySeeder extends Seeder
         ];
 
         foreach ($teamMembers as $member) {
-            TeamMember::updateOrCreate(['photo' => $member['photo']], $member);
+            TeamMember::updateOrCreate(['order' => $member['order']], $member);
         }
 
         // 8. Stats Counters (4 counters)
@@ -1196,6 +1198,26 @@ class DefaultCompanySeeder extends Seeder
 
         foreach ($faqs as $faq) {
             Faq::updateOrCreate(['order' => $faq['order']], $faq);
+        }
+
+        // Output Admin Account Details
+        if ($this->command) {
+            $this->command->newLine();
+            $this->command->info('====================================================');
+            $this->command->info('           ADMIN CREDENTIALS AFTER SEEDING          ');
+            $this->command->info('====================================================');
+            $this->command->table(
+                ['Field', 'Value'],
+                [
+                    ['Name', $adminUser->name],
+                    ['Email', $adminUser->email],
+                    ['Password', $adminPasswordPlain],
+                    ['Role', $adminUser->role],
+                    ['Status', $adminUser->is_active ? 'Active' : 'Inactive'],
+                    ['Login URL', '/login or /admin/login'],
+                ]
+            );
+            $this->command->newLine();
         }
     }
 }

@@ -12,6 +12,7 @@ use App\Models\StatsCounter;
 use App\Models\TeamMember;
 use App\Models\Testimonial;
 use App\Models\User;
+use App\Models\WhatsAppLeadClick;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -89,6 +90,15 @@ class DatabaseSeederTest extends TestCase
         $this->assertCount(6, Faq::all());
         $this->assertDatabaseHas('faqs', [
             'category' => 'Engagement & Strategy',
+        ]);
+
+        // 10. Verify CRM Leads
+        $this->assertGreaterThanOrEqual(30, WhatsAppLeadClick::count());
+        $this->assertDatabaseHas('whatsapp_lead_clicks', [
+            'button_location' => 'hero_cta',
+        ]);
+        $this->assertDatabaseHas('whatsapp_lead_clicks', [
+            'button_location' => 'floating_widget',
         ]);
     }
 }

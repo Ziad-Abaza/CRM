@@ -36,9 +36,19 @@
 
                     <!-- Client Profile -->
                     <div class="pt-3 border-t border-slate-200 dark:border-slate-800/80 flex items-center gap-3">
-                        <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-700 text-white font-bold text-xs flex items-center justify-center flex-shrink-0 shadow-sm">
-                            {{ substr($testimonial->client_name, 0, 2) }}
-                        </div>
+                        @if(!empty($testimonial->avatar))
+                            <img src="{{ $testimonial->avatar }}" 
+                                 alt="{{ $testimonial->client_name }}" 
+                                 loading="lazy" 
+                                 decoding="async" 
+                                 width="40" 
+                                 height="40" 
+                                 class="h-10 w-10 rounded-full object-cover border border-slate-200 dark:border-slate-700 flex-shrink-0 shadow-sm">
+                        @else
+                            <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-700 text-white font-bold text-xs flex items-center justify-center flex-shrink-0 shadow-sm">
+                                {{ substr($testimonial->client_name, 0, 2) }}
+                            </div>
+                        @endif
                         <div class="min-w-0">
                             <h4 class="font-bold text-xs sm:text-sm text-slate-900 dark:text-white truncate">{{ $testimonial->client_name }}</h4>
                             <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate">{{ $testimonial->client_role }}</p>
